@@ -1,0 +1,83 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Bootstrap -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="MasterFaster base.html">
+    <meta name="author" content="Max Schridde">
+    <link href="{% static 'bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <!-- <link href="../../assets/css/ie10-viewport-bug-workaround.css" rel="stylesheet"> -->
+    <link href="{% static 'custom.css' %}?{% now 'U' %}" rel="stylesheet">
+    <!-- Custom styles for this template -->
+    {% block customstylesheet %}
+    
+    {% endblock customstylesheet %}
+
+    <title>{% block title %}Page Title{% endblock title %}</title>
+</head>
+
+<body>
+    <div id="navbar">
+        {% block navbar %}
+        <nav class="navbar navbar-default">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="{% url 'masterfaster:home' %}">MasterFaster</a>
+                </div>
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                    <ul class="nav navbar-nav navbar-right">
+                        {% if user.is_authenticated %}
+                            <li role="presentation">
+                                {% block prof_img %}
+                                <img class="img-circle center-block base-profile" src="{% static 'masterfaster/max.jpg' %}" alt="Generic placeholder image" width="40" height="40">
+                                {% endblock prof_img %}
+                            </li>
+                        {% endif %}
+                        <li role="presentation"><a href="{% url 'blog:feed' %}">Blog</a></li>
+                        <li role="presentation"><a href="#">Shop</a></li>
+                        {% if user.is_authenticated %}
+                        <li role="presentation"><a href="{% url 'masterfaster:editProfile' %}">Edit Profile</a></li>
+                        <li role="presentation" class="active"><a href="{% url 'masterfaster:logout' %}">Logout</a></li>
+                        {% else %}
+                        <li role="presentation" class="active"><a href="{% url 'masterfaster:login' %}">Login</a></li>
+                        {% endif %}
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        {% endblock navbar %}
+    </div>
+
+    <div id="content" class="container-fluid">
+        {% block content %}
+
+        {% endblock content %}
+    </div>
+    <div class="container">
+        <hr class="featurette-divider">
+        <footer>
+            <p>&copy; 2017 MasterFaster, Inc. &middot; <a href="#">Facebook</a> &middot; <a href="#">Twitter</a></p>
+        </footer>
+    </div>
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery.min.js"><\/script>')</script>
+    <script src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <!-- <script src="../../assets/js/ie10-viewport-bug-workaround.js"></script> -->
+</body>
+</html>

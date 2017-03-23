@@ -1,0 +1,46 @@
+{% extends 'blog/blogbase.html' %}
+
+{% load static %}
+
+{% block prof_img %}
+    {{img}}
+{% endblock prof_img %}
+
+{% block blogcontent %}
+    <div class="col-md-9 blog-main">
+    {% if blog_posts_list %}
+        {% for post in blog_posts_list %}
+            <div class="row">
+                <div class="col-sm-3 blog-feed-prof">
+                    {{post.2}}
+                </div>
+                <div class="blog-post col-sm-9">
+                    <a href="{%url 'blog:detail' post.0.id%}"><h2 class="blog-post-title">{{post.0.title}}</h2></a>
+                    <p class="blog-post-meta">{{post.0.pub_date|date:"D d M Y"}} by <a href="#">{{post.0.author}}</a></p>
+
+                    <p>{{post.0.header_text}}</p>
+                    <hr>
+                </div>
+            </div>
+        {% endfor %}
+    {% else %}
+
+        <h1>Blog Feed</h1>
+
+    {% endif %}
+    </div>
+
+{% endblock blogcontent %}
+
+{% block sidebarcontent %}
+    <div class="col-sm-2 col-sm-offset-1 blog-sidebar">
+      <div class="sidebar-module">
+        <h4>Archives</h4>
+        <ol class="list-unstyled">
+          {% for date in month_year %}
+              <li><a href="{% url 'blog:blogfeed_month' date.1 date.2%}">{{date.0}} {{date.1}}</a></li>
+          {%endfor%}
+        </ol>
+      </div>
+    </div><!-- /.blog-sidebar -->
+{% endblock sidebarcontent %}

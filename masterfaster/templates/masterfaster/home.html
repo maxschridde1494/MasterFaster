@@ -1,0 +1,128 @@
+{% extends "masterfaster/base.html" %}
+
+{% load static %}
+
+{% block customstylesheet %}
+    <link href="{% static 'masterfaster/masterfaster.css' %}?{% now 'U' %}" rel="stylesheet">
+{% endblock customstylesheet %}
+
+{% block title %}MasterFaster Home{% endblock %}
+
+{% block prof_img %}
+	{{img}}
+{% endblock prof_img %}
+
+{% block content %}
+	<div class="logo">
+		<div class="row">
+			<div class="col-md-4"></div>
+			<div class="col-md-4">
+				<a href={% url 'masterfaster:home' %}><img class="img-rounded center-block" src="{% static 'masterfaster/hillary.jpg' %}" alt="Profile Picture" width="140" height="140"></a>
+			</div>
+			<div class="col-md-4"></div>
+		</div>
+	</div>
+	<div class="home-nav">
+		<div class="container">
+			<div class="row col-md-8 col-md-offset-2">
+				<ul class="nav nav-pills nav-justified">
+					<li role="presentation"><a href="{% url 'masterfaster:home'%}">Home</a></li>
+					<li role="presentation"><a href="{% url 'blog:feed'%}">Blog</a></li>
+					<li role="presentation"><a href="{% url 'masterfaster:home'%}">Articles</a></li>
+					<li role="presentation"><a href="{% url 'masterfaster:home'%}">Shop</a></li>
+					<li role="presentation"><a href="{% url 'masterfaster:home'%}">FAQ</a></li>
+				</ul>
+			</div>
+		</div>
+	</div>
+	<div class="definition container">
+		<hr class="divider">
+		<div class="row">
+			<div class="col-md-6 col-md-offset-3">
+				<h1 class="featurette-heading"><strong>mas <span class="text-danger">&#9679;</span> ter   fas <span class="text-danger">&#9679;</span> ter</strong></h1>
+				<h3 class="featurette-heading">/ mast&#477;r fast&#477;r / </h1>
+				<h4 class="featurette-heading"><i>noun</i></h4>
+				<ol>
+					<li>Donec sed odio dui. Etiam porta sem malesuada magna mollis euismod. Nullam id dolor id nibh ultricies vehicula ut id elit. Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Praesent commodo cursus magna.</li>
+					<li>Donec sed odio dui. Etiam porta sem malesuada magna mollis euismod. Nullam id dolor id nibh ultricies vehicula ut id elit. Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Praesent commodo cursus magna.</li>
+				</ol>
+			</div>
+		</div>
+		<hr class="divider2">
+	</div>
+
+	<div class="container">
+		<img class="video-content" src="{% static 'blog/images/veggies.jpg' %}" width="1140">
+		<hr class="divider2">
+	</div>
+
+	<div class="container marketing">
+
+		<!-- <div class="row">
+			<div class="col-lg-4" id="">
+				<img class="img-circle" src="{% static 'masterfaster/max.jpg' %}" alt="Profile Picture" width="140" height="140">
+				<h2>Heading</h2>
+				<p>Donec sed odio dui. Etiam porta sem malesuada magna mollis euismod. Nullam id dolor id nibh ultricies vehicula ut id elit. Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Praesent commodo cursus magna.</p>
+				<p><a class="btn btn-default" href="#" role="button">View details &raquo;</a></p>
+			</div>
+			<div class="col-lg-4">
+				<img class="img-circle" src="{% static 'masterfaster/max.jpg' %}" alt="Generic placeholder image" width="140" height="140">
+				<h2>Heading</h2>
+				<p>Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit. Cras mattis consectetur purus sit amet fermentum. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh.</p>
+				<p><a class="btn btn-default" href="#" role="button">View details &raquo;</a></p>
+			</div> 
+			<div class="col-lg-4">
+				<img class="img-circle" src="{% static 'masterfaster/max.jpg' %}" alt="Generic placeholder image" width="140" height="140">
+				<h2>Heading</h2>
+				<p>Donec sed odio dui. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Vestibulum id ligula porta felis euismod semper. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</p>
+				<p><a class="btn btn-default" href="#" role="button">View details &raquo;</a></p>
+			</div> 
+		</div>
+
+		<hr class="featurette-divider"> -->
+
+      <div class="row featurette">
+        <div class="col-md-7">
+          <h2 class="featurette-heading"><a href="#">First article heading.<span class="text-muted">This is secondary title.</span></a></h2>
+          <h4>By Max Schridde</h4>
+          <p class="lead">Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis euismod semper. Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus ac cursus commodo.</p>
+        </div>
+        <div class="col-md-5">
+          <img class="featurette-image img-responsive center-block img-circle" src="{% static 'masterfaster/beet.jpg' %}" alt="Generic placeholder image">
+        </div>
+      </div>
+
+      <hr class="featurette-divider">
+
+      <div class="row featurette">
+        <div class="col-md-7 col-md-push-5">
+          <h2 class="featurette-heading"><a href="#">Second article heading. <span class="text-muted">This is secondary title.</span></a></h2>
+          <h4>By Max Schridde</h4>
+          <p class="lead">Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis euismod semper. Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus ac cursus commodo.</p>
+        </div>
+        <div class="col-md-5 col-md-pull-7">
+          <img class="featurette-image img-responsive center-block img-circle" src="{% static 'masterfaster/strawberry.jpg' %}" alt="Generic placeholder image">
+        </div>
+      </div>
+
+      <hr class="featurette-divider">
+
+      <div class="row featurette">
+        <div class="col-md-7">
+          <h2 class="featurette-heading"><a href="#">Third article heading. <span class="text-muted">This is secondary title.</span></a></h2>
+          <h4>By Max Schridde</h4>
+          <p class="lead">Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis euismod semper. Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus ac cursus commodo.</p>
+        </div>
+        <div class="col-md-5">
+          <img class="featurette-image img-responsive center-block img-circle" src="{% static 'masterfaster/broccoli.jpg' %}" alt="Generic placeholder image">
+        </div>
+      </div>
+
+      <!-- <hr class="featurette-divider"> -->
+
+		<!-- <footer>
+			<p>&copy; 2017 MasterFaster, Inc. &middot; <a href="#">Facebook</a> &middot; <a href="#">Twitter</a></p>
+		</footer> -->
+
+	</div>
+{% endblock content %}

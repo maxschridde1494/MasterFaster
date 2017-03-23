@@ -1,0 +1,15 @@
+{% extends 'blog/blogdetail.html' %}
+
+{% load static %}
+
+{% block comment %}
+<div class="input-group row comment">
+    <form action="{% url 'blog:comment' entry.id %}" method="post">
+        {% csrf_token %}
+        <input type="text" name="comment-text" class="form-control" placeholder="Tell us what you think...">
+        <span class="input-group-btn">
+            <button class="btn btn-default" type="submit">Comment</button>
+        </span>
+    </form>
+</div><!-- /input-group -->
+{% endblock comment %}

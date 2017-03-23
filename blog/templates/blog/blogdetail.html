@@ -1,0 +1,71 @@
+{% extends 'blog/blogbase.html' %}
+
+{% load static %}
+
+{% block prof_img %}
+    {{img}}
+{% endblock prof_img %}
+
+{% block blogtitlecontent %}
+<div class="blog-header blog-detail-header container-fluid">
+    <div class="container blog-base">
+        <div class="col-xs-8 col-xs-offset-2 col-md-6 col-md-offset-3 blog-header-title">
+            <h1 class="blog-title">{{entry.title}}</h1>
+        </div>
+    </div>
+</div>
+{% endblock blogtitlecontent %}
+
+{% block blogcontent %}
+    <div class="col-md-8 col-md-offset-2 blog-main" id="comments">
+        <div class="container row">
+            <div class="blog-feed-prof">
+                {{author_img}}
+            </div>
+            <div>By {{entry.author}}, {{entry.pub_date|date:"D d M Y"}}</div>
+        </div>
+        <hr>
+        {% if entry %}
+            <p><strong>{{entry.header_text}}</strong></p>
+            <hr>
+            <p>{{entry.text}}</p>
+        {% else %}
+
+            <h1>No Blog Post.</h1>
+
+        {% endif %}
+            <nav>
+                <ul class="pager">
+                {% if not prev_next.first %}
+                    <li><a href="{%url 'blog:detail' prev_next.prev%}">Previous</a></li>
+                {% endif %}
+                {% if not prev_next.last %}
+                    <li><a href="{%url 'blog:detail' prev_next.next%}">Next</a></li>
+                {% endif %}
+                </ul>
+            </nav>
+        
+        <ul class="list-inline">
+            <li>{{comments.length}} Comments</li>
+        </ul>
+        <hr class="divider">
+
+        {% for comment in comments %}
+        <div class="row comment">
+
+                    {{comment.2}}
+                    {{comment.1}}
+                    {{comment.0.pub_date|date:"M"}} {{comment.0.pub_date|date:"d"}}, {{comment.0.pub_date|date:"Y"}}
+
+        </div>
+        <div class="row comment">
+            {{comment.0.text}}
+        </div>
+        {% endfor %}
+        {% block comment %}
+        
+        {% endblock comment %}
+    </div>
+
+{% endblock blogcontent %}
+

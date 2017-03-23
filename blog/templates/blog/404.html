@@ -1,0 +1,23 @@
+{% extends 'blog/blogbase.html' %}
+
+{% load static %}
+
+{% block blogcontent %}
+    <div class="col-md-9 blog-main">
+
+        <h1>No Postings Exist for the Selected Month,Year Pair.</h1>
+
+{% endblock blogcontent %}
+
+{% block sidebarcontent %}
+    <div class="col-sm-2 col-sm-offset-1 blog-sidebar">
+      <div class="sidebar-module">
+        <h4>Archives</h4>
+        <ol class="list-unstyled">
+          {% for date in month_year %}
+              <li><a href="{% url 'blog:blogfeed_month' date.1 date.2%}">{{date.0}} {{date.1}}</a></li>
+          {%endfor%}
+        </ol>
+      </div>
+    </div><!-- /.blog-sidebar -->
+{% endblock sidebarcontent %}

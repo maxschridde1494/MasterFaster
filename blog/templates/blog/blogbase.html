@@ -1,0 +1,40 @@
+{% extends 'masterfaster/base.html' %}
+
+{% load static %}
+
+{% block customstylesheet %}
+
+    <link href="{% static 'blog/blog.css' %}?{% now 'U' %}" rel="stylesheet">
+
+{% endblock customstylesheet %}
+
+{% block content %}
+    <!-- <div class="blog-header container-fluid">
+
+      <div class="container blog-base"> -->
+      {% block blogtitlecontent %}
+      <div class="blog-header container-fluid">
+        <div class="container blog-base">
+          <div class="col-md-8 col-md-offset-2 blog-header-title">
+            <h1 class="blog-title blog-feed-title">Master Faster Blog</h1>
+          </div>
+        </div>
+      </div>
+      {% endblock blogtitlecontent %}
+      <!-- </div>
+    </div> -->
+    <div class="container">
+      <div class="row">
+        {% block blogcontent%}
+
+        {% endblock blogcontent %}
+
+        {% block sidebarcontent %}
+
+        {% endblock sidebarcontent %}
+
+      </div><!-- /.row -->
+    </div>
+
+{% endblock content %}
+
