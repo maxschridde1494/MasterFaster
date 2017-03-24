@@ -8,14 +8,15 @@ class Sale(models.Model):
 	def __init__(self, *args, **kwargs):
 		super().__init__(*args, **kwargs)
 		import stripe
-		stripe.api_key = settings.STRIPE_API_KEY
+		stripe.api_key = settings.STRIPE_API_KEY_SECRET
 		self.stripe = stripe
 	#have sale store the stripe charge id
 	charge_id = models.CharField(max_length=32)
 	#STORE OTHER INFO
 
-	def charge(self, price_in_cents, number, exp_month, exp_year, cvc):
-		"""Input: price and the credit card details.
+	# def charge(self, price_in_cents, number, exp_month, exp_year, cvc):
+	def charge(self, price_in_cents, token):
+		"""Input: price and the stripeToken from CHECKOUT.
 		Output: tuple (Boolean, Class)
 			- True if charge is successful
 			- Class --> response or error instance
@@ -27,14 +28,7 @@ class Sale(models.Model):
 			response = self.stripe.Charge.create(
 				amount = price_in_cents,
 				currency = 'usd',
-				source = {
-					'number': number,
-					'exp_month': exp_month,
-					'exp_year': exp_year,
-					'cvc': cvc,
-					'object': "card",
-					####Include billing address somehow
-				},
+				source = token,
 				description = 'Thanks for the purchase!')
 			self.charge_id = response.id
 		except self.stripe.error.CardError as ce:

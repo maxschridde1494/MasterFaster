@@ -13,11 +13,26 @@
 
   </div>
  
-  <form class="form-signin" action="" method="post">
+  <!-- <form class="form-signin" action="" method="post">
     {% csrf_token %}
-
+    <script src="https://checkout.stripe.com/checkout.js"></script>
     <button class="btn btn-lg btn-primary btn-block" type="submit">Test Charge</button>
-  </form>
+  </form> -->
+	<form action="{% url 'sales:charge' %}" method="POST">
+  		{% csrf_token %}
+		<script
+		src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+		data-email = {{email}}
+		data-key= {{stripe_api_key}}
+		data-amount= {{amount}}
+		data-name="Master Faster"
+		data-description="Some Master Faster product."
+		data-image="https://stripe.com/img/documentation/checkout/marketplace.png"
+		data-locale="auto"
+		data-zip-code="true">
+
+		</script>
+	</form>
  
 </div>
  

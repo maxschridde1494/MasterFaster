@@ -22,7 +22,8 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'sxc%w_&nf^!-7z_k!7@fv47tt7-2mv&8j0wv#kj$&h32=drhmc'
-STRIPE_API_KEY = "sk_test_j87ssvEKlNOgDyNn5JPhExs8"
+STRIPE_API_KEY_PUBLISHABLE = "pk_test_zrNDnypdz6vX2Kl9rocrqpX4"
+STRIPE_API_KEY_SECRET = "sk_test_j87ssvEKlNOgDyNn5JPhExs8"
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
