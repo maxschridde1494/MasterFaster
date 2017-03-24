@@ -39,10 +39,14 @@
     </ul>
     <br>
     {% if edit_profile %}
+        <!-- {% if credit_card_form.errors %}
+            {{credit_card_form.errors}}
+        {% endif %} -->
     	<table>
-        	{{profile_form.as_table}}
+        	{{credit_card_form.as_table}}
         </table>
         <h5 class="form-signin-heading"><a href="{% url 'masterfaster:password_change' %}">Change Password</a></h5>
+        <h5 class="form-signin-heading"><a href="{% url 'masterfaster:editEmailAddress' %}">Change Email</a></h5>
     {% else %}
     	{% if edit_billing %}
     		<h3 class="form-signin-heading">Billing Address:</h3>

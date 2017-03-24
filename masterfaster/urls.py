@@ -14,4 +14,5 @@ urlpatterns = [
 	url(r'^edit/profile_info/$', views.editProfile, name='editProfile'),
 	url(r'^edit/billing_address/$', views.editBillingAddress, name='editBillingAddress'),
 	url(r'^edit/shipping_address/$', views.editShippingAddress, name='editShippingAddress'),
+	url(r'^edit/email_address/$', views.editEmailAddress, name='editEmailAddress'),
 ]

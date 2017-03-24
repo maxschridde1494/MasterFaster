@@ -8,13 +8,20 @@ class User(AbstractUser):
 	username=models.CharField(primary_key=True, unique=True, max_length=50)
 	email = models.EmailField(max_length=200)
 	password = models.CharField(max_length=200)
-	credit_card_number = models.CharField(max_length=50, null=True)
-	credit_card_exp_date_month = models.CharField(max_length=10, null=True)
-	credit_card_exp_date_year = models.CharField(max_length=10, null=True)
-	credit_card_csv = models.CharField(max_length=50, null=True)
+	# credit_card_number = models.CharField(max_length=50, null=True)
+	# credit_card_exp_date_month = models.CharField(max_length=10, null=True)
+	# credit_card_exp_date_year = models.CharField(max_length=10, null=True)
+	# credit_card_csv = models.CharField(max_length=50, null=True)
 
 	def __str__(self):
 		return self.username
+
+class CreditCard(models.Model):
+	user = models.ForeignKey(User, on_delete=models.CASCADE)
+	number = models.CharField(max_length=50, null=True)
+	exp_date_month = models.CharField(max_length=10, null=True)
+	exp_date_year = models.CharField(max_length=10, null=True)
+	csv = models.CharField(max_length=50, null=True)
 
 class Address(models.Model):
 	user = models.ForeignKey(User, on_delete=models.CASCADE)

@@ -4,10 +4,11 @@ from django.utils import timezone
 import datetime
 
 from django.contrib.sessions.models import Session
-from .models import User, Billing, Shipping
+from .models import User, Billing, Shipping, CreditCard
 from django.contrib.auth import authenticate, login, update_session_auth_hash
 from django.contrib.auth.decorators import login_required
-from .forms.forms import EditUserInfo, EditShippingAddress, EditBillingAddress, CreateUserForm
+from .forms.forms import EditShippingAddress, EditBillingAddress, CreateUserForm, EditEmailAddress
+from sales.forms.forms import CreditCardForm
 from utils import gravatar
 from django.contrib.auth.forms import PasswordChangeForm
 
@@ -95,6 +96,8 @@ def createUser(request):
 				billing.save()
 				shipping = Shipping(user=user)
 				shipping.save()
+				credit_card = CreditCard(user=user)
+				credit_card.save()
 				print ('SAVING USER')
 				u = authenticate(username=uname, password=password)
 				#authenticate new user
@@ -130,33 +133,65 @@ def createUser(request):
 def editProfile(request):
 	print('in edit profile')
 	if request.method == 'POST':
-		form = EditUserInfo(request.POST)
+		form = CreditCardForm(request.POST)
+		user = User.objects.get(username=request.user)
 		if form.is_valid():
-			user = User.objects.get(username=request.user)
 			#post new profile information and save to db
-			email = form.cleaned_data['email']
-			ccn = form.cleaned_data['credit_card_number']
-			cce = form.cleaned_data['credit_card_exp_date']
-			ccc = form.cleaned_data['credit_card_csv']
-			user.email = email
-			user.credit_card_number = ccn
-			user.credit_card_exp_date = cce
-			user.credit_card_csv = ccc
-			user.save()
+			try:
+				credit_card = CreditCard.objects.get(user=user)
+			except CreditCard.DoesNotExist:
+				credit_card = CreditCard(user=user)
+			credit_card.number = form.cleaned_data['number']
+			credit_card.exp_date_month = form.cleaned_data['expiration_month']
+			credit_card.exp_date_year = form.cleaned_data['expiration_year']
+			credit_card.csv = form.cleaned_data['cvc']
+			credit_card.save()
 			return redirect('masterfaster:editProfile')
+		context = {
+			'credit_card_form': form,
+			'edit_profile': True,
+			'edit_shipping': False,
+			'edit_billing': False,
+			'img': gravatar(user.email)
+		}
+		return HttpResponse(render(request, 'masterfaster/editprofile.html', context))
 	else:
 		#load Edit Profile Template
 		user = User.objects.get(username=request.user)
 		img = gravatar(user.email)
-		profile_form = EditUserInfo(instance=user)
+		try:
+			credit_card = CreditCard.objects.get(user=user)
+		except CreditCard.DoesNotExist:
+			credit_card = CreditCard(user=user)
+		credit_card_form = CreditCardForm(instance=credit_card)
 		context = {
-			'profile_form': profile_form,
+			'credit_card_form': credit_card_form,
 			'edit_profile': True,
 			'edit_shipping': False,
 			'edit_billing': False,
 			'img': img
 		}
 		return HttpResponse(render(request, 'masterfaster/editprofile.html', context))
+
+@login_required
+def editEmailAddress(request):
+	if request.method == 'POST':
+		form = EditEmailAddress(request.POST)
+		user = User.objects.get(username=request.user)
+		if form.is_valid():
+			user.email = form.cleaned_data['email']
+			user.save()
+			return redirect('masterfaster:editProfile')
+		redirect('masterfaster:editEmailAddress')
+	else:
+		u = User.objects.get(username=request.user)
+		img = gravatar(u.email)
+		form = EditEmailAddress(instance=u)
+		context = {
+			'form': form,
+			'img': img
+		}
+		return HttpResponse(render(request, 'masterfaster/editemail.html', context))
 
 @login_required
 def editBillingAddress(request):

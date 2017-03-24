@@ -1,0 +1,42 @@
+{% extends 'masterfaster/base.html' %}
+
+{% block prof_img %}
+    {{img}}
+{% endblock prof_img %}
+
+{% block content %}
+ 
+<div class="wrapper">
+  <div class="wrapper">
+
+  {{errors}}
+
+  </div>
+ 
+  <form class="form-signin" action="" method="post">
+    {% csrf_token %}
+    <table>
+      {{form.as_table}}
+    </table>
+    <!-- {% for field in form %}
+      <div class="field-wrapper">
+ 
+        <div class="field-label">
+          {{ field.label_tag }}
+        </div>
+ 
+        <div class="field-field">
+          {{ field }}
+          {{ field.errors }}
+        </div>
+ 
+      </div>
+    {% endfor %} -->
+ 
+    <br>
+    <button class="btn btn-lg btn-primary btn-block" type="submit">Submit Charge</button>
+  </form>
+ 
+</div>
+ 
+{% endblock content %}

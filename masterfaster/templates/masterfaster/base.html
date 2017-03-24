@@ -46,7 +46,7 @@
                             </li>
                         {% endif %}
                         <li role="presentation"><a href="{% url 'blog:feed' %}">Blog</a></li>
-                        <li role="presentation"><a href="#">Shop</a></li>
+                        <li role="presentation"><a href="{% url 'sales:charge'%}">Shop</a></li>
                         {% if user.is_authenticated %}
                         <li role="presentation"><a href="{% url 'masterfaster:editProfile' %}">Edit Profile</a></li>
                         <li role="presentation" class="active"><a href="{% url 'masterfaster:logout' %}">Logout</a></li>
