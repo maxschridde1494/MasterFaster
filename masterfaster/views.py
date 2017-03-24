@@ -142,9 +142,9 @@ def editProfile(request):
 			except CreditCard.DoesNotExist:
 				credit_card = CreditCard(user=user)
 			credit_card.number = form.cleaned_data['number']
-			credit_card.exp_date_month = form.cleaned_data['expiration_month']
-			credit_card.exp_date_year = form.cleaned_data['expiration_year']
-			credit_card.csv = form.cleaned_data['cvc']
+			credit_card.exp_date_month = form.cleaned_data['exp_date_month']
+			credit_card.exp_date_year = form.cleaned_data['exp_date_year']
+			credit_card.csv = form.cleaned_data['csv']
 			credit_card.save()
 			return redirect('masterfaster:editProfile')
 		context = {
