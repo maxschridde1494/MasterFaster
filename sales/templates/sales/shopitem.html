@@ -8,6 +8,9 @@
 <div class="col-md-9">
 {% if product %}
 
+    {% if errors %}
+        {{errors}}
+    {% endif %}
     <div class="thumbnail">
         <img class="img-responsive" src="{% static product.img_path %}" alt="{{product.name}} width='200' height='150'">
         <div class="caption-full">
@@ -15,18 +18,30 @@
             <h4><a href="#">{{product.name}}</a></h4>
             <p>{{product.description}}</p>
         </div>
-        <form class="form-signin" method="get" action="#">
+        <!-- <form class="form-signin" method="get" action="#"> -->
+        <form action="{% url 'sales:itemDetail' product.id %}" method="POST">
             {% csrf_token %}
-            {% for k,v in product.size.items %}
+            <!-- {% for k,v in product.size.items %}
                 {% if forloop.counter0 == 0 %}
                 <input type="radio" name="{{k}}" value="{{v}}" checked> {{v}}<br>
                 {% else %}
                 <input type="radio" name="{{k}}" value="{{v}}"> {{v}}<br>
                 {% endif %}
-            {% endfor %}
-            <button class="btn btn-lg btn-primary btn-block" type="submit">Add To Cart</button>
+            {% endfor %} -->
+            <!-- <button class="btn btn-lg btn-primary btn-block" type="submit">Add To Cart</button> -->
+            <script
+                src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+                data-email = {{email}}
+                data-key= {{stripe_api_key}}
+                data-amount= {{amount}}
+                data-name="Master Faster"
+                data-description={{product.description}}
+                data-image="{% static product.img_path %}"
+                data-locale="auto"
+                data-zip-code="true">
+            </script>
         </form>
-        <!-- <div class="ratings">
+        <div class="ratings">
             <p class="pull-right">3 reviews</p>
             <p>
                 <span class="glyphicon glyphicon-star"></span>
@@ -36,10 +51,10 @@
                 <span class="glyphicon glyphicon-star-empty"></span>
                 4.0 stars
             </p>
-        </div> -->
+        </div>
     </div>
 
-    <!-- <div class="well">
+    <div class="well">
 
         <div class="text-right">
             <a class="btn btn-success">Leave a Review</a>
@@ -90,7 +105,7 @@
             </div>
         </div>
 
-    </div> -->
+    </div>
 
 {% else %}
 

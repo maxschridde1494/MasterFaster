@@ -21,16 +21,37 @@ def home(request):
 			context['img'] = gravatar(User.objects.get(username=request.user).email)
 		return HttpResponse(render(request, 'sales/shopfeed.html', context))
 
+@login_required
 def item_detail(request, product_id):
 	if request.method == 'POST':
-		pass
-	else:
+		# HERE, RETRIEVE PRICE OF PRODUCT BEING CHARGED FOR
 		try:
 			product = Product.objects.get(pk=product_id)
 		except:
 			return HttpResponse(render(request, 'sales/shopitem.html'))
-
-		return HttpResponse(render(request, 'sales/shopitem.html', {'product':product}))
+		u = User.objects.get(username=request.user)
+		sale = Sale()
+		#stripe charge
+		success, instance = sale.charge(dollar_str_to_cents_int(product.price), request.POST['stripeToken'])
+		if not success:
+			return HttpResponse(render(request, 'sales/shopitem.html', {'product': product, 'errors': "Charge didn't go through because " + instance.json_body['error']['message']}))
+		else:
+			sale.date = timezone.now()
+			sale.amount = product.price
+			sale.user = u
+			sale.save()
+			print("Success! We've charged your card!")
+			return redirect('sales:home')
+	else:
+		user = User.objects.get(username=request.user)
+		context = {'email': user.email, 'stripe_api_key': settings.STRIPE_API_KEY_PUBLISHABLE}
+		try:
+			product = Product.objects.get(pk=product_id)
+		except:
+			return HttpResponse(render(request, 'sales/shopitem.html'))
+		context['product'] = product
+		context['amount'] = dollar_str_to_cents_int(product.price)
+		return HttpResponse(render(request, 'sales/shopitem.html', context))
 
 @login_required
 def charge(request, product_id):

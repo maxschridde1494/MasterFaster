@@ -12,14 +12,14 @@
         {% for product in product_list %}
             <div class="col-sm-4 col-lg-4 col-md-4">
                 <div class="thumbnail">
-                    <img src="{% static product.img_path %}" alt="" width='200' height="150">
+                    <img class='item' src="{% static product.img_path %}" alt="" width='200' height="150">
                     <div class="caption">
                         <h4 class="pull-right">{{product.price}}</h4>
                         <h4><a href="{% url 'sales:itemDetail' product.id %}">{{product.name}}</a>
                         </h4>
                         <p>{{product.description}}</p>
                     </div>
-                    <!-- <div class="ratings">
+                    <div class="ratings">
                         <p class="pull-right">15 reviews</p>
                         <p>
                             <span class="glyphicon glyphicon-star"></span>
@@ -28,7 +28,7 @@
                             <span class="glyphicon glyphicon-star"></span>
                             <span class="glyphicon glyphicon-star"></span>
                         </p>
-                    </div> -->
+                    </div>
                 </div>
             </div>
         {% endfor %}
