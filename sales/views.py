@@ -24,7 +24,6 @@ def home(request):
 @login_required
 def item_detail(request, product_id):
 	if request.method == 'POST':
-		# HERE, RETRIEVE PRICE OF PRODUCT BEING CHARGED FOR
 		try:
 			product = Product.objects.get(pk=product_id)
 		except:
@@ -53,43 +52,43 @@ def item_detail(request, product_id):
 		context['amount'] = dollar_str_to_cents_int(product.price)
 		return HttpResponse(render(request, 'sales/shopitem.html', context))
 
-@login_required
-def charge(request, product_id):
-	if request.method == "POST":
-		# HERE, RETRIEVE PRICE OF PRODUCT BEING CHARGED FOR
-		if product_id == 4:
-			amount = 400
-			print('product id works')
-		else:
-			amount = 84
-		u = User.objects.get(username=request.user)
-		credit_card = CreditCard.objects.get(user=u)
-		sale = Sale()
-		#pass in CHECKOUT token
-		success, instance = sale.charge(amount, request.POST['stripeToken'])
-		if not success:
-			return HttpResponse(render(request, 'sales/charge.html', {'errors': "Charge didn't go through because " + instance.json_body['error']['message']}))
-		else:
-			sale.date = timezone.now()
-			sale.amount = '100'
-			sale.user = u
-			sale.save()
-			print("Success! We've charged your card!")
-			return redirect('sales:home')
+# @login_required
+# def charge(request, product_id):
+# 	if request.method == "POST":
+# 		# HERE, RETRIEVE PRICE OF PRODUCT BEING CHARGED FOR
+# 		if product_id == 4:
+# 			amount = 400
+# 			print('product id works')
+# 		else:
+# 			amount = 84
+# 		u = User.objects.get(username=request.user)
+# 		credit_card = CreditCard.objects.get(user=u)
+# 		sale = Sale()
+# 		#pass in CHECKOUT token
+# 		success, instance = sale.charge(amount, request.POST['stripeToken'])
+# 		if not success:
+# 			return HttpResponse(render(request, 'sales/charge.html', {'errors': "Charge didn't go through because " + instance.json_body['error']['message']}))
+# 		else:
+# 			sale.date = timezone.now()
+# 			sale.amount = '100'
+# 			sale.user = u
+# 			sale.save()
+# 			print("Success! We've charged your card!")
+# 			return redirect('sales:home')
 
-	else:
-		print("this is the product_id: %s" % product_id)
-		user = User.objects.get(username=request.user)
-		img = gravatar(user.email)
-		context = {
-			'img': img,
-			'email': user.email,
-			'amount': dollar_str_to_cents_int(request.GET['price']),
-			'stripe_api_key': settings.STRIPE_API_KEY_PUBLISHABLE,
-			'product_id': product_id,
-		}
-		return redirect('sales:charge product_id', context)
-		# return HttpResponse(render(request, 'sales/charge.html', context))
+# 	else:
+# 		print("this is the product_id: %s" % product_id)
+# 		user = User.objects.get(username=request.user)
+# 		img = gravatar(user.email)
+# 		context = {
+# 			'img': img,
+# 			'email': user.email,
+# 			'amount': dollar_str_to_cents_int(request.GET['price']),
+# 			'stripe_api_key': settings.STRIPE_API_KEY_PUBLISHABLE,
+# 			'product_id': product_id,
+# 		}
+# 		return redirect('sales:charge product_id', context)
+# 		# return HttpResponse(render(request, 'sales/charge.html', context))
 
 
             
