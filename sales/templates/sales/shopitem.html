@@ -1,0 +1,103 @@
+{% extends 'sales/shopbase.html' %}
+
+{% load static %}
+
+
+{% block shopcontent %}
+
+<div class="col-md-9">
+{% if product %}
+
+    <div class="thumbnail">
+        <img class="img-responsive" src="{% static product.img_path %}" alt="{{product.name}} width='200' height='150'">
+        <div class="caption-full">
+            <h4 class="pull-right">{{product.price}}</h4>
+            <h4><a href="#">{{product.name}}</a></h4>
+            <p>{{product.description}}</p>
+        </div>
+        <form class="form-signin" method="get" action="#">
+            {% csrf_token %}
+            {% for k,v in product.size.items %}
+                {% if forloop.counter0 == 0 %}
+                <input type="radio" name="{{k}}" value="{{v}}" checked> {{v}}<br>
+                {% else %}
+                <input type="radio" name="{{k}}" value="{{v}}"> {{v}}<br>
+                {% endif %}
+            {% endfor %}
+            <button class="btn btn-lg btn-primary btn-block" type="submit">Add To Cart</button>
+        </form>
+        <!-- <div class="ratings">
+            <p class="pull-right">3 reviews</p>
+            <p>
+                <span class="glyphicon glyphicon-star"></span>
+                <span class="glyphicon glyphicon-star"></span>
+                <span class="glyphicon glyphicon-star"></span>
+                <span class="glyphicon glyphicon-star"></span>
+                <span class="glyphicon glyphicon-star-empty"></span>
+                4.0 stars
+            </p>
+        </div> -->
+    </div>
+
+    <!-- <div class="well">
+
+        <div class="text-right">
+            <a class="btn btn-success">Leave a Review</a>
+        </div>
+
+        <hr>
+
+        <div class="row">
+            <div class="col-md-12">
+                <span class="glyphicon glyphicon-star"></span>
+                <span class="glyphicon glyphicon-star"></span>
+                <span class="glyphicon glyphicon-star"></span>
+                <span class="glyphicon glyphicon-star"></span>
+                <span class="glyphicon glyphicon-star-empty"></span>
+                Anonymous
+                <span class="pull-right">10 days ago</span>
+                <p>This product was great in terms of quality. I would definitely buy another!</p>
+            </div>
+        </div>
+
+        <hr>
+
+        <div class="row">
+            <div class="col-md-12">
+                <span class="glyphicon glyphicon-star"></span>
+                <span class="glyphicon glyphicon-star"></span>
+                <span class="glyphicon glyphicon-star"></span>
+                <span class="glyphicon glyphicon-star"></span>
+                <span class="glyphicon glyphicon-star-empty"></span>
+                Anonymous
+                <span class="pull-right">12 days ago</span>
+                <p>I've alredy ordered another one!</p>
+            </div>
+        </div>
+
+        <hr>
+
+        <div class="row">
+            <div class="col-md-12">
+                <span class="glyphicon glyphicon-star"></span>
+                <span class="glyphicon glyphicon-star"></span>
+                <span class="glyphicon glyphicon-star"></span>
+                <span class="glyphicon glyphicon-star"></span>
+                <span class="glyphicon glyphicon-star-empty"></span>
+                Anonymous
+                <span class="pull-right">15 days ago</span>
+                <p>I've seen some better than this, but not at this price. I definitely recommend this item.</p>
+            </div>
+        </div>
+
+    </div> -->
+
+{% else %}
+
+<h1>No matching product.</h1>
+
+{% endif %}
+
+</div>
+
+{% endblock shopcontent %}

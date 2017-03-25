@@ -1,0 +1,32 @@
+{% extends 'masterfaster/base.html' %}
+
+{% load static %}
+
+{% block customstylesheet %}
+    <link href="{% static 'sales/shop.css' %}?{% now 'U' %}" rel="stylesheet">
+{% endblock customstylesheet %}
+
+{% block prof_img %}
+    {{img}}
+{% endblock prof_img %}
+
+<!-- Page Content -->
+{% block content %}
+<div class="container shop-main">
+    <div class="row">
+
+        <div class="col-md-3">
+            <div class="list-group">
+                <a href="#" class="list-group-item">Apparel</a>
+                <a href="#" class="list-group-item">Cleanse Products</a>
+            </div>
+        </div>
+
+        {% block shopcontent %}
+
+        {% endblock shopcontent %}
+
+    </div>
+</div>
+{% endblock content %}
+

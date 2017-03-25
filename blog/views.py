@@ -10,6 +10,7 @@ from django.contrib.auth.decorators import login_required
 from utils import gravatar, fetch_prev_next
 
 month_year = [("March", "2017", "3"),("February", "2017", "2"),("January", "2017", "1"),("December", "2016", "12"),("November", "2016", "11"),("October", "2016", "10"),("September", "2016", "9"),("August", "2016", "8"),("July", "2016", "7"), ("June", "2016", "6"),("May", "2016", "5"),("April", "2016", "4")]
+months = {'1':'January','2':'February','3':'March','4':'April','5':'May','6':'June','7':'July','8':'August','9':'September','10':'Octoboer','11':'November','12':'December'}
 
 def blogfeed(request):
 	blog_posts = BlogPost.objects.order_by('-pub_date')
@@ -28,18 +29,24 @@ def blogfeed(request):
 	return HttpResponse(render(request, 'blog/blogfeed.html', context))
 
 def blogfeed_month(request, year, month):
-	posts = get_list_or_404(BlogPost.objects.order_by('-pub_date'), pub_date__month=month, pub_date__year=year)
+	print(year)
+	print(month)
+	posts = BlogPost.objects.order_by('-pub_date').filter(pub_date__month=month, pub_date__year=year)
 	filtered = [(post, User.objects.get(username=post.author), gravatar(User.objects.get(username=post.author).email, 100)) for post in posts]
 	context = {
 		'blog_posts_list': filtered,
-		'month_year': month_year
+		'month_year': month_year,
+		'year': year,
+		'month': months[str(month)],
 	}
+	if len(posts) == 0:
+		context['number'] = True
 	return HttpResponse(render(request, 'blog/blogfeed.html', context))
 
 def detail(request, entry_id):
 	bp = get_object_or_404(BlogPost, pk=entry_id)
 	#retrieve previous and next posts
-	posts = get_list_or_404(BlogPost.objects.order_by('-pub_date'))
+	posts = BlogPost.objects.order_by('-pub_date')
 	p_n = fetch_prev_next(bp, posts)
 	
 	context = {'entry': bp,

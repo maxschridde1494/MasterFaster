@@ -25,3 +25,7 @@ class CreditCardForm(ModelForm):
             if int(self.cleaned_data['exp_date_year']) >= date.today().year and int(self.cleaned_data['exp_date_month']) < date.today().month:
                 raise forms.ValidationError("The expiration date you entered is in the past.")
         return cleaned
+
+class TestPaymentForm(forms.Form):
+    size = forms.CharField(label="Size",max_length=50)
+    price = forms.CharField(label="Price",max_length=50)

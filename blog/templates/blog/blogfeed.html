@@ -23,10 +23,10 @@
                 </div>
             </div>
         {% endfor %}
+    {% elif number %}
+        <h1>There are no blog posts in {{month}}, {{year}}.</h1>
     {% else %}
-
         <h1>Blog Feed</h1>
-
     {% endif %}
     </div>
 

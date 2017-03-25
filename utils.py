@@ -21,6 +21,12 @@ def gravatar(email, size=40, classes="img-circle center-block base-profile"):
     url = gravatar_url(email, size)
     return mark_safe('<img class=%s src="%s" height="%d" width="%d">' % (classes, url, size, size))
 
+def dollar_str_to_cents_int(string):
+	s = string.split('.')
+	doll = int(s[0])
+	if len(s) > 1:
+		return doll*100 + int(s[1])
+	return doll*100
 
 def fetch_prev_next(bp, posts):
 	"""Takes in a blog post and the QuerySet of all blog posts.
@@ -32,12 +38,14 @@ def fetch_prev_next(bp, posts):
 
 	"""
 	found, counter = False, 0
+	p_n = {'prev': None,'next': None, 'first': False, 'last': False}
+	if len(posts) == 0:
+		return p_n
 	while not found and counter < len(posts):
 		if posts[counter] == bp:
 			found = True
 		else:
 			counter += 1
-	p_n = {'prev': None,'next': None}
 	if counter == 0:
 		p_n['first'] = True
 		if counter < len(posts) - 1:

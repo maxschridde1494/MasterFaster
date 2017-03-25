@@ -12,13 +12,7 @@
   {{errors}}
 
   </div>
- 
-  <!-- <form class="form-signin" action="" method="post">
-    {% csrf_token %}
-    <script src="https://checkout.stripe.com/checkout.js"></script>
-    <button class="btn btn-lg btn-primary btn-block" type="submit">Test Charge</button>
-  </form> -->
-	<form action="{% url 'sales:charge' %}" method="POST">
+	<form action="{% url 'sales:charge' {{product_id}}%}" method="POST">
   		{% csrf_token %}
 		<script
 		src="https://checkout.stripe.com/checkout.js" class="stripe-button"
