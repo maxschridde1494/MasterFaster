@@ -1,5 +1,5 @@
 from django.db import models
-from django.contrib.postgres.fields import JSONField
+from django.contrib.postgres.fields import JSONField, ArrayField
 
 from django.conf import settings
 from django.utils import timezone
@@ -18,6 +18,14 @@ class Product(models.Model):
 
 	def __str__(self):
 		return self.name
+
+class ShoppingCart(models.Model):
+	user = models.OneToOneField(
+		User,
+		on_delete=models.CASCADE,
+		primary_key=True,
+	)
+	items = ArrayField(models.IntegerField(), null=True)
 
 
 class Sale(models.Model):
