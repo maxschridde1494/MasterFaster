@@ -29,23 +29,29 @@ def add_to_cart(request, product_id):
 
 @login_required
 def charge(request, amount):
+	#PASS IN SHOPPING CART USER FOR VERIFICATION
 	if request.method == 'POST':
 		u = User.objects.get(username=request.user)
-		sale = Sale()
-		#stripe charge
-		success, instance = sale.charge(amount, request.POST['stripeToken'])
-		if not success:
-			return HttpResponse(render(request, 'sales/addconfirmation.html'))
-		else:
-			sale.date = timezone.now()
-			sale.amount = amount
-			sale.user = u
-			sale.save()
-			shoppingcart = u.shoppingcart
-			shoppingcart.items = []
-			shoppingcart.save()
-			print("Success! We've charged your card!")
-			return redirect('sales:home')
+		products = [Product.objects.get(pk=product_id) for product_id in u.shoppingcart.items]
+		total = (functools.reduce(lambda x,y: x+y, products, Product(name='',price=0))).price
+		print(dollar_str_to_cents_int(total), amount)
+		if int(amount) == int(dollar_str_to_cents_int(total)):
+			sale = Sale()
+			#stripe charge
+			success, instance = sale.charge(amount, request.POST['stripeToken'])
+			if not success:
+				return HttpResponse(render(request, 'sales/addconfirmation.html'))
+			else:
+				sale.date = timezone.now()
+				sale.amount = amount
+				sale.user = u
+				sale.save()
+				shoppingcart = u.shoppingcart
+				shoppingcart.items = []
+				shoppingcart.save()
+				print("Success! We've charged your card!")
+				return redirect('sales:home')
+	return HttpResponse("Invalid match.")
 
 @login_required
 def checkout(request):
@@ -57,12 +63,13 @@ def checkout(request):
 		context['img'] = gravatar(User.objects.get(username=request.user).email)
 		products = [Product.objects.get(pk=product_id) for product_id in user.shoppingcart.items]
 		context['items'] = products
-		total = 0
-		for p in products:
-			total += p.price
-		# total_price = functools.reduce(lambda x,y: float(x.price) + float(y.price), products)
-		context['total_price_dollars'] = total
-		context['amount'] = dollar_str_to_cents_int(total)
+		if products:
+			combined_product = functools.reduce(lambda x,y: x+y, products, Product(name='',price=0))
+			total_price = combined_product.price
+		else:
+			total_price = 0.00
+		context['total_price_dollars'] = total_price
+		context['amount'] = dollar_str_to_cents_int(total_price)
 		return HttpResponse(render(request, 'sales/shoppingcart.html', context))
 
 def home(request):

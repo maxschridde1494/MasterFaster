@@ -19,17 +19,38 @@ class Product(models.Model):
 	def __str__(self):
 		return self.name
 
+	def __add__(self, product):
+		return Product(name='',price=self.price + product.price)
+
 class ShoppingCart(models.Model):
+	def default():
+		return []
+
 	user = models.OneToOneField(
 		User,
 		on_delete=models.CASCADE,
 		primary_key=True,
 	)
-	#store product ids in shopping Cart model
-	items = ArrayField(models.IntegerField(), default=[])
+	#store product ids, quantity, size in shopping Cart model
+	#ex: {'product_id': 4, 'quantity': 4, 'size': 'XL'}
+	items = ArrayField(JSONField(), default=default)
+
+	def total(self):
+		"""returns total price of shopping cart. 
+		Returns None if any product in the cart no longer exists"""
+		t_price = 0
+		for item in self.items:
+			try:
+				p = Product.objects.get(id=item['product_id'])
+			except Product.DoesNotExist:
+				return None
+			t_price += p.price * item['quantity']
+		return t_price
 
 	def __str__(self):
 		return self.user.username
+
+	#add a total method to get the TOTAL PRICE of shopping cart
 
 
 class Sale(models.Model):
