@@ -10,6 +10,10 @@
  * Licensed under MIT (https://github.com/BlackrockDigital/startbootstrap/blob/gh-pages/LICENSE)
  */
 
+ .confirmation-button{
+    width: 200px;
+ }
+
 .shop-main{
     padding-top: 20px;
 }

@@ -6,5 +6,7 @@ app_name='sales'
 urlpatterns = [
 	url(r'^$', views.home, name='home'),
 	url(r'^item/(?P<product_id>[0-9]+)/$', views.item_detail, name='itemDetail'),
-    # url(r'^charge/(?P<product_id>[0-9]+)/$', views.charge, name='charge'),
+	url(r'^item/(?P<product_id>[0-9]+)/add_to_cart/$', views.add_to_cart, name='addToCart'),
+	url(r'^shopping_cart/$', views.checkout, name='checkout'),
+    url(r'^charge/(?P<amount>[0-9]+)/$', views.charge, name='charge'),
 ]

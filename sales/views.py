@@ -9,6 +9,61 @@ from django import forms
 from utils import gravatar, dollar_str_to_cents_int
 from django.conf import settings
 from django.utils import timezone
+import functools
+
+@login_required
+def add_to_cart(request, product_id):
+	user = User.objects.get(username=request.user)
+	print(request.method)
+	if request.method == 'POST':
+		try:
+			product = Product.objects.get(pk=product_id)
+		except:
+			return HttpResponse(render(request, 'sales/unfoundproduct.html'))
+		shoppingcart = user.shoppingcart
+		shoppingcart.items.append(product.id)
+		shoppingcart.save()
+		context = {}
+		context['img'] = gravatar(user.email)
+		return HttpResponse(render(request, 'sales/addconfirmation.html', context))
+
+@login_required
+def charge(request, amount):
+	if request.method == 'POST':
+		u = User.objects.get(username=request.user)
+		sale = Sale()
+		#stripe charge
+		success, instance = sale.charge(amount, request.POST['stripeToken'])
+		if not success:
+			return HttpResponse(render(request, 'sales/addconfirmation.html'))
+		else:
+			sale.date = timezone.now()
+			sale.amount = amount
+			sale.user = u
+			sale.save()
+			shoppingcart = u.shoppingcart
+			shoppingcart.items = []
+			shoppingcart.save()
+			print("Success! We've charged your card!")
+			return redirect('sales:home')
+
+@login_required
+def checkout(request):
+	if request.method == 'POST':
+		pass
+	else:
+		user = User.objects.get(username=request.user)
+		context = {'email': user.email, 'stripe_api_key': settings.STRIPE_API_KEY_PUBLISHABLE}
+		context['img'] = gravatar(User.objects.get(username=request.user).email)
+		products = [Product.objects.get(pk=product_id) for product_id in user.shoppingcart.items]
+		context['items'] = products
+		total = 0
+		for p in products:
+			total += p.price
+		# total_price = functools.reduce(lambda x,y: float(x.price) + float(y.price), products)
+		context['total_price_dollars'] = total
+		context['amount'] = dollar_str_to_cents_int(total)
+		return HttpResponse(render(request, 'sales/shoppingcart.html', context))
 
 def home(request):
 	if request.method == 'POST':

@@ -19,17 +19,17 @@
             <p>{{product.description}}</p>
         </div>
         <!-- <form class="form-signin" method="get" action="#"> -->
-        <form action="{% url 'sales:itemDetail' product.id %}" method="POST">
+        <form action="{% url 'sales:addToCart' product.id %}" method="post">
             {% csrf_token %}
-            <!-- {% for k,v in product.size.items %}
+            {% for k,v in product.size.items %}
                 {% if forloop.counter0 == 0 %}
                 <input type="radio" name="{{k}}" value="{{v}}" checked> {{v}}<br>
                 {% else %}
                 <input type="radio" name="{{k}}" value="{{v}}"> {{v}}<br>
                 {% endif %}
-            {% endfor %} -->
-            <!-- <button class="btn btn-lg btn-primary btn-block" type="submit">Add To Cart</button> -->
-            <script
+            {% endfor %}
+            <button class="btn btn-lg btn-primary btn-block" type="submit">Add To Cart</button>
+            <!-- <script
                 src="https://checkout.stripe.com/checkout.js" class="stripe-button"
                 data-email = {{email}}
                 data-key= {{stripe_api_key}}
@@ -39,7 +39,7 @@
                 data-image="{% static product.img_path %}"
                 data-locale="auto"
                 data-zip-code="true">
-            </script>
+            </script> -->
         </form>
         <div class="ratings">
             <p class="pull-right">3 reviews</p>

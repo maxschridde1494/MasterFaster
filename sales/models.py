@@ -25,7 +25,11 @@ class ShoppingCart(models.Model):
 		on_delete=models.CASCADE,
 		primary_key=True,
 	)
-	items = ArrayField(models.IntegerField(), null=True)
+	#store product ids in shopping Cart model
+	items = ArrayField(models.IntegerField(), default=[])
+
+	def __str__(self):
+		return self.user.username
 
 
 class Sale(models.Model):

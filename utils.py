@@ -19,7 +19,7 @@ def gravatar_url(email, size=40):
 @register.filter
 def gravatar(email, size=40, classes="img-circle center-block base-profile"):
     url = gravatar_url(email, size)
-    return mark_safe('<img class=%s src="%s" height="%d" width="%d">' % (classes, url, size, size))
+    return mark_safe('<img class="%s" src="%s" height="%d" width="%d">' % (classes, url, size, size))
 
 def dollar_str_to_cents_int(num):
 	s = str(num).split('.')

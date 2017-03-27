@@ -41,17 +41,18 @@
                         {% if user.is_authenticated %}
                             <li role="presentation">
                                 {% block prof_img %}
-                                <img class="img-circle center-block base-profile" src="{% static 'masterfaster/max.jpg' %}" alt="Generic placeholder image" width="40" height="40">
+                                <img class="img-circle center-block base-profile" src="{% static 'masterfaster/max.jpg' %}" alt="Prof Pic" width="40" height="40">
                                 {% endblock prof_img %}
                             </li>
                         {% endif %}
-                        <li role="presentation"><a href="{% url 'blog:feed' %}">Blog</a></li>
-                        <li role="presentation"><a href="{% url 'sales:home'%}">Shop</a></li>
+                        <li class="navbar-tab" role="presentation"><a href="{% url 'blog:feed' %}">Blog</a></li>
+                        <li class="navbar-tab" role="presentation"><a href="{% url 'sales:home'%}">Shop</a></li>
                         {% if user.is_authenticated %}
-                        <li role="presentation"><a href="{% url 'masterfaster:editProfile' %}">Edit Profile</a></li>
-                        <li role="presentation" class="active"><a href="{% url 'masterfaster:logout' %}">Logout</a></li>
+                        <li role="presentation"><a href="{% url 'sales:checkout' %}"><div class="minicart center-block"></div></a></li>
+                        <li class="navbar-tab" role="presentation"><a href="{% url 'masterfaster:editProfile' %}">Edit Profile</a></li>
+                        <li class="navbar-tab" role="presentation"><a href="{% url 'masterfaster:logout' %}">Logout</a></li>
                         {% else %}
-                        <li role="presentation" class="active"><a href="{% url 'masterfaster:login' %}">Login</a></li>
+                        <li class="navbar-tab" role="presentation"><a href="{% url 'masterfaster:login' %}">Login</a></li>
                         {% endif %}
                     </ul>
                 </div>
@@ -79,5 +80,7 @@
     <script src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
     <!-- <script src="../../assets/js/ie10-viewport-bug-workaround.js"></script> -->
+    {% block customjs %}
+    {% endblock customjs %}
 </body>
 </html>
