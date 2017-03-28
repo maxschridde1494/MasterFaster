@@ -3,21 +3,6 @@ import urllib
 from django import template
 from django.utils.safestring import mark_safe
 from sales.models import Product, ShoppingCartItems
-
-def organize_shop_cart(products):
-	"""input: all ShoppingCartItems for one user
-	output: array of (product, size, quantity)"""
-	d = {}
-	for p in products:
-		try:
-			product = Product.objects.get(pk=p.pid)
-		except Product.DoesNotExist:
-			continue
-		if (p.pid, p.size) in d:
-			d[(p.pid, p.size)] += p.quantity
-		else:
-			d[(p.pid, p.size)] = p.quantity
-	return [(Product.objects.get(pk=k[0]),k[1],v) for k,v in d.items()]
  
 register = template.Library()
  

@@ -20,45 +20,21 @@
 						<span>SIZE</span>
 						<span>Price</span>
 					</li>
+
 					{% for item in items %}
-						<li class="row">
-							<span class="quantity">{{item.2}}</span>
-							<span class="itemName"><a href="{% url 'sales:itemDetail' item.0.id %}">{{item.0.name}}</a></span>
-							<span class="size">{{item.1}}</span>
-							<span class="popbtn"><a class="arrow"></a></span>
-							<span class="price">{{item.0.price}}</span>
-						</li>
+					<li class="row">
+						<span class="quantity">{{item.1.quantity}}</span>
+						<!-- <span class='img'><img class="cart-img" src="{% static item.0.img_path %}"></span> -->
+						<span class="itemName"><a href="{% url 'sales:itemDetail' item.1.pid %}">{{item.0.name}}</a></span>
+						<span class="size">{{item.1.size}}</span>
+						<span class="edit popbtn text-center">
+							<div><a href="{% url 'sales:editCartItem' item.1.id %}">Edit</a></div>
+							<div><a href="{% url 'sales:removeCartItem' item.1.id %}">Remove</a></div>
+						</span>
+						<span class="price">{{item.0.price}}</span>
+					</li>
 					{% endfor %}
-					<!-- <li class="row">
-						<span class="quantity">1</span>
-						<span class="itemName">Birthday Cake</span>
-						<span class="popbtn"><a class="arrow"></a></span>
-						<span class="price">$49.95</span>
-					</li>
-					<li class="row">
-						<span class="quantity">50</span>
-						<span class="itemName">Party Cups</span>
-						<span class="popbtn"><a class="arrow"></a></span>
-						<span class="price">$5.00</span>
-					</li>
-					<li class="row">
-						<span class="quantity">20</span>
-						<span class="itemName">Beer kegs</span>
-						<span class="popbtn"><a class="arrow"></a></span>
-						<span class="price">$919.99</span>				
-					</li>
-					<li class="row">
-						<span class="quantity">18</span>
-						<span class="itemName">Pound of beef</span>
-						<span class="popbtn"><a class="arrow"></a></span>
-						<span class="price">$269.45</span>
-					</li>
-					<li class="row">
-						<span class="quantity">1</span>
-						<span class="itemName">Bullet-proof vest</span>
-						<span class="popbtn"  data-parent="#asd" data-toggle="collapse" data-target="#demo"><a class="arrow"></a></span>
-						<span class="price">$450.00</span>				
-					</li> -->
+				
 					<li class="row totals">
 						<span class="itemName">Total:</span>
 						<span class="price">{{total_price_dollars}}</span>
@@ -85,10 +61,10 @@
 
 		<!-- The popover content -->
 
-		<div id="popover" style="display: none">
+		<!-- <div id="popover" style="display: none">
 			<a href="#"><span class="glyphicon glyphicon-pencil"></span></a>
 			<a href="#"><span class="glyphicon glyphicon-remove"></span></a>
-		</div>
+		</div> -->
 {% endblock content %}
 {% block customjs %}
 	<script src="{% static 'sales/shoppingcart.js'%}"></script>
