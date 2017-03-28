@@ -3,7 +3,7 @@ from calendar import monthrange
 from django.forms import ModelForm
 from masterfaster.models import CreditCard
 from django import forms
-from sales.models import Sale
+from sales.models import Sale, Product
 
 class CreditCardForm(ModelForm):
     class Meta:

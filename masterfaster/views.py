@@ -5,7 +5,6 @@ import datetime
 
 from django.contrib.sessions.models import Session
 from .models import User, Billing, Shipping, CreditCard
-from sales.models import ShoppingCart
 from django.contrib.auth import authenticate, login, update_session_auth_hash
 from django.contrib.auth.decorators import login_required
 from .forms.forms import EditShippingAddress, EditBillingAddress, CreateUserForm, EditEmailAddress
@@ -99,8 +98,6 @@ def createUser(request):
 				shipping.save()
 				credit_card = CreditCard(user=user)
 				credit_card.save()
-				shopping_cart = ShoppingCart(user=user)
-				shopping_cart.save()
 				print ('SAVING USER')
 				u = authenticate(username=uname, password=password)
 				#authenticate new user

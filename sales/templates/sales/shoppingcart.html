@@ -17,14 +17,16 @@
 					<li class="row list-inline columnCaptions">
 						<span>QTY</span>
 						<span>ITEM</span>
+						<span>SIZE</span>
 						<span>Price</span>
 					</li>
 					{% for item in items %}
 						<li class="row">
-							<span class="quantity">1</span>
-							<span class="itemName"><a href="{% url 'sales:itemDetail' item.id %}">{{item.name}}</a></span>
+							<span class="quantity">{{item.2}}</span>
+							<span class="itemName"><a href="{% url 'sales:itemDetail' item.0.id %}">{{item.0.name}}</a></span>
+							<span class="size">{{item.1}}</span>
 							<span class="popbtn"><a class="arrow"></a></span>
-							<span class="price">{{item.price}}</span>
+							<span class="price">{{item.0.price}}</span>
 						</li>
 					{% endfor %}
 					<!-- <li class="row">

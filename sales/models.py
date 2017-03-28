@@ -8,13 +8,13 @@ from masterfaster.models import User
 
 class Product(models.Model):
 	def size_default():
-		return {"small": "S", 'medium': 'M', 'large': 'L', 'x-large': 'XL'}
+		return []
 
 	name = models.CharField(max_length=100)
 	price = models.DecimalField(max_digits=10, decimal_places=2)
 	description = models.CharField(max_length=400, null=True)
 	img_path = models.CharField(max_length=200, default='sales/images/default.jpg')
-	size = JSONField("Size", default=size_default)
+	size = ArrayField(models.CharField(max_length=10),default=size_default)
 
 	def __str__(self):
 		return self.name
@@ -22,35 +22,37 @@ class Product(models.Model):
 	def __add__(self, product):
 		return Product(name='',price=self.price + product.price)
 
-class ShoppingCart(models.Model):
-	def default():
-		return []
+class ShoppingCartItems(models.Model):
+	user = models.ForeignKey(User, on_delete=models.CASCADE)
+	pid = models.IntegerField()
+	quantity = models.IntegerField()
+	size = models.CharField(max_length=100)
+	# def default():
+	# 	return []
 
-	user = models.OneToOneField(
-		User,
-		on_delete=models.CASCADE,
-		primary_key=True,
-	)
-	#store product ids, quantity, size in shopping Cart model
-	#ex: {'product_id': 4, 'quantity': 4, 'size': 'XL'}
-	items = ArrayField(JSONField(), default=default)
+	# user = models.OneToOneField(
+	# 	User,
+	# 	on_delete=models.CASCADE,
+	# 	primary_key=True,
+	# )
+	# #store product ids, quantity, size in shopping Cart model
+	# #ex: {'product_id': 4, 'quantity': 4, 'size': 'XL'}
+	# items = ArrayField(JSONField(), default=default)
 
-	def total(self):
-		"""returns total price of shopping cart. 
-		Returns None if any product in the cart no longer exists"""
-		t_price = 0
-		for item in self.items:
-			try:
-				p = Product.objects.get(id=item['product_id'])
-			except Product.DoesNotExist:
-				return None
-			t_price += p.price * item['quantity']
-		return t_price
+	# def total(self):
+	# 	"""returns total price of shopping cart. 
+	# 	Returns None if any product in the cart no longer exists"""
+	# 	t_price = 0
+	# 	for item in self.items:
+	# 		try:
+	# 			p = Product.objects.get(id=item['product_id'])
+	# 		except Product.DoesNotExist:
+	# 			return None
+	# 		t_price += p.price * item['quantity']
+	# 	return t_price
 
-	def __str__(self):
-		return self.user.username
-
-	#add a total method to get the TOTAL PRICE of shopping cart
+	# def __str__(self):
+	# 	return self.user.username
 
 
 class Sale(models.Model):
