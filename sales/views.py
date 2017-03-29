@@ -38,11 +38,12 @@ def add_to_cart(request, product_id):
 
 @login_required
 def charge(request, amount):
-	#PASS IN SHOPPING CART USER FOR VERIFICATION
+	print('in CHARGE')
 	if request.method == 'POST':
 		u = User.objects.get(username=request.user)
 		sale = Sale()
 		#stripe charge
+		print(request.POST)
 		success, instance = sale.charge(amount, request.POST['stripeToken'])
 		if not success:
 			return HttpResponse(render(request, 'sales/addconfirmation.html'))
@@ -100,8 +101,6 @@ def edit_cart_item(request, cart_id):
 		context = {'product':product, 'cart_item_id': cart_id}
 		return HttpResponse(render(request, 'sales/editcartitem.html', context))
 
-
-
 def home(request):
 	if request.method == 'POST':
 		pass
@@ -136,8 +135,6 @@ def remove_cart_item(request, cart_id):
 	except ShoppingCartItems.DoesNotExist:
 		pass
 		#figure out what to do if item doesn't exist
-
-	#combine all cart items in shopping cart, so need to get all cart_items with same size and pid
 	cart_item.delete()
 	return redirect('sales:checkout')
 
