@@ -29,6 +29,15 @@ def dollar_str_to_cents_int(num):
 		return doll*100 + int(s[1])
 	return doll*100
 
+def cents_to_dollars(num):
+	"""return string in $0.00 format"""
+	if int(num) < 100:
+		return "$0." + num
+	dollars,cents = str(int(num) // 100), str(int(num) % 100)
+	if len(cents) < 2:
+		cents = "0" + cents
+	return "$" + dollars + "." + cents
+
 def fetch_prev_next(bp, posts):
 	"""Takes in a blog post and the QuerySet of all blog posts.
 	Returns a dictionary mapping:

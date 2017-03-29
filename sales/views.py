@@ -6,7 +6,7 @@ from .forms.forms import TestPaymentForm
 from masterfaster.models import User, CreditCard
 from django.contrib.auth.decorators import login_required
 from django import forms
-from utils import gravatar, dollar_str_to_cents_int
+from utils import gravatar, dollar_str_to_cents_int, cents_to_dollars
 from django.conf import settings
 from django.utils import timezone
 import functools
@@ -22,43 +22,61 @@ def add_to_cart(request, product_id):
 			#update if user already has same cart_item with same pid and size
 			scart_item = ShoppingCartItems.objects.get(user=user,pid=product_id,size=size)
 			scart_item.quantity += int(quantity)
-			print('update')
 		except ShoppingCartItems.DoesNotExist:
 			scart_item = ShoppingCartItems(user=user,pid=product_id,quantity=quantity,size=size)
-			print('new item')
 		scart_item.save()
-		print(scart_item.id)
 		
 		context = {}
 		context['product_name'] = Product.objects.get(pk=product_id).name
 		context['quantity'] = request.POST['quantity']
-		return HttpResponse(render(request, 'sales/addconfirmation.html', context))
+		context['add'] = True
+		return HttpResponse(render(request, 'sales/confirmation.html', context))
 
 	return redirect(reverse('sales:itemDetail', args=[product_id]))
 
 @login_required
 def charge(request, amount):
-	print('in CHARGE')
 	if request.method == 'POST':
 		u = User.objects.get(username=request.user)
 		sale = Sale()
 		#stripe charge
-		print(request.POST)
 		success, instance = sale.charge(amount, request.POST['stripeToken'])
 		if not success:
-			return HttpResponse(render(request, 'sales/addconfirmation.html'))
+			return HttpResponse("Error reading card.")
 		else:
 			sale.date = timezone.now()
 			sale.amount = amount
 			sale.user = u
 			sale.save()
-			#delete all ShoppingCartItems related to user who just paid
-			scart_items = ShoppingCartItems.objects.filter(user=u)
-			for item in scart_items:
-				item.delete()
-			print("Success! We've charged your card!")
-			return redirect('sales:home')
+			request.session['sale_id'] = sale.id
+			return HttpResponse('Successful Charge.')
+			# return redirect(reverse('sales:chargeConfirmation', args=[amount]))
 	return HttpResponse("Invalid match.")
+
+@login_required
+def charge_confirmation(request, amount):
+	if request.method == 'GET':
+		context = {'add': False}
+		context['amount'] = cents_to_dollars(amount)
+		#get purchase items for confirmation page
+		sale_id = request.session.pop('sale_id', None)
+		if sale_id != None:
+			sale = Sale.objects.get(pk=sale_id)
+			context['conf_num'] = sale.charge_id
+		scart_items = ShoppingCartItems.objects.filter(user=User.objects.get(username=request.user))
+		purchases = {}
+		for c_item in scart_items:
+			p = Product.objects.get(pk=c_item.pid)
+			purchases[(p.name, c_item.size)] = {'quantity': c_item.quantity, 'size': c_item.size}
+		context['purchases'] = purchases
+		#delete all ShoppingCartItems related to user who just paid
+		for item in scart_items:
+			item.delete()
+		print('charge_confirmation context: ')
+		print(context)
+		return HttpResponse(render(request, 'sales/confirmation.html', context))
+	return HttpResponse('Fail')
+
 
 @login_required
 def checkout(request):
@@ -102,6 +120,7 @@ def edit_cart_item(request, cart_id):
 		return HttpResponse(render(request, 'sales/editcartitem.html', context))
 
 def home(request):
+	print('in home')
 	if request.method == 'POST':
 		pass
 	else:

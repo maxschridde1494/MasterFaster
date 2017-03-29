@@ -39,21 +39,9 @@
 						<span class="itemName">Total:</span>
 						<span class="price">{{total_price_dollars}}</span>
 						<span class="order">
-							<!-- <form action="{% url 'sales:charge' amount%}" method="post"> -->
 			            		{% csrf_token %}
-								<!-- <script
-					                src="https://checkout.stripe.com/checkout.js" class="stripe-button"
-					                data-email = {{email}}
-					                data-key= {{stripe_api_key}}
-					                data-amount= {{amount}}
-					                data-name="Master Faster"
-					                data-image="{% static 'sales/images/default.jpg' %}"
-					                data-locale="auto"
-					                data-zip-code="true">
-					            </script> -->
 					            <script src="https://checkout.stripe.com/checkout.js"></script>
 
-								<!-- <button id="customButton">Purchase</button> -->
 								<a href="{% url 'sales:home' %}" id="customButton" class="btn btn-lg btn-primary btn-block confirmation-button">Pay</a>
 
 								<script>
@@ -67,7 +55,8 @@
 											    type: 'POST',
 											    data: {'stripeToken': token.id, csrfmiddlewaretoken: '{{ csrf_token }}'},
 											    success: function(s) {
-											      console.log( "SUCCESS" );
+													console.log( "SUCCESS" );
+													window.location.href = "{% url 'sales:chargeConfirmation' amount%}";
 											    },
 											    error: function(e){
 											      console.log( "ERROR" );
