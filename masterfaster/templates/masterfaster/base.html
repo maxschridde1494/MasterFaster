@@ -59,7 +59,7 @@
                         <li class="navbar-tab" role="presentation"><a href="{% url 'sales:home'%}">Shop</a></li>
                         {% if user.is_authenticated %}
                         <li role="presentation"><a href="{% url 'sales:checkout' %}"><div class="minicart center-block"></div></a></li>
-                        <li class="navbar-tab" role="presentation"><a href="{% url 'masterfaster:editProfile' %}">Edit Profile</a></li>
+                        <li class="navbar-tab" role="presentation"><a href="{% url 'masterfaster:editEmailAddress' %}">Edit Profile</a></li>
                         <li class="navbar-tab" role="presentation"><a href="{% url 'masterfaster:logout' %}">Logout</a></li>
                         {% else %}
                         <li class="navbar-tab" role="presentation"><a href="{% url 'masterfaster:login' %}">Login</a></li>

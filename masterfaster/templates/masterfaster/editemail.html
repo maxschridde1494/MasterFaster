@@ -18,11 +18,9 @@
 
     <form class="form-signin" method="post" action="{% url 'masterfaster:editEmailAddress' %}">
     {% csrf_token %}
-    <h2 class="form-signin-heading">Edit Email Address</h2>
     <ul class="nav nav-tabs">
-        <li role="presentation" class="active"><a href="{% url 'masterfaster:editProfile' %}">Edit Profile</a></li>
-        <li role="presentation"><a href="{% url 'masterfaster:editBillingAddress' %}">Edit Billing Address</a></li>
-        <li role="presentation"><a href="{% url 'masterfaster:editShippingAddress' %}">Edit Shipping Address</a></li>
+        <li role="presentation" class="active"><a href="{% url 'masterfaster:editEmailAddress' %}">Edit Email</a></li>
+        <li role="presentation"><a href="{% url 'masterfaster:password_change' %}">Change Password</a></li>
     </ul>
     <br>
     <table>

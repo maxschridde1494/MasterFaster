@@ -12,17 +12,6 @@ from sales.forms.forms import CreditCardForm
 from utils import gravatar
 from django.contrib.auth.forms import PasswordChangeForm
 
-
-def home(request):
-	context = {}
-	try:
-		u = User.objects.get(username=request.user)
-	except User.DoesNotExist:
-		return HttpResponse(render(request, 'masterfaster/home.html', context))
-	img = gravatar(u.email, 40)
-	context['img'] = img
-	return HttpResponse(render(request, 'masterfaster/home.html', context))
-
 @login_required
 def change_password(request):
 	if request.method == 'POST':
@@ -30,7 +19,7 @@ def change_password(request):
 		if form.is_valid():
 			user = form.save()
 			update_session_auth_hash(request, user)  # Important!
-			return redirect('masterfaster:editProfile')
+			return HttpResponse(render(request, 'masterfaster/editconfirmation.html', {'update': 'Password'}))
 		else:
 			print('not valid form')
 			print(form.errors)
@@ -129,49 +118,6 @@ def createUser(request):
 		}
 		return HttpResponse(render(request, 'registration/login.html', context))
 
-@login_required
-def editProfile(request):
-	print('in edit profile')
-	if request.method == 'POST':
-		form = CreditCardForm(request.POST)
-		user = User.objects.get(username=request.user)
-		if form.is_valid():
-			#post new profile information and save to db
-			try:
-				credit_card = CreditCard.objects.get(user=user)
-			except CreditCard.DoesNotExist:
-				credit_card = CreditCard(user=user)
-			credit_card.number = form.cleaned_data['number']
-			credit_card.exp_date_month = form.cleaned_data['exp_date_month']
-			credit_card.exp_date_year = form.cleaned_data['exp_date_year']
-			credit_card.csv = form.cleaned_data['csv']
-			credit_card.save()
-			return redirect('masterfaster:editProfile')
-		context = {
-			'credit_card_form': form,
-			'edit_profile': True,
-			'edit_shipping': False,
-			'edit_billing': False,
-			'img': gravatar(user.email)
-		}
-		return HttpResponse(render(request, 'masterfaster/editprofile.html', context))
-	else:
-		#load Edit Profile Template
-		user = User.objects.get(username=request.user)
-		img = gravatar(user.email)
-		try:
-			credit_card = CreditCard.objects.get(user=user)
-		except CreditCard.DoesNotExist:
-			credit_card = CreditCard(user=user)
-		credit_card_form = CreditCardForm(instance=credit_card)
-		context = {
-			'credit_card_form': credit_card_form,
-			'edit_profile': True,
-			'edit_shipping': False,
-			'edit_billing': False,
-			'img': img
-		}
-		return HttpResponse(render(request, 'masterfaster/editprofile.html', context))
 
 @login_required
 def editEmailAddress(request):
@@ -181,8 +127,8 @@ def editEmailAddress(request):
 		if form.is_valid():
 			user.email = form.cleaned_data['email']
 			user.save()
-			return redirect('masterfaster:editProfile')
-		redirect('masterfaster:editEmailAddress')
+			return HttpResponse(render(request, 'masterfaster/editconfirmation.html', {'update': 'Email Address'}))
+		return redirect('masterfaster:editEmailAddress')
 	else:
 		u = User.objects.get(username=request.user)
 		img = gravatar(u.email)
@@ -193,102 +139,12 @@ def editEmailAddress(request):
 		}
 		return HttpResponse(render(request, 'masterfaster/editemail.html', context))
 
-# @login_required
-# def editBillingAddress(request):
-# 	print('in edit Address')
-# 	if request.method == 'POST':
-# 		form = EditBillingAddress(request.POST)
-# 		if form.is_valid():
-# 			user = User.objects.get(username=request.user)
-# 			try:
-# 				billing = Billing.objects.get(user=user)
-# 			except Billing.DoesNotExist:
-# 				billing = Billing(user=user)
-# 			#save edited billing information
-# 			billing.address = form.cleaned_data['address']
-# 			billing.city = form.cleaned_data['city']
-# 			billing.state = form.cleaned_data['state']
-# 			billing.zipcode = form.cleaned_data['zipcode']
-# 			billing.country = form.cleaned_data['country']			
-# 			billing.save()
-# 			return redirect('masterfaster:editBillingAddress')
-# 	else:
-# 		u = User.objects.get(username=request.user)
-# 		img = gravatar(u.email)
-# 		try:
-# 			billing = Billing.objects.get(user=u)
-# 		except Billing.DoesNotExist:
-# 			billing = None
-# 		if billing != None:
-# 			billing_address_form = EditBillingAddress(instance=billing)
-# 		else:
-# 			billing_address_form = EditBillingAddress()
-# 		context = {
-# 			'address_form': billing_address_form,
-# 			'edit_profile': False,
-# 			'edit_billing': True,
-# 			'edit_shipping': False,
-# 			'img': img
-# 		}
-# 		return HttpResponse(render(request, 'masterfaster/editprofile.html', context))
-
-# @login_required
-# def editShippingAddress(request):
-# 	if request.method == 'POST':
-# 		form = EditShippingAddress(request.POST)
-# 		if form.is_valid():
-# 			user = User.objects.get(username=request.user)
-# 			try:
-# 				shipping = Shipping.objects.get(user=user)
-# 			except Shipping.DoesNotExist:
-# 				shipping = Shipping(user=user)
-# 			#save edited billing information
-# 			['address', 'city', 'state', 'zipcode', 'country', 'same_as_billing']
-# 			if form.cleaned_data['same_as_billing'] == True:
-# 				try:
-# 					billing = Billing.objects.get(user=user)
-# 				except Billing.DoesNotExist:
-# 					shipping_address_form = EditShippingAddress(instance=shipping)
-# 					context = {
-# 						'address_form': shipping_address_form,
-# 						'edit_profile': False,
-# 						'edit_billing': False,
-# 						'edit_shipping': True,
-# 						'no_billing': True
-# 					}
-# 					return HttpResponse(render(request, 'masterfaster/editprofile.html', context))
-# 				shipping.address = billing.address
-# 				shipping.city = billing.city
-# 				shipping.state = billing.state
-# 				shipping.zipcode = billing.zipcode
-# 				shipping.country = billing.country	
-# 				shipping.same_as_billing = form.cleaned_data['same_as_billing']		
-# 				shipping.save()
-# 			else:		
-# 				shipping.address = form.cleaned_data['address']
-# 				shipping.city = form.cleaned_data['city']
-# 				shipping.state = form.cleaned_data['state']
-# 				shipping.zipcode = form.cleaned_data['zipcode']
-# 				shipping.country = form.cleaned_data['country']	
-# 				shipping.same_as_billing = form.cleaned_data['same_as_billing']		
-# 				shipping.save()
-# 			return redirect('masterfaster:editShippingAddress')
-# 	else:
-# 		u = User.objects.get(username=request.user)
-# 		img = gravatar(u.email)
-# 		try:
-# 			shipping = Shipping.objects.get(user=u)
-# 		except Shipping.DoesNotExist:
-# 			shipping = None
-# 		if shipping != None:
-# 			shipping_address_form = EditShippingAddress(instance=shipping)
-# 		else:
-# 			shipping_address_form = EditShippingAddress()
-# 		context = {
-# 			'address_form': shipping_address_form,
-# 			'edit_profile': False,
-# 			'edit_billing': False,
-# 			'edit_shipping': True,
-# 			'img': img
-# 		}
-# 		return HttpResponse(render(request, 'masterfaster/editprofile.html', context))
+def home(request):
+	context = {}
+	try:
+		u = User.objects.get(username=request.user)
+	except User.DoesNotExist:
+		return HttpResponse(render(request, 'masterfaster/home.html', context))
+	img = gravatar(u.email, 40)
+	context['img'] = img
+	return HttpResponse(render(request, 'masterfaster/home.html', context))

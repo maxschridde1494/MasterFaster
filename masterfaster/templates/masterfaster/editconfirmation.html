@@ -1,0 +1,19 @@
+{% extends 'masterfaster/base.html' %}
+
+{% load static %}
+
+{% block prof_img %}
+    {{img}}
+{% endblock prof_img %}
+
+{% block customstylesheet %}
+    <link href="{% static 'masterfaster/masterfaster.css' %}?{% now 'U' %}" rel="stylesheet">
+{% endblock customstylesheet %}
+
+{% block title %}Edit Email Address{% endblock %}
+
+{% block content %}
+
+<h1>You have successfully updated your {{update}}.</h1>
+
+{% endblock content %}
