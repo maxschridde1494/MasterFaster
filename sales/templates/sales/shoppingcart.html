@@ -38,6 +38,7 @@
 					<li class="row totals">
 						<span class="itemName">Total:</span>
 						<span class="price">{{total_price_dollars}}</span>
+						{% if amount != 0 %}
 						<span class="order">
 			            		{% csrf_token %}
 					            <script src="https://checkout.stripe.com/checkout.js"></script>
@@ -81,6 +82,7 @@
 								</script>
 							<!-- </form> -->
 						</span>
+						{% endif %}
 					</li>
 				</ul>
 			</div>

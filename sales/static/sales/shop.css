@@ -13,6 +13,12 @@ table, th, td {
     border: 1px solid black;
     text-align: center;
 }
+.horizontal-center{
+    margin: 0 auto;
+}
+.confirmation-body{
+    text-align: center;
+}
 
 .conf-lst{
     width: 75px;
@@ -20,7 +26,12 @@ table, th, td {
 }
  .confirmation-button{
     width: 200px;
+    margin-top: 20px;
  }
+
+.list-group-item{
+    max-width: 300px;
+}
 
 .shop-main{
     padding-top: 20px;

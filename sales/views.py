@@ -37,6 +37,8 @@ def add_to_cart(request, product_id):
 @login_required
 def charge(request, amount):
 	if request.method == 'POST':
+		if amount == '0':
+			return redirect('sales:checkout')
 		u = User.objects.get(username=request.user)
 		sale = Sale()
 		#stripe charge
@@ -67,7 +69,7 @@ def charge_confirmation(request, amount):
 		purchases = {}
 		for c_item in scart_items:
 			p = Product.objects.get(pk=c_item.pid)
-			purchases[(p.name, c_item.size)] = {'quantity': c_item.quantity, 'size': c_item.size}
+			purchases[(p.name, c_item.size)] = {'quantity': c_item.quantity, 'size': c_item.size, 'price': p.price}
 		context['purchases'] = purchases
 		#delete all ShoppingCartItems related to user who just paid
 		for item in scart_items:

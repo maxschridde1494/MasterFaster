@@ -8,8 +8,11 @@
 
     {% if product_list %}
 
-    <div class="row">
         {% for product in product_list %}
+            {% if forloop.counter0|divisibleby:3 %}
+            </div>
+            <div class='row'>
+            {% endif %}
             <div class="col-sm-4 col-lg-4 col-md-4">
                 <div class="thumbnail">
                     <img class='item' src="{% static product.img_path %}" alt="" width='200' height="150">
@@ -33,6 +36,9 @@
             </div>
         {% endfor %}
     </div>
+    {% if not forloop.counter0|divisibleby:3 %}
+        </div>
+    {% endif %}
 
     {% else %}
 

@@ -4,7 +4,7 @@
 
 
 {% block content %}
-<div class="col-md-9">
+<div class="col-md-9 confirmation-body">
 	{% if add %}
 		{% if quantity == 1 %}
 		<h1>{{quantity}} {{product_name}} has successfully been added to your shopping cart.</h1>
@@ -12,19 +12,20 @@
 		<h1>{{quantity}} {{product_name}}'s have successfully been added to your shopping cart.</h1>
 		{% endif %}
 		<div class="row">
-			<a href="{% url 'sales:home' %}" class="btn btn-lg btn-primary btn-block confirmation-button">Continue Shopping</a>
-			<a href="{% url 'sales:checkout' %}" class="btn btn-lg btn-primary btn-block confirmation-button">Checkout</a>
+			<a href="{% url 'sales:home' %}" class="btn btn-lg btn-primary btn-block confirmation-button horizontal-center">Continue Shopping</a>
+			<a href="{% url 'sales:checkout' %}" class="btn btn-lg btn-primary btn-block confirmation-button horizontal-center">Checkout</a>
 		</div>
 	{% else %}
 		<div class="row">
 			<h1>Your card has successfully been charged {{amount}}.</h1>
 			<h3>Confirmation number: {{conf_num}}.</h3>
 			</hr>
-			<table>
+			<table class="horizontal-center">
 				<tr>
 					<th class='conf-lst'>Item</th>
 					<th class='conf-lst'>Size</th> 
 					<th class='conf-lst'>Quantity</th>
+					<th class='conf-lst'>Price</th>
 				</tr>
 
 				{% for k,v in purchases.items %}
@@ -32,11 +33,12 @@
 					<td class='conf-lst'>{{k.0}}</td>
 					<td class='conf-lst'>{{v.size}}</td> 
 					<td class='conf-lst'>{{v.quantity}}</td>
+					<td class='conf-lst'>{{v.price}}</td>
 				</tr>
 				{% endfor %}
 
 			</table>
-			<a href="{% url 'sales:home' %}" class="btn btn-lg btn-primary btn-block confirmation-button">Continue Shopping</a>
+			<a href="{% url 'sales:home' %}" class="btn btn-lg btn-primary btn-block confirmation-button horizontal-center">Continue Shopping</a>
 		</div>
 	{% endif %}
 </div>
