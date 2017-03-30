@@ -12,7 +12,7 @@ urlpatterns = [
     url(r'^login/create_user$', views.createUser, name='createUser'),
 	url(r'^logout/$', auth_views.logout, {'template_name': 'masterfaster/registration/logout.html'}, name='logout'),
 	url(r'^edit/profile_info/$', views.editProfile, name='editProfile'),
-	url(r'^edit/billing_address/$', views.editBillingAddress, name='editBillingAddress'),
-	url(r'^edit/shipping_address/$', views.editShippingAddress, name='editShippingAddress'),
+	# url(r'^edit/billing_address/$', views.editBillingAddress, name='editBillingAddress'),
+	# url(r'^edit/shipping_address/$', views.editShippingAddress, name='editShippingAddress'),
 	url(r'^edit/email_address/$', views.editEmailAddress, name='editEmailAddress'),
 ]

@@ -3,6 +3,7 @@ import urllib
 from django import template
 from django.utils.safestring import mark_safe
 from sales.models import Product, ShoppingCartItems
+import functools
  
 register = template.Library()
  
@@ -28,6 +29,11 @@ def dollar_str_to_cents_int(num):
 	if len(s) > 1:
 		return doll*100 + int(s[1])
 	return doll*100
+
+def address_empty(address):
+	if address.address == None or address.city == None or address.state == None or address.zipcode == None or address.country == None:
+		return True
+	return False
 
 def cents_to_dollars(num):
 	"""return string in $0.00 format"""
@@ -72,3 +78,14 @@ def fetch_prev_next(bp, posts):
 		p_n['prev'] = posts[counter - 1].id
 		p_n['next'] = posts[counter + 1].id
 	return p_n
+
+def get_shopping_cart_total_price(user):
+	products = ShoppingCartItems.objects.filter(user=user) 
+	items = [(Product.objects.get(pk=p.pid),p) for p in products]
+	if items:
+		prices = [item[1].quantity*item[0].price for item in items]
+		total_price = functools.reduce(lambda x,y: x+y, prices, 0)
+	else:
+		total_price = 0.00
+	return total_price
+

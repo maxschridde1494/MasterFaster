@@ -18,6 +18,13 @@ a:hover {
 .shopping-main {
 	margin-top: 20px;
 }
+.horizontal-center{
+    margin: 0 auto;
+}
+.confirmation-button{
+	width: 300px;
+	margin-top: 20px;
+}
 
 /*----------------------------------- 
 	Main

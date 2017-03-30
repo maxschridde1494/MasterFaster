@@ -27,32 +27,12 @@ class ShoppingCartItems(models.Model):
 	pid = models.IntegerField()
 	quantity = models.IntegerField()
 	size = models.CharField(max_length=100)
-	# def default():
-	# 	return []
 
-	# user = models.OneToOneField(
-	# 	User,
-	# 	on_delete=models.CASCADE,
-	# 	primary_key=True,
-	# )
-	# #store product ids, quantity, size in shopping Cart model
-	# #ex: {'product_id': 4, 'quantity': 4, 'size': 'XL'}
-	# items = ArrayField(JSONField(), default=default)
+	def __str__(self):
+		return self.user
 
-	# def total(self):
-	# 	"""returns total price of shopping cart. 
-	# 	Returns None if any product in the cart no longer exists"""
-	# 	t_price = 0
-	# 	for item in self.items:
-	# 		try:
-	# 			p = Product.objects.get(id=item['product_id'])
-	# 		except Product.DoesNotExist:
-	# 			return None
-	# 		t_price += p.price * item['quantity']
-	# 	return t_price
-
-	# def __str__(self):
-	# 	return self.user.username
+# class SoldItems(models.Model):
+	#THIS IS FOR PURCHASE HISTORY
 
 
 class Sale(models.Model):
@@ -66,6 +46,7 @@ class Sale(models.Model):
 	date = models.DateTimeField(auto_now=False, auto_now_add=False, null=True)
 	amount = models.CharField(max_length=100, null=True)
 	user = models.ForeignKey(User, null=True)
+	#ADD BILLING AND SHIPPING
 
 	def __str__(self):
 		return self.charge_id

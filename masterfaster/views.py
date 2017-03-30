@@ -193,102 +193,102 @@ def editEmailAddress(request):
 		}
 		return HttpResponse(render(request, 'masterfaster/editemail.html', context))
 
-@login_required
-def editBillingAddress(request):
-	print('in edit Address')
-	if request.method == 'POST':
-		form = EditBillingAddress(request.POST)
-		if form.is_valid():
-			user = User.objects.get(username=request.user)
-			try:
-				billing = Billing.objects.get(user=user)
-			except Billing.DoesNotExist:
-				billing = Billing(user=user)
-			#save edited billing information
-			billing.address = form.cleaned_data['address']
-			billing.city = form.cleaned_data['city']
-			billing.state = form.cleaned_data['state']
-			billing.zipcode = form.cleaned_data['zipcode']
-			billing.country = form.cleaned_data['country']			
-			billing.save()
-			return redirect('masterfaster:editBillingAddress')
-	else:
-		u = User.objects.get(username=request.user)
-		img = gravatar(u.email)
-		try:
-			billing = Billing.objects.get(user=u)
-		except Billing.DoesNotExist:
-			billing = None
-		if billing != None:
-			billing_address_form = EditBillingAddress(instance=billing)
-		else:
-			billing_address_form = EditBillingAddress()
-		context = {
-			'address_form': billing_address_form,
-			'edit_profile': False,
-			'edit_billing': True,
-			'edit_shipping': False,
-			'img': img
-		}
-		return HttpResponse(render(request, 'masterfaster/editprofile.html', context))
+# @login_required
+# def editBillingAddress(request):
+# 	print('in edit Address')
+# 	if request.method == 'POST':
+# 		form = EditBillingAddress(request.POST)
+# 		if form.is_valid():
+# 			user = User.objects.get(username=request.user)
+# 			try:
+# 				billing = Billing.objects.get(user=user)
+# 			except Billing.DoesNotExist:
+# 				billing = Billing(user=user)
+# 			#save edited billing information
+# 			billing.address = form.cleaned_data['address']
+# 			billing.city = form.cleaned_data['city']
+# 			billing.state = form.cleaned_data['state']
+# 			billing.zipcode = form.cleaned_data['zipcode']
+# 			billing.country = form.cleaned_data['country']			
+# 			billing.save()
+# 			return redirect('masterfaster:editBillingAddress')
+# 	else:
+# 		u = User.objects.get(username=request.user)
+# 		img = gravatar(u.email)
+# 		try:
+# 			billing = Billing.objects.get(user=u)
+# 		except Billing.DoesNotExist:
+# 			billing = None
+# 		if billing != None:
+# 			billing_address_form = EditBillingAddress(instance=billing)
+# 		else:
+# 			billing_address_form = EditBillingAddress()
+# 		context = {
+# 			'address_form': billing_address_form,
+# 			'edit_profile': False,
+# 			'edit_billing': True,
+# 			'edit_shipping': False,
+# 			'img': img
+# 		}
+# 		return HttpResponse(render(request, 'masterfaster/editprofile.html', context))
 
-@login_required
-def editShippingAddress(request):
-	if request.method == 'POST':
-		form = EditShippingAddress(request.POST)
-		if form.is_valid():
-			user = User.objects.get(username=request.user)
-			try:
-				shipping = Shipping.objects.get(user=user)
-			except Shipping.DoesNotExist:
-				shipping = Shipping(user=user)
-			#save edited billing information
-			['address', 'city', 'state', 'zipcode', 'country', 'same_as_billing']
-			if form.cleaned_data['same_as_billing'] == True:
-				try:
-					billing = Billing.objects.get(user=user)
-				except Billing.DoesNotExist:
-					shipping_address_form = EditShippingAddress(instance=shipping)
-					context = {
-						'address_form': shipping_address_form,
-						'edit_profile': False,
-						'edit_billing': False,
-						'edit_shipping': True,
-						'no_billing': True
-					}
-					return HttpResponse(render(request, 'masterfaster/editprofile.html', context))
-				shipping.address = billing.address
-				shipping.city = billing.city
-				shipping.state = billing.state
-				shipping.zipcode = billing.zipcode
-				shipping.country = billing.country	
-				shipping.same_as_billing = form.cleaned_data['same_as_billing']		
-				shipping.save()
-			else:		
-				shipping.address = form.cleaned_data['address']
-				shipping.city = form.cleaned_data['city']
-				shipping.state = form.cleaned_data['state']
-				shipping.zipcode = form.cleaned_data['zipcode']
-				shipping.country = form.cleaned_data['country']	
-				shipping.same_as_billing = form.cleaned_data['same_as_billing']		
-				shipping.save()
-			return redirect('masterfaster:editShippingAddress')
-	else:
-		u = User.objects.get(username=request.user)
-		img = gravatar(u.email)
-		try:
-			shipping = Shipping.objects.get(user=u)
-		except Shipping.DoesNotExist:
-			shipping = None
-		if shipping != None:
-			shipping_address_form = EditShippingAddress(instance=shipping)
-		else:
-			shipping_address_form = EditShippingAddress()
-		context = {
-			'address_form': shipping_address_form,
-			'edit_profile': False,
-			'edit_billing': False,
-			'edit_shipping': True,
-			'img': img
-		}
-		return HttpResponse(render(request, 'masterfaster/editprofile.html', context))
+# @login_required
+# def editShippingAddress(request):
+# 	if request.method == 'POST':
+# 		form = EditShippingAddress(request.POST)
+# 		if form.is_valid():
+# 			user = User.objects.get(username=request.user)
+# 			try:
+# 				shipping = Shipping.objects.get(user=user)
+# 			except Shipping.DoesNotExist:
+# 				shipping = Shipping(user=user)
+# 			#save edited billing information
+# 			['address', 'city', 'state', 'zipcode', 'country', 'same_as_billing']
+# 			if form.cleaned_data['same_as_billing'] == True:
+# 				try:
+# 					billing = Billing.objects.get(user=user)
+# 				except Billing.DoesNotExist:
+# 					shipping_address_form = EditShippingAddress(instance=shipping)
+# 					context = {
+# 						'address_form': shipping_address_form,
+# 						'edit_profile': False,
+# 						'edit_billing': False,
+# 						'edit_shipping': True,
+# 						'no_billing': True
+# 					}
+# 					return HttpResponse(render(request, 'masterfaster/editprofile.html', context))
+# 				shipping.address = billing.address
+# 				shipping.city = billing.city
+# 				shipping.state = billing.state
+# 				shipping.zipcode = billing.zipcode
+# 				shipping.country = billing.country	
+# 				shipping.same_as_billing = form.cleaned_data['same_as_billing']		
+# 				shipping.save()
+# 			else:		
+# 				shipping.address = form.cleaned_data['address']
+# 				shipping.city = form.cleaned_data['city']
+# 				shipping.state = form.cleaned_data['state']
+# 				shipping.zipcode = form.cleaned_data['zipcode']
+# 				shipping.country = form.cleaned_data['country']	
+# 				shipping.same_as_billing = form.cleaned_data['same_as_billing']		
+# 				shipping.save()
+# 			return redirect('masterfaster:editShippingAddress')
+# 	else:
+# 		u = User.objects.get(username=request.user)
+# 		img = gravatar(u.email)
+# 		try:
+# 			shipping = Shipping.objects.get(user=u)
+# 		except Shipping.DoesNotExist:
+# 			shipping = None
+# 		if shipping != None:
+# 			shipping_address_form = EditShippingAddress(instance=shipping)
+# 		else:
+# 			shipping_address_form = EditShippingAddress()
+# 		context = {
+# 			'address_form': shipping_address_form,
+# 			'edit_profile': False,
+# 			'edit_billing': False,
+# 			'edit_shipping': True,
+# 			'img': img
+# 		}
+# 		return HttpResponse(render(request, 'masterfaster/editprofile.html', context))
