@@ -24,4 +24,4 @@ class EditBillingAddress(ModelForm):
 class EditShippingAddress(ModelForm):
 	class Meta:
 		model = Shipping
-		fields = ['address', 'city', 'state', 'zipcode', 'country', 'same_as_billing']
+		fields = ['address', 'city', 'state', 'zipcode', 'country']

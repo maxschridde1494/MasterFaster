@@ -151,3 +151,10 @@ STATICFILES_DIRS = [
     'masterfaster/static',
     'blog/static',
 ]
+
+##EMAIL SETUP
+EMAIL_USE_TLS = True
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = 'maxschridde@gmail.com'
+EMAIL_HOST_PASSWORD = 'Moximo1494*'
+EMAIL_PORT = 587

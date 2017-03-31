@@ -7,7 +7,6 @@ urlpatterns = [
 	url(r'^$', views.home, name='home'),
     url(r'^charge/(?P<amount>[0-9]+)/$', views.charge, name='charge'),
     url(r'^charge_confirmation/(?P<amount>[0-9]+)/$', views.charge_confirmation, name='chargeConfirmation'),
-    url(r'^checkout/edit_addresses/(?P<billing_bool>[\w]+)/$', views.edit_addresses, name='editAddresses'),
 	url(r'^item/(?P<product_id>[0-9]+)/$', views.item_detail, name='itemDetail'),
 	url(r'^item/(?P<product_id>[0-9]+)/add_to_cart/$', views.add_to_cart, name='addToCart'),
 	url(r'^shopping_cart/$', views.checkout, name='checkout'),

@@ -11,6 +11,8 @@ from .forms.forms import EditShippingAddress, EditBillingAddress, CreateUserForm
 from sales.forms.forms import CreditCardForm
 from utils import gravatar
 from django.contrib.auth.forms import PasswordChangeForm
+from django.conf import settings
+from django.core.mail import send_mail, BadHeaderError
 
 @login_required
 def change_password(request):
@@ -19,6 +21,17 @@ def change_password(request):
 		if form.is_valid():
 			user = form.save()
 			update_session_auth_hash(request, user)  # Important!
+
+			subject = "Master Faster Changed Password"
+			message = "You recently changed your password."
+			from_email = settings.EMAIL_HOST_USER
+			to_email = User.objects.get(username=request.user).email
+			if subject and message and from_email:
+				try:
+					print('sending email to %s' % to_email)
+					send_mail(subject, message, from_email, [to_email])
+				except BadHeaderError:
+					return HttpResponse('Invalid header found.')
 			return HttpResponse(render(request, 'masterfaster/editconfirmation.html', {'update': 'Password'}))
 		else:
 			print('not valid form')

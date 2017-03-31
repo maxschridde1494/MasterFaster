@@ -32,7 +32,7 @@ class Address(models.Model):
 
 class Billing(Address):
 	def __str__(self):
-		return self.user
+		return self.user.username
 
 class Shipping(models.Model):
 	user = models.ForeignKey(User, on_delete=models.CASCADE)
@@ -41,6 +41,5 @@ class Shipping(models.Model):
 	state = models.CharField(max_length=50, null=True, blank=True)
 	zipcode = models.IntegerField(default=00000, null=True, blank=True)
 	country = models.CharField(max_length=50, null=True, blank=True)
-	same_as_billing=models.BooleanField(default=True)
 	def __str__(self):
-		return self.user
+		return self.user.username

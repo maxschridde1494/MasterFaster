@@ -13,6 +13,7 @@ from django.utils import timezone
 import functools
 from django.urls import reverse
 from django.contrib.sessions.models import Session
+from django.core.mail import send_mail, BadHeaderError
 
 @login_required
 def add_to_cart(request, product_id):
@@ -43,15 +44,51 @@ def charge(request, amount):
 		u = User.objects.get(username=request.user)
 		sale = Sale()
 		#stripe charge
+		print(request.POST['args[billing_address_country]'])
+		# print(request.POST)
 		success, instance = sale.charge(amount, request.POST['stripeToken'])
 		if not success:
 			return HttpResponse("Error reading card.")
 		else:
+			try:
+				billing = Billing.objects.get(user=u)
+			except Billing.DoesNotExist:
+				billing = Billing(user=u)
+			billing.address = request.POST['args[billing_address_line1]']
+			billing.city = request.POST['args[billing_address_city]']
+			billing.state = request.POST['args[billing_address_state]']
+			billing.zipcode = request.POST['args[billing_address_zip]']
+			billing.country = request.POST['args[billing_address_country]']
+			billing.save()
+
+			try:
+				shipping = Shipping.objects.get(user=u)
+			except Shipping.DoesNotExist:
+				shipping = Shipping(user=u)
+
+			shipping.address = request.POST['args[shipping_address_line1]']
+			shipping.city = request.POST['args[shipping_address_city]']
+			shipping.state = request.POST['args[shipping_address_state]']
+			shipping.zipcode = request.POST['args[shipping_address_zip]']
+			shipping.country = request.POST['args[shipping_address_country]']
+			shipping.save()
+
 			sale.date = timezone.now()
 			sale.amount = amount
 			sale.user = u
 			sale.save()
 			request.session['sale_id'] = sale.id
+
+			#Send Confirmation email.
+			subject = "Master Faster Confirmation Email."
+			message = "Thank you for shopping with Master Faster. Your payment successfully went through."
+			from_email = settings.EMAIL_HOST_USER
+			to_email = request.POST.get('emailAddress', '')
+			if subject and message and from_email:
+				try:
+					send_mail(subject, message, from_email, [to_email])
+				except BadHeaderError:
+					return HttpResponse('Invalid header found.')
 			return HttpResponse('Successful Charge.')
 	return HttpResponse("Invalid match.")
 
@@ -74,8 +111,6 @@ def charge_confirmation(request, amount):
 		#delete all ShoppingCartItems related to user who just paid
 		for item in scart_items:
 			item.delete()
-		print('charge_confirmation context: ')
-		print(context)
 		return HttpResponse(render(request, 'sales/confirmation.html', context))
 	return HttpResponse('Fail')
 
@@ -87,118 +122,15 @@ def checkout(request):
 	else:
 		user = User.objects.get(username=request.user)
 		context = {}
-		# context = {'email': user.email, 'stripe_api_key': settings.STRIPE_API_KEY_PUBLISHABLE}
-		# context['img'] = gravatar(User.objects.get(username=request.user).email)
+		context = {'email': user.email, 'stripe_api_key': settings.STRIPE_API_KEY_PUBLISHABLE}
+		context['img'] = gravatar(User.objects.get(username=request.user).email)
 		products = ShoppingCartItems.objects.filter(user=user).order_by('-quantity') 
 		items = [(Product.objects.get(pk=p.pid),p) for p in products]
 		context['items'] = items
-		# if items:
-		# 	prices = [item[1].quantity*item[0].price for item in items]
-		# 	total_price = functools.reduce(lambda x,y: x+y, prices, 0)
-		# else:
-		# 	total_price = 0.00
 		context['total_price_dollars'] = get_shopping_cart_total_price(user)
 		context['amount'] = dollar_str_to_cents_int(context['total_price_dollars'])
 		context['billing_bool'] = 'billing'
-		# try:
-		# 	shippingForm = EditShippingAddress(instance=Shipping.objects.get(user=user))
-		# except Shipping.DoesNotExist:
-		# 	shippingForm = EditShippingAddress()
-		# context['shipping'] = shippingForm
 		return HttpResponse(render(request, 'sales/shoppingcart.html', context))
-
-@login_required
-def edit_addresses(request, billing_bool):
-	user = User.objects.get(username=request.user)
-	context = {'email': user.email, 'stripe_api_key': settings.STRIPE_API_KEY_PUBLISHABLE}
-	context['img'] = gravatar(User.objects.get(username=request.user).email)
-	if request.method == 'POST':
-		if billing_bool == 'billing':
-			billingForm = EditBillingAddress(request.POST)
-			if billingForm.is_valid():
-				#save edited billing information
-				try:
-					billing = Billing.objects.get(user=user)
-				except Billing.DoesNotExist:
-					billing = Billing(user=user)
-				billing.address = billingForm.cleaned_data['address']
-				billing.city = billingForm.cleaned_data['city']
-				billing.state = billingForm.cleaned_data['state']
-				billing.zipcode = billingForm.cleaned_data['zipcode']
-				billing.country = billingForm.cleaned_data['country']
-				billing.save()
-				try:
-					shipping = Shipping.objects.get(user=user)
-				except Shipping.DoesNotExist:
-					shipping = Shipping(user=user)
-				if shipping.same_as_billing:
-					shipping.address = billing.address
-					shipping.city = billing.city
-					shipping.state = billing.state
-					shipping.zipcode = billing.zipcode
-					shipping.country = billing.country	
-					shipping.same_as_billing = True	
-					shipping.save()
-			return redirect(reverse('sales:editAddresses', args=['billing']))
-
-		else:
-			shippingForm = EditShippingAddress(request.POST)
-			if shippingForm.is_valid():
-				#save edited shipping information
-				try:
-					shipping = Shipping.objects.get(user=user)
-				except Billing.DoesNotExist:
-					shipping = Shipping(user=user)
-				if shippingForm.cleaned_data['same_as_billing'] == True:
-					try:
-						billing = Billing.objects.get(user=user)
-					except Billing.DoesNotExist:
-						billing = Billing(user=user)
-					shipping.address = billing.address
-					shipping.city = billing.city
-					shipping.state = billing.state
-					shipping.zipcode = billing.zipcode
-					shipping.country = billing.country	
-					shipping.same_as_billing = True		
-				else:
-					shipping.address = shippingForm.cleaned_data['address']
-					shipping.city = shippingForm.cleaned_data['city']
-					shipping.state = shippingForm.cleaned_data['state']
-					shipping.zipcode = shippingForm.cleaned_data['zipcode']
-					shipping.country = shippingForm.cleaned_data['country']	
-					shipping.same_as_billing = False		
-				shipping.save()
-				print('shipping same as billing after save %s' % str(shipping.same_as_billing))
-			return redirect(reverse('sales:editAddresses', args=['shipping']))
-	else:
-		user = User.objects.get(username=request.user)
-		try:
-			billing = Billing.objects.get(user=user)
-			billingForm = EditBillingAddress(instance=billing)
-		except Billing.DoesNotExist:
-			billing = Billing(user=user)
-			billingForm = EditBillingAddress()
-		try:
-			shipping = Shipping.objects.get(user=user)
-			shippingForm = EditShippingAddress(instance=shipping)
-		except Shipping.DoesNotExist:
-			shipping = Shipping(user=user)
-			shippingForm = EditShippingAddress()
-		if billing_bool == 'billing':
-			context['address_form'] = billingForm
-			context['edit_billing'] = True
-		else:
-			context['address_form'] = shippingForm
-			context['edit_billing'] = False
-		context['shipping_bool'] = 'shipping'
-		context['billing_bool'] = 'billing'
-		if not address_empty(shipping) and not address_empty(billing):
-			context['both_addresses'] = True
-			context['total_price_dollars'] = get_shopping_cart_total_price(user)
-			context['amount'] = dollar_str_to_cents_int(context['total_price_dollars'])
-
-		return HttpResponse(render(request, 'sales/payment.html', context))
-
 
 
 @login_required

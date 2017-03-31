@@ -38,55 +38,49 @@
 					<li class="row totals">
 						<span class="itemName">Total:</span>
 						<span class="price">{{total_price_dollars}}</span>
-						<!-- {% if amount != 0 %}
-						<span class="order">
-							<a href="{% url 'sales:home' %}" id="customButton" class="btn btn-lg btn-primary btn-block confirmation-button">Proceed to Payment</a>
-						</span> -->
-						<!-- <span class="order">
-					            <script src="https://checkout.stripe.com/checkout.js"></script>
-
-								<a href="{% url 'sales:home' %}" id="customButton" class="btn btn-lg btn-primary btn-block confirmation-button">Pay</a>
-
-								<script>
-									var handler = StripeCheckout.configure({
-										key: "{{stripe_api_key}}",
-										image: "{% static 'sales/images/default.jpg' %}",
-										locale: 'auto',
-										token: function(token) {
-										    $.ajax({
-											    url: "{% url 'sales:charge' amount %}",
-											    type: 'POST',
-											    data: {'stripeToken': token.id, csrfmiddlewaretoken: '{{ csrf_token }}'},
-											    success: function(s) {
-													console.log( "SUCCESS" );
-													window.location.href = "{% url 'sales:chargeConfirmation' amount%}";
-											    },
-											    error: function(e){
-											      console.log( "ERROR" );
-											    }
-											  });
-										}
-									});
-
-									document.getElementById('customButton').addEventListener('click', function(e) {
-									  handler.open({
-									    name: 'Master Faster',
-									    description: '2 widgets',
-									    amount: {{amount}}
-									  });
-									  e.preventDefault();
-									});
-
-									// Close Checkout on page navigation:
-									window.addEventListener('popstate', function() {
-									  handler.close();
-									});
-								</script>
-						</span> -->
-						<!-- {% endif %} -->
 					</li>
 					{% if amount != 0 %}
-						<a href="{% url 'sales:editAddresses' billing_bool %}" id="customButton" class="btn btn-lg btn-primary btn-block confirmation-button">Proceed to Payment</a>
+						<script src="https://checkout.stripe.com/checkout.js"></script>
+
+						<a href="{% url 'sales:home' %}" id="customButton" class="btn btn-lg btn-primary btn-block confirmation-button horizontal-center">Proceed with Charge</a>
+
+						<script>
+							var handler = StripeCheckout.configure({
+								key: "{{stripe_api_key}}",
+								image: "{% static 'sales/images/default.jpg' %}",
+								locale: 'auto',
+								token: function(token, args) {
+								    $.ajax({
+									    url: "{% url 'sales:charge' amount %}",
+									    type: 'POST',
+									    data: {'stripeToken': token.id, 'emailAddress': token.email, csrfmiddlewaretoken: '{{ csrf_token }}', 'args': args},
+									    success: function(s) {
+											console.log( "SUCCESS" );
+											window.location.href = "{% url 'sales:chargeConfirmation' amount%}";
+									    },
+									    error: function(e){
+									      console.log( "ERROR" );
+									    }
+									  });
+								}
+							});
+
+							document.getElementById('customButton').addEventListener('click', function(e) {
+							  handler.open({
+							    name: 'Master Faster',
+							    amount: {{amount}},
+							    zipCode: true,
+							    billingAddress: true,
+							    shippingAddress: true,
+							  });
+							  e.preventDefault();
+							});
+
+							// Close Checkout on page navigation:
+							window.addEventListener('popstate', function() {
+							  handler.close();
+							});
+						</script>
 					{% endif %}
 				</ul>
 			</div>
