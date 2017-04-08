@@ -1,25 +1,41 @@
-body{
-  /*background-color: #d7d2cb;*/
-  background-color: #f2f6f9;
-}
 
+a.logo-img{
+  margin-top: 0px;
+  padding-top: 0px;
+}
 .logo{
 	margin: 20px 0;
 }
+.nav-logo{
+  margin-top: 10px;
+  margin-left: 10px;
+  padding-top: 0px;
+  height: 30px;
+}
 .base-profile{
-	margin-top: 7.5px;
+	margin-top: 5px;
 }
 
-.navbar {
-  background-color: #851200;
+#content{
+  margin-top: 50px;
 }
-
+li.navbar-tab{
+  /*background-color: red;*/
+  height: 100%;
+  margin-bottom: 0px;
+}
 .navbar-tab:hover{
   background-color: white;
 }
 .navbar-tab{
   margin-bottom: 0px;
   padding-bottom: 0px;
+}
+.navbar-tab:hover{
+  background-color: grey;
+}
+.masterfaster-navbar{
+  margin-right: 10px;
 }
 
 .navbar-default {
@@ -45,10 +61,14 @@ body{
 
 /*shopping cart image*/
 .minicart{
-  background: url('sales/images/sprite.png') no-repeat -160px -2px;
-  width: 28px;
-  height: 27px;
-  /*padding-right: 32px;*/
+  background: url('sales/images/cart.png') no-repeat;
+  height: 30px;
+  width: 38px;
+}
+a.minicart{
+  margin-top: 10px;
+  margin-right: auto;
+  margin-left: auto;
 }
 
 /*Login Form*/

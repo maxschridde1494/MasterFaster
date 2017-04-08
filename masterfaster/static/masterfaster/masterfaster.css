@@ -1,10 +1,19 @@
 body{
-	/*background-color: #d7d2cb;*/
-  background-color: #f2f6f9;
+  /*background-color: #d7d2cb;*/
+  /*background-color: #f2f6f9;*/
+  background: #f2f6f9 url("moon.jpg") no-repeat fixed center;
+  background-size: cover;
 }
 
 .definition{
   margin-bottom: 20px;
+}
+
+.headers{
+  color: black;
+}
+.headers:hover{
+  color: black;
 }
 
 /* MARKETING CONTENT

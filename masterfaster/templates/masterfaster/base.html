@@ -22,32 +22,24 @@
     <title>{% block title %}Page Title{% endblock title %}</title>
 </head>
 
-<!-- <nav class="navbar navbar-default">
-  <div class="container-fluid">
-    <div class="navbar-header">
-      <a class="navbar-brand" href="#">
-        <img alt="Brand" src="...">
-      </a>
-    </div>
-  </div>
-</nav> -->
-
 <body>
     <div id="navbar">
         {% block navbar %}
-        <nav class="navbar navbar-default">
+        <nav class="navbar navbar-inverse navbar-fixed-top">
             <div class="container-fluid">
                 <div class="navbar-header">
-                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse" aria-expanded="false">
                     <span class="sr-only">Toggle navigation</span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" href="{% url 'masterfaster:home' %}">MasterFaster</a>
+                    <a class="navbar-brand logo-img" href="{% url 'masterfaster:home' %}">
+                        <img class="center-block nav-logo" src="{% static 'images/mflogo.png' %}" alt="Logo">
+                    </a>
                 </div>
-                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                    <ul class="nav navbar-nav navbar-right">
+                <div class="collapse navbar-collapse">
+                    <ul class="nav navbar-nav navbar-right masterfaster-navbar">
                         {% if user.is_authenticated %}
                             <li role="presentation">
                                 {% block prof_img %}
@@ -58,7 +50,7 @@
                         <li class="navbar-tab" role="presentation"><a href="{% url 'blog:feed' %}">Blog</a></li>
                         <li class="navbar-tab" role="presentation"><a href="{% url 'sales:home'%}">Shop</a></li>
                         {% if user.is_authenticated %}
-                        <li role="presentation"><a href="{% url 'sales:checkout' %}"><div class="minicart center-block"></div></a></li>
+                        <li class="navbar-tab" role="presentation"><a class="minicart" href="{% url 'sales:checkout' %}"></a></li>
                         <li class="navbar-tab" role="presentation"><a href="{% url 'masterfaster:editEmailAddress' %}">Edit Profile</a></li>
                         <li class="navbar-tab" role="presentation"><a href="{% url 'masterfaster:logout' %}">Logout</a></li>
                         {% else %}
@@ -77,7 +69,7 @@
         {% endblock content %}
     </div>
     <div class="container">
-        <hr class="featurette-divider">
+        <!-- <hr class="featurette-divider"> -->
         <footer>
             <p>&copy; 2017 MasterFaster, Inc. &middot; <a href="#">Facebook</a> &middot; <a href="#">Twitter</a></p>
         </footer>
