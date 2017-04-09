@@ -7,38 +7,6 @@
 {% endblock prof_img %}
 
 {% block blogcontent %}
-    <!-- <div class="col-md-8 col-md-offset-2 blog-main" id="comments">
-        <div class="container row">
-            <div class="blog-feed-prof">
-                {{author_img}}
-            </div>
-            <div>By {{entry.author}}, {{entry.pub_date|date:"D d M Y"}}</div>
-        </div>
-        <hr>
-        {% if entry %}
-            <p><strong>{{entry.header_text}}</strong></p>
-            <hr>
-            <p>{{entry.text}}</p>
-        {% else %}
-
-            <h1>No Blog Post.</h1>
-
-        {% endif %}
-            <nav>
-                <ul class="pager">
-                {% if not prev_next.first %}
-                    <li><a href="{%url 'blog:detail' prev_next.prev%}">Previous</a></li>
-                {% endif %}
-                {% if not prev_next.last %}
-                    <li><a href="{%url 'blog:detail' prev_next.next%}">Next</a></li>
-                {% endif %}
-                </ul>
-            </nav>
-        
-        <ul class="list-inline">
-            <li>{{comments.length}} Comments</li>
-        </ul>
-        <hr class="divider"> -->
         <header class="intro-header blog-post-header" style="background-image: url('{% static 'blog/images/post-bg.jpg' %}')">
             <div class="container">
                 <div class="row">
@@ -46,12 +14,7 @@
                         <div class="post-heading">
                             <h1>{{entry.title}}</h1>
                             <h2 class="subheading">{{entry.header_text}}</h2>
-                            <span class="meta">Posted by <a href="#">{{entry.author}}</a> on {{entry.pub_date|date:"D d M Y"}}</span>
-                            <span>{{author_img}}</span>
-                            <!-- <div class="row">
-                                <span>{{author_img}}</span>
-                                <span class="meta">Posted by <a href="#">{{entry.author}}</a> on {{entry.pub_date|date:"D d M Y"}}</span>
-                            </div> -->
+                            <span class="meta">{{author_img}} Posted by <a href="#">{{entry.author}}</a> on {{entry.pub_date|date:"D d M Y"}}</span>
                         </div>
                     </div>
                 </div>
@@ -69,35 +32,37 @@
             </div>
         </article>
 
-        <hr>
-
-        <nav>
-            <ul class="pager">
-            {% if not prev_next.first %}
-                <li><a href="{%url 'blog:detail' prev_next.prev%}">Previous</a></li>
-            {% endif %}
-            {% if not prev_next.last %}
-                <li><a href="{%url 'blog:detail' prev_next.next%}">Next</a></li>
-            {% endif %}
-            </ul>
-        </nav>
-        
-        <ul class="list-inline">
-            <li>{{comments.length}} Comments</li>
-        </ul>
-
-
-        {% for comment in comments %}
-        <div class="row comment">
-            {{comment.2}}
-            {{comment.1}}
-            {{comment.0.pub_date|date:"M"}} {{comment.0.pub_date|date:"d"}}, {{comment.0.pub_date|date:"Y"}}
+        <!-- Prev Next Buttons -->
+        <div class="container">
+            <nav>
+                <ul class="pager">
+                {% if not prev_next.first %}
+                    <li><a href="{%url 'blog:detail' prev_next.prev%}">Previous</a></li>
+                {% endif %}
+                {% if not prev_next.last %}
+                    <li><a href="{%url 'blog:detail' prev_next.next%}">Next</a></li>
+                {% endif %}
+                </ul>
+            </nav>
         </div>
-        {% endfor %}
 
-        {% block comment %}
+        <!-- Comments -->
+        <div class="container comments-container">
+            <div class="blog comments-header">{{comment_header}}</div>
+            {% for comment in comments %}
+                <div class="row comment maxschridde">
+                    {{comment.img}}
+                    {{comment.username}} | {{comment.comment.pub_date}}
+                </div>
+                <div class="comment blog-comment">{{comment.comment.text}}</div>
+                <hr class="comment-div">
+            {% endfor %}
+            {% block comment %}
 
-        {% endblock comment %}
+            {% endblock comment %}
+        </div>
+
+        <hr>
 
     </div>
 

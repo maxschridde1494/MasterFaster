@@ -3,13 +3,11 @@
 {% load static %}
 
 {% block comment %}
-<div class="input-group row comment">
+<div class="input-group pager">
     <form action="{% url 'blog:comment' entry.id %}" method="post">
         {% csrf_token %}
-        <input type="text" name="comment-text" class="form-control" placeholder="Tell us what you think...">
-        <span class="input-group-btn">
-            <button class="btn btn-default" type="submit">Comment</button>
-        </span>
+        <input type="text" name="comment-text" class="form-control" id="comment-input" placeholder="Tell us what you think...">
+        <button class="btn btn-default comment-button" type="submit">Comment</button>
     </form>
 </div><!-- /input-group -->
 {% endblock comment %}

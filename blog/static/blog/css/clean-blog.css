@@ -8,6 +8,22 @@
   font-size: 20px;
   color: #333333;
 }
+.blog-comment {
+  font-family: 'Lora', 'Times New Roman', serif;
+  font-size: 15px;
+  color: #333333;
+  padding-left: 55px;
+}
+
+.maxschridde {
+  font-family: 'Lora', 'Times New Roman', serif;
+  font-size: 17.5px;
+  color: #333333;
+}
+#comment-input{
+  border-radius: 30px;
+}
+
 p {
   line-height: 1.5;
   margin: 30px 0;

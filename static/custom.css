@@ -58,6 +58,11 @@ li.navbar-tab{
 .divider{
 	margin: 1px 0;
 }
+.divider2{
+  border-color: black;
+  margin-top: 30px;
+  margin-bottom: 50px;
+}
 
 /*shopping cart image*/
 .minicart{
