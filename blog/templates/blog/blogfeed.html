@@ -6,34 +6,59 @@
     {{img}}
 {% endblock prof_img %}
 
-<!-- {% block blogcontent %} -->
-<!--     <div class="col-md-9 blog-main">
-    {% if blog_posts_list %}
-        {% for post in blog_posts_list %}
+{% block blogcontent %}
+     <header class="intro-header" id="blog-feed-header">
+        <div class="container">
             <div class="row">
-                <div class="col-sm-3 blog-feed-prof">
-                    {{post.2}}
-                </div>
-                <div class="blog-post col-sm-9">
-                    <a href="{%url 'blog:detail' post.0.id%}"><h2 class="blog-post-title">{{post.0.title}}</h2></a>
-                    <p class="blog-post-meta">{{post.0.pub_date|date:"D d M Y"}} by <a href="#">{{post.0.author}}</a></p>
-
-                    <p>{{post.0.header_text}}</p>
-                    <hr>
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    <div class="site-heading" id='site-heading'>
+                        <h1>Master Faster Blog</h1>
+                        <hr class="small">
+                        <span class="subheading">a place to starve together</span>
+                    </div>
                 </div>
             </div>
-        {% endfor %}
-    {% elif number %}
-        <h1>There are no blog posts in {{month}}, {{year}}.</h1>
-    {% else %}
-        <h1>Blog Feed</h1>
-    {% endif %}
-    </div> -->
+        </div>
+    </header>
 
-<!-- {% endblock blogcontent %}
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6 col-lg-offset-3 col-md-8 col-md-offset-1">
+                {% if blog_posts_list %}
+                    {% for post in blog_posts_list %}
+                       <!--  <div class="row">
+                            <div class="col-sm-3 blog-feed-prof">
+                                {{post.2}}
+                            </div>
+                            <div class="blog-post col-sm-9">
+                                <a href="{%url 'blog:detail' post.0.id%}"><h2 class="blog-post-title">{{post.0.title}}</h2></a>
+                                <p class="blog-post-meta">{{post.0.pub_date|date:"D d M Y"}} by <a href="#">{{post.0.author}}</a></p>
+
+                                <p>{{post.0.header_text}}</p>
+                                <hr>
+                            </div>
+                        </div> -->
+
+                        <div class="post-preview">
+                            <a href="{%url 'blog:detail' post.0.id%}">
+                                <h2 class="post-title">{{post.0.title}}</h2>
+                                <h3 class="post-subtitle">{{post.0.header_text}}</h3>
+                            </a>
+                            <p class="post-meta">Posted by {{post.0.author}} on {{post.0.pub_date|date:"D d M Y"}}</p>
+                        </div>
+
+                        <hr>
+                    {% endfor %}
+                {% elif number %}
+                    <h1>There are no blog posts in {{month}}, {{year}}.</h1>
+                {% else %}
+                    <h1>Blog Feed</h1>
+                {% endif %}
+            </div>
+{% endblock blogcontent %}
 
 {% block sidebarcontent %}
-    <div class="col-sm-2 col-sm-offset-1 blog-sidebar">
+    <div class="col-lg-2 col-md-2 col-sm-2 col-sm-offset-1 blog-sidebar">
       <div class="sidebar-module">
         <h4>Archives</h4>
         <ol class="list-unstyled">
@@ -42,5 +67,5 @@
           {%endfor%}
         </ol>
       </div>
-    </div> --><!-- /.blog-sidebar -->
-<!-- {% endblock sidebarcontent %} -->
+    </div>
+{% endblock sidebarcontent %}

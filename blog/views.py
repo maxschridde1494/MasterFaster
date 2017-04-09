@@ -4,20 +4,16 @@ from .models import BlogPost, Comment
 from masterfaster.models import User
 from django.conf import settings
 from django.utils import timezone
-import datetime
 from django.urls import reverse
 from django.contrib.auth.decorators import login_required
-from utils import gravatar, fetch_prev_next
-
-month_year = [("March", "2017", "3"),("February", "2017", "2"),("January", "2017", "1"),("December", "2016", "12"),("November", "2016", "11"),("October", "2016", "10"),("September", "2016", "9"),("August", "2016", "8"),("July", "2016", "7"), ("June", "2016", "6"),("May", "2016", "5"),("April", "2016", "4")]
-months = {'1':'January','2':'February','3':'March','4':'April','5':'May','6':'June','7':'July','8':'August','9':'September','10':'Octoboer','11':'November','12':'December'}
+from utils import gravatar, fetch_prev_next, create_blog_months
 
 def blogfeed(request):
 	blog_posts = BlogPost.objects.order_by('-pub_date')
 	auth_post = [(post, User.objects.get(username=post.author), gravatar(User.objects.get(username=post.author).email, 100)) for post in blog_posts]
 	context = {
         'blog_posts_list': auth_post,
-        'month_year': month_year
+        'month_year': create_blog_months()
     } 
     #if logged in, add user img to navbar
 	try:
@@ -29,8 +25,6 @@ def blogfeed(request):
 	return HttpResponse(render(request, 'blog/blogfeed.html', context))
 
 def blogfeed_month(request, year, month):
-	print(year)
-	print(month)
 	posts = BlogPost.objects.order_by('-pub_date').filter(pub_date__month=month, pub_date__year=year)
 	filtered = [(post, User.objects.get(username=post.author), gravatar(User.objects.get(username=post.author).email, 100)) for post in posts]
 	context = {
@@ -52,7 +46,7 @@ def detail(request, entry_id):
 	context = {'entry': bp,
 		'prev_next': p_n
 	}
-	context['author_img'] = gravatar(User.objects.get(username=bp.author).email, 100)
+	context['author_img'] = gravatar(User.objects.get(username=bp.author).email, 50, "img-circle")
 	c = bp.comment_set.order_by('-pub_date')
 	comments = [(comment, comment.user.username, gravatar(comment.user.email, 50, "img-circle comment-pic")) for comment in c]
 	context['comments'] = comments

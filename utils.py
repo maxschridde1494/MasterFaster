@@ -3,6 +3,7 @@ import urllib
 from django import template
 from django.utils.safestring import mark_safe
 from sales.models import Product, ShoppingCartItems
+from datetime import datetime
 import functools
  
 register = template.Library()
@@ -43,6 +44,20 @@ def cents_to_dollars(num):
 	if len(cents) < 2:
 		cents = "0" + cents
 	return "$" + dollars + "." + cents
+
+def create_blog_months():
+	"""Generate months for sidebarcontent of blog feed
+	return [(month_string, year_string, int representing month)]
+	"""
+	months = {'1':'January','2':'February','3':'March','4':'April','5':'May','6':'June','7':'July','8':'August','9':'September','10':'Octoboer','11':'November','12':'December'}
+	today = datetime.today()
+	month, year = today.month, today.year
+	month_year_arr = []
+	for i in range(1,13):
+		m_str = months[str(((i + month)%12))] if (i+month)%12 != 0 else months['12']
+		y_str = str(year - 1) if i + month <= 12 else str(year)
+		month_year_arr.insert(0,(m_str, y_str, str((i + month)%12)))
+	return month_year_arr
 
 def fetch_prev_next(bp, posts):
 	"""Takes in a blog post and the QuerySet of all blog posts.

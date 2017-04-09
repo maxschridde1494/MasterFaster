@@ -3,6 +3,7 @@ body{
   /*background-color: #f2f6f9;*/
   background: #f2f6f9 url("moon.jpg") no-repeat fixed center;
   background-size: cover;
+  color: black;
 }
 
 .definition{
@@ -40,11 +41,10 @@ body{
   margin: 80px 0; /* Space out the Bootstrap <hr> more */
 }
 
-/*.divider{
-	margin: 1px 0;
-}*/
 .divider2{
-	margin: 20px 0;
+  border-color: black;
+  margin-top: 30px;
+  margin-bottom: 50px;
 }
 
 /* Thin out the marketing headings */
