@@ -30,7 +30,8 @@ def add_to_cart(request, product_id):
 		
 		context = {}
 		context['product_name'] = Product.objects.get(pk=product_id).name
-		context['quantity'] = request.POST['quantity']
+		context['quantity'] = int(request.POST['quantity'])
+		print(request.POST['quantity'])
 		context['add'] = True
 		return HttpResponse(render(request, 'sales/confirmation.html', context))
 
@@ -124,8 +125,8 @@ def checkout(request):
 		context = {}
 		context = {'email': user.email, 'stripe_api_key': settings.STRIPE_API_KEY_PUBLISHABLE}
 		context['img'] = gravatar(User.objects.get(username=request.user).email)
-		products = ShoppingCartItems.objects.filter(user=user).order_by('-quantity') 
-		items = [(Product.objects.get(pk=p.pid),p) for p in products]
+		products = ShoppingCartItems.objects.filter(user=user).order_by('-quantity')
+		items = [{'product': Product.objects.get(pk=p.pid), 'cartItem': p} for p in products]
 		context['items'] = items
 		context['total_price_dollars'] = get_shopping_cart_total_price(user)
 		context['amount'] = dollar_str_to_cents_int(context['total_price_dollars'])

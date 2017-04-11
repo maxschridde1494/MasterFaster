@@ -9,12 +9,95 @@
  * Copyright 2013-2016 Start Bootstrap
  * Licensed under MIT (https://github.com/BlackrockDigital/startbootstrap/blob/gh-pages/LICENSE)
  */
-table, th, td {
+
+ body{
+    font-size : 14px;
+    background-color: #f2f6f9;
+}
+
+.cart-content{
+    margin-top: 20px;
+}
+.cart-item{
+    background-color: white;
+    border-radius: 15px;
     border: 1px solid black;
-    text-align: center;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+.cart-description{
+    font-size : 15px;
+    margin-right: 10px;
+    margin-left: 10px;
+    margin-bottom: 10px;
+}
+.cart-header{
+    font-size: 20px;
+    margin-left: 10px;
+    margin-top: 10px;
+    margin-right: 10px;
+    margin-bottom: 10px;
+}
+
+.cart-item-name{
+    margin-left: 10px;
+}
+.edit-buttons{
+    margin-left: 10px;
+    margin-bottom: 10px;
+}
+.glyphicon{
+    width: 24px;
+    font-size: 24px;
+    padding: 0;
+}
+
+.glyphicon-pencil{
+    color: black;
+    margin: 7px 12px 7px 10px;
+}
+
+.glyphicon-remove{
+    color: red;
+    margin-right: 10px;
+}
+.totals{
+    font-size: 40px;
+    margin-top: 10px;
+}
+.shopping-main {
+    margin-top: 20px;
 }
 .horizontal-center{
     margin: 0 auto;
+}
+.confirmation-button{
+    max-width: 300px;
+    margin-top: 20px;
+    margin-bottom: 10px;
+
+    border-radius: 30px;
+}
+
+
+ .product-header {
+  /*font-family: 'Lora', 'Times New Roman', serif;*/
+  font-size: 20px;
+  color: #333333;
+}
+.feed-box{
+    border: 1px solid black;
+    border-radius: 15px;
+}
+.feed-box img{
+    margin-top: 10px;
+}
+.feed-description{
+    margin: 10px 10px;
+}
+table, th, td {
+    border: 1px solid black;
+    text-align: center;
 }
 .confirmation-body{
     text-align: center;
@@ -24,10 +107,6 @@ table, th, td {
     width: 75px;
     height: 50px;
 }
- .confirmation-button{
-    width: 200px;
-    margin-top: 20px;
- }
 
 .list-group-item{
     max-width: 300px;
@@ -65,6 +144,29 @@ table, th, td {
 .thumbnail .item {
     /*width: 100%;*/
     max-height: 200px
+}
+
+#itemImage{
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+#itemHeader{
+    margin: 0 auto;
+    text-align: center;
+    font-size : 30px;
+}
+#itemDescription{
+    font-size : 15px;
+    text-align: center;
+    margin-right: 10px;
+    margin-left: 10px;
+    margin-bottom: 10px;
+}
+.form-size{
+    text-align: center;
+    font-size: 20px;
+    margin-top: 10px;
+    margin-bottom: 10px;
 }
 
 .ratings {

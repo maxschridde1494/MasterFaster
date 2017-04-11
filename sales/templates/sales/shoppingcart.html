@@ -3,7 +3,7 @@
 {% load static %}
 
 {% block customstylesheet %}
-    <link href="{% static 'sales/shoppingcart.css' %}?{% now 'U' %}" rel="stylesheet">
+    <link href="{% static 'sales/shop.css' %}?{% now 'U' %}" rel="stylesheet">
 {% endblock customstylesheet %}
 
 {% block prof_img %}
@@ -11,34 +11,42 @@
 {% endblock prof_img %}
 
 {% block content %}		
-		<div class="container text-center shopping-main">
-			<div class="col-md-8 col-md-offset-2 col-sm-12 text-left">
-				<ul>
+		<!-- <div class="container"> -->
+			<!-- <div class="container col-md-8 col-md-offset-2 col-sm-12 text-left"> -->
+				<!-- <ul>
 					<li class="row list-inline columnCaptions">
 						<span>QTY</span>
 						<span>ITEM</span>
 						<span>SIZE</span>
 						<span>Price</span>
-					</li>
-
+					</li> -->
+				<div class="container cart-content">
 					{% for item in items %}
-					<li class="row">
-						<span class="quantity">{{item.1.quantity}}</span>
-						<!-- <span class='img'><img class="cart-img" src="{% static item.0.img_path %}"></span> -->
-						<span class="itemName"><a href="{% url 'sales:itemDetail' item.1.pid %}">{{item.0.name}}</a></span>
-						<span class="size">{{item.1.size}}</span>
-						<span class="edit popbtn text-center">
-							<div><a href="{% url 'sales:editCartItem' item.1.id %}">Edit</a></div>
-							<div><a href="{% url 'sales:removeCartItem' item.1.id %}">Remove</a></div>
-						</span>
-						<span class="price">{{item.0.price}}</span>
-					</li>
+					<div class="cart-item col-lg-6 col-lg-offset-3 col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
+						<div class="row cart-header">
+							<span class='cart-item-img'>
+								<img src="{% static item.product.img_path %}" alt="" width='100'>
+							</span>
+							<span class='cart-item-name'>
+								<strong><a href="{% url 'sales:itemDetail' item.product.id %}">{{item.product.name}}</a> | ${{item.product.price}}</strong>
+							</span>
+						</div>
+						<p class="cart-description">{{item.product.description}}</p>
+						<div class="cart-description"> <strong>Size: {{item.cartItem.size}} Quantity: {{item.cartItem.quantity}}</strong></div>
+						<div class="row edit-buttons">
+							<a href="{% url 'sales:editCartItem' item.product.id %}"><span class="glyphicon glyphicon-pencil"></span></a>
+							<a href="{% url 'sales:removeCartItem' item.product.id %}"><span class="glyphicon glyphicon-remove"></span></a>
+						</div>
+					</div>
 					{% endfor %}
-				
-					<li class="row totals">
+					<div class="totals col-lg-6 col-lg-offset-3 col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
+						<div class="row totals">
 						<span class="itemName">Total:</span>
-						<span class="price">{{total_price_dollars}}</span>
-					</li>
+						<span class="price">${{total_price_dollars}}</span>
+					</div>
+					</div>
+				</div>
+				<div class='container'>
 					{% if amount != 0 %}
 						<script src="https://checkout.stripe.com/checkout.js"></script>
 
@@ -82,10 +90,12 @@
 							});
 						</script>
 					{% endif %}
-				</ul>
-			</div>
+					</div>
+				<!-- </ul> -->
+				</div>
+			<!-- </div> -->
 
-		</div>
+		<!-- </div> -->
 
 		<!-- The popover content -->
 
@@ -95,5 +105,5 @@
 		</div> -->
 {% endblock content %}
 {% block customjs %}
-	<script src="{% static 'sales/shoppingcart.js'%}"></script>
+	<!-- <script src="{% static 'sales/shoppingcart.js'%}"></script> -->
 {% endblock customjs %}

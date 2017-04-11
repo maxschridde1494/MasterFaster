@@ -5,99 +5,36 @@
 
 {% block shopcontent %}
 
-<div class="col-md-9">
+<div class="col-sm-6 col-sm-offset-3 col-lg-4 col-lg-offset-4 col-md-4 col-md-offset-4">
 {% if product %}
-    <div class="thumbnail">
-        <img class="img-responsive" src="{% static product.img_path %}" alt="{{product.name}} width='200' height='150'">
-        <div class="caption-full">
-            <h4 class="pull-right">{{product.price}}</h4>
-            <h4>{{product.name}}</h4>
-            <p>{{product.description}}</p>
+    <div class="thumbnail" id="shopitem">
+        <img id="itemImage" class="img-responsive" src="{% static product.img_path %}" alt="{{product.name}} width='200' height='150'">
+        <div id="itemHeader">
+            <p>{{product.name}} | ${{product.price}}</p>
         </div>
-        <!-- <form class="form-signin" method="get" action="#"> -->
+        <p id="itemDescription">{{product.description}}</p>
         <form action="{% url 'sales:addToCart' product.id %}" method="post">
             {% csrf_token %}
-            <select name="size">
-            {% for s in product.size %}
-                <option value="{{s}}">{{s}}</option>
-            {% endfor %}
-            </select>
-            <select name="quantity">
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-                <option value="4">4</option>
-                <option value="5">5</option>
-                <option value="6">6</option>
-            </select>
-            <button class="btn btn-lg btn-primary btn-block" type="submit">Add To Cart</button>
+            <div class="row form-size">
+                Size: 
+                <select name="size">
+                {% for s in product.size %}
+                    <option value="{{s}}">{{s}}</option>
+                {% endfor %}
+                </select>
+                Quantity: 
+                <select name="quantity">
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                    <option value="6">6</option>
+                </select>
+            </div>
+            <button class="btn btn-lg btn-primary btn-block confirmation-button horizontal-center" type="submit">Add To Cart</button>
         </form>
-        <div class="ratings">
-            <p class="pull-right">3 reviews</p>
-            <p>
-                <span class="glyphicon glyphicon-star"></span>
-                <span class="glyphicon glyphicon-star"></span>
-                <span class="glyphicon glyphicon-star"></span>
-                <span class="glyphicon glyphicon-star"></span>
-                <span class="glyphicon glyphicon-star-empty"></span>
-                4.0 stars
-            </p>
-        </div>
-    </div>
-
-    <div class="well">
-
-        <div class="text-right">
-            <a class="btn btn-success">Leave a Review</a>
-        </div>
-
-        <hr>
-
-        <div class="row">
-            <div class="col-md-12">
-                <span class="glyphicon glyphicon-star"></span>
-                <span class="glyphicon glyphicon-star"></span>
-                <span class="glyphicon glyphicon-star"></span>
-                <span class="glyphicon glyphicon-star"></span>
-                <span class="glyphicon glyphicon-star-empty"></span>
-                Anonymous
-                <span class="pull-right">10 days ago</span>
-                <p>This product was great in terms of quality. I would definitely buy another!</p>
-            </div>
-        </div>
-
-        <hr>
-
-        <div class="row">
-            <div class="col-md-12">
-                <span class="glyphicon glyphicon-star"></span>
-                <span class="glyphicon glyphicon-star"></span>
-                <span class="glyphicon glyphicon-star"></span>
-                <span class="glyphicon glyphicon-star"></span>
-                <span class="glyphicon glyphicon-star-empty"></span>
-                Anonymous
-                <span class="pull-right">12 days ago</span>
-                <p>I've alredy ordered another one!</p>
-            </div>
-        </div>
-
-        <hr>
-
-        <div class="row">
-            <div class="col-md-12">
-                <span class="glyphicon glyphicon-star"></span>
-                <span class="glyphicon glyphicon-star"></span>
-                <span class="glyphicon glyphicon-star"></span>
-                <span class="glyphicon glyphicon-star"></span>
-                <span class="glyphicon glyphicon-star-empty"></span>
-                Anonymous
-                <span class="pull-right">15 days ago</span>
-                <p>I've seen some better than this, but not at this price. I definitely recommend this item.</p>
-            </div>
-        </div>
-
-    </div>
-
+        
 {% else %}
 
 <h1>No matching product.</h1>

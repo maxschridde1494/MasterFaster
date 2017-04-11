@@ -50,10 +50,9 @@
         <div class="container comments-container">
             <div class="blog comments-header">{{comment_header}}</div>
             {% for comment in comments %}
-                <div class="row comment maxschridde">
-                    {{comment.img}}
-                    {{comment.username}} | {{comment.comment.pub_date}}
-                </div>
+                    <div class="row comment maxschridde">
+                        {{comment.img}} {{comment.username}}| <em>{{comment.comment.pub_date}}</em>
+                    </div>
                 <div class="comment blog-comment">{{comment.comment.text}}</div>
                 <hr class="comment-div">
             {% endfor %}
