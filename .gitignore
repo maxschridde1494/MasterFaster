@@ -4,4 +4,5 @@ venv
 *.pyc
 staticfiles
 KEYS.py
-.env
+envsetup.py
+MFsite/.env
