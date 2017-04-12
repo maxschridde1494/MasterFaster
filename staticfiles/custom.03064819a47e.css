@@ -1,0 +1,141 @@
+
+a.logo-img{
+  margin-top: 0px;
+  padding-top: 0px;
+}
+.logo{
+	margin: 20px 0;
+}
+.nav-logo{
+  margin-top: 10px;
+  margin-left: 10px;
+  padding-top: 0px;
+  height: 30px;
+}
+.base-profile{
+	margin-top: 5px;
+}
+.five-px-right{
+  margin-right: 5px;
+}
+.five-px-left{
+  margin-left: 5px;
+}
+#signin, #create-user{
+  border-radius: 15px;
+  max-width: 300px;
+}
+
+#content{
+  margin-top: 50px;
+}
+li.navbar-tab{
+  /*background-color: red;*/
+  height: 100%;
+  margin-bottom: 0px;
+}
+.navbar-tab:hover{
+  background-color: white;
+}
+.navbar-tab{
+  margin-bottom: 0px;
+  padding-bottom: 0px;
+}
+.navbar-tab:hover{
+  background-color: grey;
+}
+.masterfaster-navbar{
+  margin-right: 10px;
+}
+
+.navbar-default {
+   margin-bottom: 0;
+   padding-right: 15px;
+   padding-left: 15px;
+}
+.navbar-collapse{
+	text-align: center;
+}
+
+.container-fluid {
+    padding-right: 0px;
+    padding-left: 0px;
+    margin-right: auto;
+    margin-left: auto;
+    max-width: 1300px;
+}
+
+.divider{
+	margin: 1px 0;
+}
+.divider2{
+  border-color: black;
+  margin-top: 30px;
+  margin-bottom: 50px;
+}
+
+/*shopping cart image*/
+.minicart{
+  background: url("sales/images/cart.289028ee187d.png") no-repeat;
+  height: 30px;
+  width: 38px;
+  margin: 0 3px;
+}
+a.minicart{
+  margin-top: 10px;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+.team-img{
+  border: 1px solid black;
+}
+
+/*Login Form*/
+
+.form-signin {
+  max-width: 530px;
+  padding: 15px;
+  margin: 0 auto;
+}
+.form-signin .form-signin-heading,
+.form-signin .checkbox {
+  margin-bottom: 10px;
+}
+.form-signin .checkbox {
+  font-weight: normal;
+}
+.form-signin .form-control {
+  position: relative;
+  height: auto;
+  -webkit-box-sizing: border-box;
+     -moz-box-sizing: border-box;
+          box-sizing: border-box;
+  padding: 10px;
+  font-size: 16px;
+}
+.form-signin .form-control:focus {
+  z-index: 2;
+}
+.form-signin input[type="email"] {
+  margin-bottom: -1px;
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+}
+.form-signin input[type="password"] {
+  margin-bottom: 10px;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
+footer {
+  padding: 50px 0 65px;
+}
+footer .list-inline {
+  margin: 0;
+  padding: 0;
+}
+footer .copyright {
+  font-size: 14px;
+  text-align: center;
+  margin-bottom: 0;
+}

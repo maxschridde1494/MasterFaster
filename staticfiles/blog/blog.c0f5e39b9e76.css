@@ -1,0 +1,48 @@
+/* Pagination */
+.pager {
+  /*margin-bottom: 60px;*/
+  margin-left: auto;
+  margin-right: auto;
+}
+.pager > li > a {
+  width: 140px;
+  padding: 10px 20px;
+  text-align: center;
+  border-radius: 30px;
+  margin-left: auto;
+  margin-right: auto;
+}
+button.comment-button{
+  width: 140px;
+  padding: 10px 20px;
+  text-align: center;
+  border-radius: 30px;
+  margin-top: 10px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.comments-header{
+  margin-left: auto;
+  margin-right: auto;
+  height: 50px;
+  background-color: lightgrey;
+  padding-top: 10px;
+  padding-left: 10px;
+  color: white;
+  margin-bottom: 5px;
+  border-radius: 30px;
+}
+.comments-container{
+  margin-top: 40px;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 600px;
+  border-left: 1px solid lightgrey;
+}
+.comment{
+  margin-left: 10px;
+}
+hr.comment-div{
+  color: lightgrey;
+}
