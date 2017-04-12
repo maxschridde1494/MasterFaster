@@ -3,4 +3,5 @@ Docs/*
 venv
 *.pyc
 staticfiles
+KEYS.py
 .env

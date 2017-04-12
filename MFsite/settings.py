@@ -22,11 +22,11 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'sxc%w_&nf^!-7z_k!7@fv47tt7-2mv&8j0wv#kj$&h32=drhmc'
-STRIPE_API_KEY_PUBLISHABLE = STRIPE_API_KEY_PUBLISHABLE
-STRIPE_API_KEY_SECRET = STRIPE_API_KEY_SECRET
+STRIPE_API_KEY_PUBLISHABLE = os.environ['STRIPE_API_KEY_PUBLISHABLE']
+STRIPE_API_KEY_SECRET = os.environ['STRIPE_API_KEY_SECRET']
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+# DEBUG = True
 
 ALLOWED_HOSTS = ['masterfaster.herokuapp.com', '127.0.0.1']
 
@@ -145,20 +145,6 @@ USE_L10N = True
 USE_TZ = True
 
 
-# https://docs.djangoproject.com/en/1.10/howto/static-files/
-
-# STATIC_URL = '/static/'
-
-# STATICFILES_DIRS = [
-#     os.path.join(BASE_DIR, "static"),
-#     'masterfaster/static',
-#     'blog/static',
-#     'sales/static',
-# ]
-
-# PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
-
-# STATIC_ROOT = os.path.join(PROJECT_ROOT, 'static')
 STATIC_ROOT =  os.path.join(BASE_DIR, 'staticfiles')
 STATIC_URL = '/static/'
 
@@ -176,5 +162,5 @@ STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
 EMAIL_USE_TLS = True
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_HOST_USER = 'maxjschridde@gmail.com'
-EMAIL_HOST_PASSWORD = EMAIL_PASSWORD
+EMAIL_HOST_PASSWORD = os.environ['EMAIL_PASSWORD']
 EMAIL_PORT = 587
