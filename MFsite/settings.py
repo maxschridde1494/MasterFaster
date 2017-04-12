@@ -26,7 +26,7 @@ STRIPE_API_KEY_PUBLISHABLE = "pk_test_zrNDnypdz6vX2Kl9rocrqpX4"
 STRIPE_API_KEY_SECRET = "sk_test_j87ssvEKlNOgDyNn5JPhExs8"
 
 # SECURITY WARNING: don't run with debug turned on in production!
-# DEBUG = True
+DEBUG = True
 
 ALLOWED_HOSTS = [".serene-sea-26588.herokuapp.com"]
 
