@@ -1,6 +1,6 @@
 from django.shortcuts import render, get_object_or_404, get_list_or_404, redirect
 from django.http import HttpResponse, Http404
-from .models import BlogPost, Comment
+from blog.models import BlogPost, Comment
 from masterfaster.models import User
 from django.conf import settings
 from django.utils import timezone

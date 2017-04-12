@@ -4,10 +4,10 @@ from django.utils import timezone
 import datetime
 
 from django.contrib.sessions.models import Session
-from .models import User, Billing, Shipping, CreditCard
+from masterfaster.models import User, Billing, Shipping, CreditCard
 from django.contrib.auth import authenticate, login, update_session_auth_hash
 from django.contrib.auth.decorators import login_required
-from .forms.forms import EditShippingAddress, EditBillingAddress, CreateUserForm, EditEmailAddress
+from masterfaster.forms.forms import EditShippingAddress, EditBillingAddress, CreateUserForm, EditEmailAddress
 from sales.forms.forms import CreditCardForm
 from utils import gravatar
 from django.contrib.auth.forms import PasswordChangeForm

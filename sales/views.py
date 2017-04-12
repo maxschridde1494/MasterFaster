@@ -2,7 +2,7 @@ from django.shortcuts import render, get_object_or_404, get_list_or_404, redirec
 from django.http import HttpResponse, Http404
 #from django.template import RequestContext
 from sales.models import Sale, Product, ShoppingCartItems, Purchases
-from .forms.forms import TestPaymentForm
+from sales.forms.forms import TestPaymentForm
 from masterfaster.models import User, CreditCard, Shipping, Billing
 from masterfaster.forms.forms import EditShippingAddress, EditBillingAddress
 from django.contrib.auth.decorators import login_required
