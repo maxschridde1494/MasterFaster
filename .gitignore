@@ -1,6 +1,5 @@
 #Files to be ignored / not pushed to github
 Docs/*
-KEYS.py
 venv
 *.pyc
 staticfiles

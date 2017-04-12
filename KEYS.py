@@ -1,0 +1,3 @@
+STRIPE_API_KEY_PUBLISHABLE = "pk_test_zrNDnypdz6vX2Kl9rocrqpX4"
+STRIPE_API_KEY_SECRET = "sk_test_j87ssvEKlNOgDyNn5JPhExs8"
+EMAIL_PASSWORD = 'Moximo1494*'
