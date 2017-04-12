@@ -44,7 +44,6 @@ def charge(request, amount):
 		u = User.objects.get(username=request.user)
 		sale = Sale()
 		#stripe charge
-		print(request.POST['args[billing_address_country]'])
 		success, instance = sale.charge(amount, request.POST['stripeToken'])
 		if not success:
 			return HttpResponse("Error reading card.")
@@ -128,6 +127,8 @@ def checkout(request):
 	else:
 		user = User.objects.get(username=request.user)
 		context = {}
+		print('API KEYS:')
+		print(settings.STRIPE_API_KEY_PUBLISHABLE, settings.STRIPE_API_KEY_SECRET)
 		context = {'email': user.email, 'stripe_api_key': settings.STRIPE_API_KEY_PUBLISHABLE}
 		context['img'] = gravatar(User.objects.get(username=request.user).email)
 		products = ShoppingCartItems.objects.filter(user=user).order_by('-quantity')
