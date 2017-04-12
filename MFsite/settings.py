@@ -28,7 +28,7 @@ STRIPE_API_KEY_SECRET = STRIPE_API_KEY_SECRET
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = [".serene-sea-26588.herokuapp.com", '127.0.0.1']
+ALLOWED_HOSTS = ['masterfaster.herokuapp.com', '127.0.0.1']
 
 #added for authentication redirect (login)
 LOGIN_URL = "masterfaster:login"
