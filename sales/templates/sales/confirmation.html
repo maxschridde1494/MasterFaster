@@ -38,7 +38,10 @@
 				{% endfor %}
 
 			</table>
-			<a href="{% url 'sales:home' %}" class="btn btn-lg btn-primary btn-block confirmation-button horizontal-center">Continue Shopping</a>
+			<div class="horizontal-center row">
+			    <a href="{% url 'sales:purchaseHistory' %}" id="customButton" class="btn btn-lg btn-primary btn-block confirmation-button horizontal-center">View Purchase History</a>
+			    <a href="{% url 'sales:home' %}" class="btn btn-lg btn-primary btn-block confirmation-button horizontal-center">Continue Shopping</a>
+			</div>
 		</div>
 	{% endif %}
 </div>

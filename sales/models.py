@@ -31,10 +31,6 @@ class ShoppingCartItems(models.Model):
 	def __str__(self):
 		return self.user
 
-# class SoldItems(models.Model):
-	#THIS IS FOR PURCHASE HISTORY
-
-
 class Sale(models.Model):
 	def __init__(self, *args, **kwargs):
 		super().__init__(*args, **kwargs)
@@ -82,3 +78,15 @@ class Sale(models.Model):
 			print('Authentication Error')
 			return (False, e)
 		return (True, response)
+
+class Purchases(models.Model):
+	user = models.ForeignKey(User, on_delete=models.CASCADE)
+	sale_id = models.IntegerField()
+	pid = models.IntegerField()
+	pname = models.CharField(max_length=200)
+	pprice = models.DecimalField(max_digits=10, decimal_places=2)
+	quantity = models.IntegerField()
+	size = models.CharField(max_length=100)
+
+	def __str__(self):
+		return str(self.sale_id)

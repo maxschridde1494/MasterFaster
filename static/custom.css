@@ -15,6 +15,16 @@ a.logo-img{
 .base-profile{
 	margin-top: 5px;
 }
+.five-px-right{
+  margin-right: 5px;
+}
+.five-px-left{
+  margin-left: 5px;
+}
+#signin, #create-user{
+  border-radius: 15px;
+  max-width: 300px;
+}
 
 #content{
   margin-top: 50px;

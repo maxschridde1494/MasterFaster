@@ -14,6 +14,25 @@
     font-size : 14px;
     background-color: #f2f6f9;
 }
+.purchase-header{
+    font-size: 17.5px;
+    margin-left: 10px;
+    margin-top: 10px;
+    margin-right: 10px;
+    margin-bottom: 10px;
+}
+.purchase-product{
+    font-size : 17.5px;
+    margin-right: 10px;
+    margin-left: 20px;
+    margin-bottom: 10px;
+}
+.purchase-product-description{
+    font-size : 15px;
+    margin-right: 10px;
+    margin-left: 30px;
+    margin-bottom: 10px;
+}
 
 .cart-content{
     margin-top: 20px;

@@ -44,17 +44,17 @@
                 <div class="collapse navbar-collapse">
                     <ul class="nav navbar-nav navbar-right masterfaster-navbar">
                         {% if user.is_authenticated %}
-                            <li role="presentation">
+                            <li class='five-px-right' role="presentation">
                                 {% block prof_img %}
                                 <img class="img-circle center-block base-profile" src="{% static 'masterfaster/max.jpg' %}" alt="Prof Pic" width="40" height="40">
                                 {% endblock prof_img %}
                             </li>
                         {% endif %}
                         <li class="navbar-tab" role="presentation"><a href="{% url 'blog:feed' %}">Blog</a></li>
-                        <li class="navbar-tab" role="presentation"><a href="{% url 'sales:home'%}">Shop</a></li>
+                        <li class="navbar-tab five-px-right" role="presentation"><a href="{% url 'sales:home'%}">Shop</a></li>
                         {% if user.is_authenticated %}
                         <li role="presentation"><a class="minicart" href="{% url 'sales:checkout' %}"></a></li>
-                        <li class="navbar-tab" role="presentation"><a href="{% url 'masterfaster:editEmailAddress' %}">Edit Profile</a></li>
+                        <li class="navbar-tab five-px-left" role="presentation"><a href="{% url 'masterfaster:editEmailAddress' %}">Edit Profile</a></li>
                         <li class="navbar-tab" role="presentation"><a href="{% url 'masterfaster:logout' %}">Logout</a></li>
                         {% else %}
                         <li class="navbar-tab" role="presentation"><a href="{% url 'masterfaster:login' %}">Login</a></li>

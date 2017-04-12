@@ -1,7 +1,7 @@
 from django.shortcuts import render, get_object_or_404, get_list_or_404, redirect, render_to_response
 from django.http import HttpResponse, Http404
 #from django.template import RequestContext
-from sales.models import Sale, Product, ShoppingCartItems
+from sales.models import Sale, Product, ShoppingCartItems, Purchases
 from .forms.forms import TestPaymentForm
 from masterfaster.models import User, CreditCard, Shipping, Billing
 from masterfaster.forms.forms import EditShippingAddress, EditBillingAddress
@@ -31,7 +31,6 @@ def add_to_cart(request, product_id):
 		context = {}
 		context['product_name'] = Product.objects.get(pk=product_id).name
 		context['quantity'] = int(request.POST['quantity'])
-		print(request.POST['quantity'])
 		context['add'] = True
 		return HttpResponse(render(request, 'sales/confirmation.html', context))
 
@@ -46,7 +45,6 @@ def charge(request, amount):
 		sale = Sale()
 		#stripe charge
 		print(request.POST['args[billing_address_country]'])
-		# print(request.POST)
 		success, instance = sale.charge(amount, request.POST['stripeToken'])
 		if not success:
 			return HttpResponse("Error reading card.")
@@ -89,29 +87,36 @@ def charge(request, amount):
 				try:
 					send_mail(subject, message, from_email, [to_email])
 				except BadHeaderError:
-					return HttpResponse('Invalid header found.')
+					print("Email didn't go through")
 			return HttpResponse('Successful Charge.')
 	return HttpResponse("Invalid match.")
 
 @login_required
 def charge_confirmation(request, amount):
-	if request.method == 'GET':
+	if request.method == 'GET' and request.session.get('sale_id', None) != None:
 		context = {'add': False}
 		context['amount'] = cents_to_dollars(amount)
 		#get purchase items for confirmation page
 		sale_id = request.session.pop('sale_id', None)
+		print('sale_id: ')
+		print (request.session.get('sale_id', None))
+		print(sale_id)
 		if sale_id != None:
 			sale = Sale.objects.get(pk=sale_id)
 			context['conf_num'] = sale.charge_id
-		scart_items = ShoppingCartItems.objects.filter(user=User.objects.get(username=request.user))
+		user = User.objects.get(username=request.user)
+		scart_items = ShoppingCartItems.objects.filter(user=user)
 		purchases = {}
 		for c_item in scart_items:
 			p = Product.objects.get(pk=c_item.pid)
 			purchases[(p.name, c_item.size)] = {'quantity': c_item.quantity, 'size': c_item.size, 'price': p.price}
-		context['purchases'] = purchases
-		#delete all ShoppingCartItems related to user who just paid
-		for item in scart_items:
-			item.delete()
+			#save as purchase
+			purchase = Purchases(user=user, sale_id=sale_id, pid=c_item.pid, pname=p.name, pprice=p.price, quantity=c_item.quantity, size=c_item.size)
+			purchase.save()
+			#delete all ShoppingCartItems related to user who just paid
+			c_item.delete()
+		context['purchases'] = purchases	
+		print(Purchases.objects.all())	
 		return HttpResponse(render(request, 'sales/confirmation.html', context))
 	return HttpResponse('Fail')
 
@@ -180,6 +185,22 @@ def item_detail(request, product_id):
 		context = {}
 		context['product'] = product
 		return HttpResponse(render(request, 'sales/shopitem.html', context))
+
+@login_required
+def purchase_history(request):
+	if request.method == 'GET':
+		u = User.objects.get(username=request.user)
+		purchases = Purchases.objects.filter(user=u)
+		context={'sales': {}}
+		context['length'] = 0
+		for purchase in purchases:
+			if context['sales'].get(purchase.sale_id, None) == None:
+				sale = Sale.objects.get(pk=purchase.sale_id)
+				context['sales'][purchase.sale_id] = {'sale': sale,'amount':cents_to_dollars(sale.amount), 'products':[]}
+				context['length'] += 1
+			context['sales'][purchase.sale_id]['products'].append({'Product Name': purchase.pname, 'Price': purchase.pprice, \
+				'Size': purchase.size,'Quantity': purchase.quantity})
+		return HttpResponse(render(request, 'sales/purchasehistory.html', context))
 
 @login_required
 def remove_cart_item(request, cart_id):

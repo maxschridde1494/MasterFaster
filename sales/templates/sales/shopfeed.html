@@ -4,8 +4,10 @@
 
 
 {% block shopcontent %}
+<div class="horizontal-center">
+    <a href="{% url 'sales:purchaseHistory' %}" id="customButton" class="btn btn-lg btn-primary btn-block confirmation-button horizontal-center">View Purchase History</a>
+</div>
 <div class="col-md-9">
-
     {% if product_list %}
 
         {% for product in product_list %}

@@ -1,0 +1,41 @@
+{% extends 'sales/shopbase.html' %}
+
+{% load static %}
+
+{% block shopcontent %}
+<!-- <div class="col-md-9"> -->
+    <div class="totals col-lg-8 col-lg-offset-2 col-md-8 col-md-offset-2 col-sm-8 col-sm-offset-2">
+        <div class="row totals">
+            Purchases History:
+        </div>
+    </div>
+    {% if length != 0 %}
+        {% for sale_id, purch_his_dic in sales.items %}
+            <div class="cart-item col-lg-8 col-lg-offset-2 col-md-8 col-md-offset-2 col-sm-8 col-sm-offset-2">
+                <div class="row purchase-header"><strong>Confirmation Number: {{purch_his_dic.sale.charge_id}}</strong></div>
+                <div class="row purchase-header"><strong>Total: {{purch_his_dic.amount}}</strong></div>
+                <div class="row purchase-header"><strong>Date: ${{purch_his_dic.sale.date}}</strong></div>
+                {% for products in purch_his_dic.products %}
+                    {% for k,v in products.items %}
+                        {% if k == 'Product Name' %}
+                            <div class="purchase-product">{{k}}: {{v}}</div>
+                        {% elif k == 'Price' %}
+                            <div class="purchase-product-description">{{k}}: ${{v}}</div>
+                        {% else %}
+                            <div class="purchase-product-description">{{k}}: {{v}}</div>
+                        {% endif %}
+                    {% endfor %}
+                {% endfor %}
+            </div>
+        {% endfor %}
+    {% else %}
+    <div class="totals col-lg-8 col-lg-offset-2 col-md-8 col-md-offset-2 col-sm-8 col-sm-offset-2">
+        <div class="row">
+            You have no past purchases.
+        </div>
+    </div>
+    {% endif %}
+
+<!-- </div> -->
+
+{% endblock shopcontent %}

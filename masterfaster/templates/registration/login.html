@@ -1,11 +1,12 @@
 {% extends 'masterfaster/base.html' %}
 
+{% load static %}
+
+{% block customstylesheet %}
+    <link href="{% static 'custom.css' %}?{% now 'U' %}" rel="stylesheet">
+{% endblock customstylesheet %}
+
 {% block content %}
-    <!-- {% if form.errors %}
-    <div class="container">
-        <h3 class="form-signin-heading center-block">Your username and password didn't match. Please try again.</h3>
-    </div>
-    {% endif %} -->
 
 {% if taken_username %}
     <h3 class="form-signin-heading center-block">This username is taken. Please create a different one.</h3>
@@ -57,13 +58,13 @@
             {{creating_user_form.as_table}}
         </table>
         <h5 class="form-signin-heading">To get profile picture functionality, please create a <a href="https://signup.wordpress.com/signup/?ref=oauth2&oauth2_redirect=788b48abfe85cafc65d001ce97add831%40https%3A%2F%2Fpublic-api.wordpress.com%2Foauth2%2Fauthorize%2F%3Fclient_id%3D1854%26response_type%3Dcode%26blog_id%3D0%26state%3D8e320545a4c1539e967f2c1754be4844ce053887ebaa7bf9cc8a3283f93c5525%26redirect_uri%3Dhttps%253A%252F%252Fen.gravatar.com%252Fconnect%252F%253Faction%253Drequest_access_token%26jetpack-code%26jetpack-user-id%3D0%26action%3Doauth2-login&wpcom_connect=1" target="_blank">Gravatar Profile</a> with the same <strong>email address</strong>.</h5>
-        <button class="btn btn-lg btn-primary btn-block" type="submit">Create User</button>
+        <button class="btn btn-lg btn-primary btn-block" id='create-user' type="submit">Create User</button>
     {% else %}
         <table>
             {{form.as_table}}
         </table>
         <h5 class="form-signin-heading">If you haven't done so already, please create a <a href="https://signup.wordpress.com/signup/?ref=oauth2&oauth2_redirect=788b48abfe85cafc65d001ce97add831%40https%3A%2F%2Fpublic-api.wordpress.com%2Foauth2%2Fauthorize%2F%3Fclient_id%3D1854%26response_type%3Dcode%26blog_id%3D0%26state%3D8e320545a4c1539e967f2c1754be4844ce053887ebaa7bf9cc8a3283f93c5525%26redirect_uri%3Dhttps%253A%252F%252Fen.gravatar.com%252Fconnect%252F%253Faction%253Drequest_access_token%26jetpack-code%26jetpack-user-id%3D0%26action%3Doauth2-login&wpcom_connect=1" target="_blank">Gravatar Profile</a> with the same <strong>email address</strong> we have on file to get profile picture functionality.</h5>
-        <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+        <button class="btn btn-lg btn-primary btn-block" id='signin' type="submit">Sign in</button>
     {% endif %}
   </form>
 
