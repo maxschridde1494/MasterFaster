@@ -1,8 +1,8 @@
 #Files to be ignored / not pushed to github
 Docs/*
-APIkeys.py
+KEYS.py
 venv
 *.pyc
-MFsite/staticfiles
+staticfiles
 MFsite/settings.py
 .env
