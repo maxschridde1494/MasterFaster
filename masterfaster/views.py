@@ -4,11 +4,10 @@ from django.utils import timezone
 import datetime
 
 from django.contrib.sessions.models import Session
-from masterfaster.models import User, Billing, Shipping, CreditCard
+from masterfaster.models import User, Billing, Shipping
 from django.contrib.auth import authenticate, login, update_session_auth_hash
 from django.contrib.auth.decorators import login_required
-from masterfaster.forms.forms import EditShippingAddress, EditBillingAddress, CreateUserForm, EditEmailAddress
-from sales.forms.forms import CreditCardForm
+from .forms.forms import CreateUserForm, EditEmailAddress
 from utils import gravatar
 from django.contrib.auth.forms import PasswordChangeForm
 from django.conf import settings
@@ -98,8 +97,6 @@ def createUser(request):
 				billing.save()
 				shipping = Shipping(user=user)
 				shipping.save()
-				credit_card = CreditCard(user=user)
-				credit_card.save()
 				print ('SAVING USER')
 				u = authenticate(username=uname, password=password)
 				#authenticate new user
