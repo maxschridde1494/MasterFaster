@@ -1,0 +1,17 @@
+{% extends "masterfaster/base.html" %}
+
+{% load static %}
+
+{% block customstylesheet %}
+    <link href="{% static 'masterfaster/masterfaster.css' %}?{% now 'U' %}" rel="stylesheet">
+{% endblock customstylesheet %}
+
+{% block title %}CSRF Error{% endblock %}
+
+{% block prof_img %}
+	{{img}}
+{% endblock prof_img %}
+
+{% block content %}
+<h1>{{reason}}</h1>
+{% endblock content %}

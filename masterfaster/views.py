@@ -128,6 +128,14 @@ def createUser(request):
 		}
 		return HttpResponse(render(request, 'registration/login.html', context))
 
+def csrf_failure(request, reason=""):
+	context ={}
+	if reason:
+		context['reason'] = reason
+	else:
+		context['reason'] = "Hello from the MasterFaster team! It looks like you have cookies disabled on your device. In order to submit\
+		any forms on our site, you must enable cookies to allow us to enforce our Cross Site Request Forgery protection. Thanks!"
+	return HttpResponse(render(request, 'masterfaster/csrf403error.html', context))
 
 @login_required
 def editEmailAddress(request):
