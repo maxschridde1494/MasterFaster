@@ -8,3 +8,4 @@ https://masterfaster.herokuapp.com/
 - Testing for payments
 - FAQ
 - Deploy to custom url
+- Email Validation at User Creation / Edit Page
