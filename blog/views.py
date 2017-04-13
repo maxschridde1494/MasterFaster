@@ -1,11 +1,8 @@
-from django.shortcuts import render, get_object_or_404, get_list_or_404, redirect
-from django.http import HttpResponse, Http404
+from django.shortcuts import render, get_object_or_404, redirect
+from django.http import HttpResponse
 from blog.models import BlogPost, Comment
 from masterfaster.models import User
-from django.conf import settings
 from django.utils import timezone
-from django.urls import reverse
-from django.contrib.auth.decorators import login_required
 from utils import gravatar, fetch_prev_next, create_blog_months
 
 months = {'1':'January','2':'February','3':'March','4':'April','5':'May','6':'June','7':'July','8':'August','9':'September','10':'Octoboer','11':'November','12':'December'}
@@ -44,7 +41,6 @@ def detail(request, entry_id):
 	#retrieve previous and next posts
 	posts = BlogPost.objects.order_by('-pub_date')
 	p_n = fetch_prev_next(bp, posts)
-	
 	context = {'entry': bp,
 		'prev_next': p_n
 	}
