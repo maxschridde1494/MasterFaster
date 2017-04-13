@@ -64,12 +64,9 @@ def detail(request, entry_id):
 	return HttpResponse(render(request, template, context))
 
 def comment(request, entry_id):
-	print("in comment")
-	bp = get_object_or_404(BlogPost, pk=entry_id)
-	c = Comment(user=request.user,blogpost=bp,text=request.POST['comment-text'], pub_date=timezone.now())
-	c.save()
+	# print("in comment")
+	if request.method == "POST":
+		bp = get_object_or_404(BlogPost, pk=entry_id)
+		c = Comment(user=request.user,blogpost=bp,text=request.POST['comment-text'], pub_date=timezone.now())
+		c.save()
 	return redirect('blog:detail', entry_id=entry_id)
-
-def newEntry(request):
-	context = {'max_date': timezone.now().date()}
-	return HttpResponse(render(request, 'masterfaster/blogentry.html', context))

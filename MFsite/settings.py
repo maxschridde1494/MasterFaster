@@ -16,10 +16,8 @@ import os
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 
-# Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.10/howto/deployment/checklist/
 
-# SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = os.environ['SECRET_KEY']
 STRIPE_API_KEY_PUBLISHABLE = os.environ['STRIPE_API_KEY_PUBLISHABLE']
 STRIPE_API_KEY_SECRET = os.environ['STRIPE_API_KEY_SECRET']
@@ -63,7 +61,7 @@ MIDDLEWARE = [
 ]
 CSRF_COOKIE_SECURE=True
 CSRF_COOKIE_HTTPONLY=True
-SESSION_COOKIE_SECURE=True
+# SESSION_COOKIE_SECURE=True
 CSRF_FAILURE_VIEW ='masterfaster.views.csrf_failure'
 
 # =======================

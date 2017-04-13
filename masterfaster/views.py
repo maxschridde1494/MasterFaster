@@ -137,6 +137,9 @@ def csrf_failure(request, reason=""):
 		\n If you feel like you've received this message in error, please reach out to us at %s" % settings.EMAIL_HOST_USER
 	return HttpResponse(render(request, 'masterfaster/csrf403error.html', context))
 
+def custom_page_not_found(request):
+	return HttpResponse(render(request, 'masterfaster/404.html'))
+
 @login_required
 def editEmailAddress(request):
 	if request.method == 'POST':
@@ -158,6 +161,7 @@ def editEmailAddress(request):
 		return HttpResponse(render(request, 'masterfaster/editemail.html', context))
 
 def home(request):
+	print(request.user)
 	context = {}
 	try:
 		u = User.objects.get(username=request.user)

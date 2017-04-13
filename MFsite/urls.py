@@ -16,6 +16,7 @@ Including another URLconf
 from django.conf.urls import url, include
 from django.contrib import admin
 from django.contrib.auth import views as auth_views
+from django.conf.urls import handler404
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
@@ -23,3 +24,4 @@ urlpatterns = [
     url(r'^blog/', include('blog.urls')),
     url(r'^shop/', include('sales.urls')),
 ]
+handler404 = 'masterfaster.views.custom_page_not_found'

@@ -1,0 +1,20 @@
+{% extends "masterfaster/base.html" %}
+
+{% load static %}
+
+{% block customstylesheet %}
+    <link href="{% static 'masterfaster/masterfaster.css' %}?{% now 'U' %}" rel="stylesheet">
+{% endblock customstylesheet %}
+
+{% block title %}404 Error{% endblock %}
+
+{% block prof_img %}
+	{{img}}
+{% endblock prof_img %}
+
+{% block content %}
+
+<h1>404 Error</h1>
+<p>Looks like the page you are looking for can't be found</p>
+
+{% endblock content %}
