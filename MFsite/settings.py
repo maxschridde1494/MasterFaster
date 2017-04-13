@@ -61,6 +61,9 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+CSRF_COOKIE_SECURE=True
+CSRF_COOKIE_HTTPONLY=True
+SESSION_COOKIE_SECURE=True
 
 # =======================
 # Added Session variables
