@@ -1,7 +1,6 @@
 from django import forms
 from django.forms import ModelForm
-from masterfaster.models import User, Billing, Shipping, CreditCard
-from sales.forms.forms import CreditCardForm
+from masterfaster.models import User, Billing, Shipping
 from django.contrib.auth.forms import UserCreationForm
 
 class CreateUserForm(ModelForm):

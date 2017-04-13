@@ -23,7 +23,7 @@ STRIPE_API_KEY_PUBLISHABLE = os.environ['STRIPE_API_KEY_PUBLISHABLE']
 STRIPE_API_KEY_SECRET = os.environ['STRIPE_API_KEY_SECRET']
 
 # SECURITY WARNING: don't run with debug turned on in production!
-# DEBUG = True
+DEBUG = True
 
 ALLOWED_HOSTS = ['masterfaster.herokuapp.com', '127.0.0.1']
 

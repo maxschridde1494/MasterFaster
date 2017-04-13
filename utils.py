@@ -5,6 +5,7 @@ from django.utils.safestring import mark_safe
 from sales.models import Product, ShoppingCartItems
 from datetime import datetime
 import functools
+from django.core.mail import send_mail, BadHeaderError
  
 register = template.Library()
  
@@ -103,4 +104,11 @@ def get_shopping_cart_total_price(user):
 	else:
 		total_price = 0.00
 	return total_price
+
+def send_email(subject, message, from_email, to_email):
+	if subject and message and from_email:
+		try:
+			send_mail(subject, message, from_email, [to_email])
+		except BadHeaderError:
+			print('Email could not be sent.')
 

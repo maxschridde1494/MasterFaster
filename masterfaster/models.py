@@ -12,13 +12,6 @@ class User(AbstractUser):
 	def __str__(self):
 		return self.username
 
-class CreditCard(models.Model):
-	user = models.ForeignKey(User, on_delete=models.CASCADE)
-	number = models.CharField(max_length=50, null=True)
-	exp_date_month = models.CharField(max_length=10, null=True)
-	exp_date_year = models.CharField(max_length=10, null=True)
-	csv = models.CharField(max_length=50, null=True)
-
 class Address(models.Model):
 	user = models.ForeignKey(User, on_delete=models.CASCADE)
 	address = models.CharField(max_length=50, null=True)

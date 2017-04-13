@@ -1,42 +1,30 @@
-from django.shortcuts import render, get_object_or_404, redirect
-from django.http import HttpResponse, Http404
-from django.utils import timezone
-import datetime
-
-from django.contrib.sessions.models import Session
+from django.shortcuts import render, redirect
+from django.http import HttpResponse
 from masterfaster.models import User, Billing, Shipping
 from django.contrib.auth import authenticate, login, update_session_auth_hash
 from django.contrib.auth.decorators import login_required
 from .forms.forms import CreateUserForm, EditEmailAddress
-from utils import gravatar
+from utils import gravatar, send_email
 from django.contrib.auth.forms import PasswordChangeForm
 from django.conf import settings
-from django.core.mail import send_mail, BadHeaderError
+# from django.core.mail import send_mail, BadHeaderError
 
 @login_required
 def change_password(request):
+	user = User.objects.get(username=request.user)
+	img = gravatar(user.email)
 	if request.method == 'POST':
 		form = PasswordChangeForm(request.user, request.POST)
 		if form.is_valid():
 			user = form.save()
 			update_session_auth_hash(request, user)  # Important!
-
 			subject = "Master Faster Changed Password"
 			message = "You recently changed your password."
 			from_email = settings.EMAIL_HOST_USER
 			to_email = User.objects.get(username=request.user).email
-			if subject and message and from_email:
-				try:
-					print('sending email to %s' % to_email)
-					send_mail(subject, message, from_email, [to_email])
-				except BadHeaderError:
-					return HttpResponse('Invalid header found.')
-			return HttpResponse(render(request, 'masterfaster/editconfirmation.html', {'update': 'Password'}))
+			send_email(subject, message, from_email, to_email)
+			return HttpResponse(render(request, 'masterfaster/editconfirmation.html', {'update': 'Password', 'img':img}))
 		else:
-			print('not valid form')
-			print(form.errors)
-			user = User.objects.get(username=request.user)
-			img = gravatar(user.email)
 			context = {
 				'form': PasswordChangeForm(request.user),
 				'img': img,
@@ -44,8 +32,6 @@ def change_password(request):
 			}
 			return HttpResponse(render(request, 'registration/password_change_form.html', context))
 	else:
-		user = User.objects.get(username=request.user)
-		img = gravatar(user.email)
 		form = PasswordChangeForm(request.user)
 		context = {
 			'form': form,
@@ -55,7 +41,6 @@ def change_password(request):
 
 def createUser(request):
 	if request.method == 'POST':
-		#create a new user
 		usernames = [u.username for u in User.objects.all()]
 		uname = request.POST['username']
 		if uname in usernames:
@@ -67,11 +52,8 @@ def createUser(request):
 			}
 			return HttpResponse(render(request, 'registration/login.html', context))
 		else:
-		#NEED TO FIGURE OUT WHY form.is_valid() RETURNS FALSE 
 			form = CreateUserForm(request.POST)
-			print('checking form.is_valid')
 			if form.is_valid():
-				print('form.is_valid')
 				password = form.cleaned_data['password']
 				if password != form.cleaned_data['password2']:
 					context = {
@@ -92,19 +74,21 @@ def createUser(request):
 				email = form.cleaned_data['email']
 				user = User.objects.create_user(uname, email, password)
 				user.save()
-				#automatically create billing address
+				subject = "Master Faster User Creation"
+				message = "Hello %s! Thank you for becoming a member of the MasterFaster community!\n\nBest,\nMaster Faster Team" % user.username
+				from_email = settings.EMAIL_HOST_USER
+				to_email = user.email
+				send_email(subject, message, from_email, to_email)
 				billing = Billing(user=user)
 				billing.save()
 				shipping = Shipping(user=user)
 				shipping.save()
-				print ('SAVING USER')
 				u = authenticate(username=uname, password=password)
 				#authenticate new user
 				if u is not None:
 					login(request, u)
 					return redirect('masterfaster:home')
 				else:
-					#CHANGE THIS TO INVALID LOGIN PAGE
 					context = {
 						'creating_user': True,
 						'taken_username': True,
@@ -138,7 +122,12 @@ def csrf_failure(request, reason=""):
 	return HttpResponse(render(request, 'masterfaster/csrf403error.html', context))
 
 def custom_page_not_found(request):
-	return HttpResponse(render(request, 'masterfaster/404.html'))
+	context = {}
+	if request.user.is_authenticated:
+		user = User.objects.get(username=request.user)
+		img = gravatar(user.email)
+		context['img'] = img
+	return HttpResponse(render(request, 'masterfaster/404.html', context))
 
 @login_required
 def editEmailAddress(request):
@@ -161,12 +150,9 @@ def editEmailAddress(request):
 		return HttpResponse(render(request, 'masterfaster/editemail.html', context))
 
 def home(request):
-	print(request.user)
 	context = {}
-	try:
+	if request.user.is_authenticated:
 		u = User.objects.get(username=request.user)
-	except User.DoesNotExist:
-		return HttpResponse(render(request, 'masterfaster/home.html', context))
-	img = gravatar(u.email, 40)
-	context['img'] = img
+		img = gravatar(u.email, 40)
+		context['img'] = img
 	return HttpResponse(render(request, 'masterfaster/home.html', context))
