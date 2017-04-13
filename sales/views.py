@@ -79,8 +79,7 @@ def charge(request, amount):
 
 			#Send Confirmation email.
 			subject = "Master Faster Confirmation Email."
-			message = "Thank you for shopping with Master Faster. Your payment successfully went through. You will be receiving \
-						your receipt shortly."
+			message = "Thank you for shopping with Master Faster. Your payment successfully went through. You will be receiving your receipt shortly."
 			from_email = settings.EMAIL_HOST_USER
 			to_email = request.POST.get('emailAddress', '')
 			if subject and message and from_email:
