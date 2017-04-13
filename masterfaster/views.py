@@ -133,8 +133,10 @@ def csrf_failure(request, reason=""):
 	if reason:
 		context['reason'] = reason
 	else:
-		context['reason'] = "Hello from the MasterFaster team! It looks like you have cookies disabled on your device. In order to submit\
-		any forms on our site, you must enable cookies to allow us to enforce our Cross Site Request Forgery protection. Thanks!"
+		context['reason'] = ""
+	context['reason'] += "Hello from the MasterFaster team! It looks like you have cookies disabled on your device. In order to submit\
+		any forms on our site, you must enable cookies to allow us to enforce our Cross Site Request Forgery protection. Thanks! \
+		\n If you feel like you've received this message in error, please reach out to us at %s" % settings.EMAIL_HOST_USER
 	return HttpResponse(render(request, 'masterfaster/csrf403error.html', context))
 
 @login_required
