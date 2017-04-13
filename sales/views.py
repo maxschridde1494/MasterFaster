@@ -44,7 +44,7 @@ def charge(request, amount):
 		u = User.objects.get(username=request.user)
 		sale = Sale()
 		#stripe charge
-		success, instance = sale.charge(amount, request.POST['stripeToken'])
+		success, instance = sale.charge(amount, request.POST['stripeToken'], u.email)
 		if not success:
 			return HttpResponse("Error reading card.")
 		else:
@@ -79,7 +79,8 @@ def charge(request, amount):
 
 			#Send Confirmation email.
 			subject = "Master Faster Confirmation Email."
-			message = "Thank you for shopping with Master Faster. Your payment successfully went through."
+			message = "Thank you for shopping with Master Faster. Your payment successfully went through. You will be receiving \
+						your receipt shortly."
 			from_email = settings.EMAIL_HOST_USER
 			to_email = request.POST.get('emailAddress', '')
 			if subject and message and from_email:

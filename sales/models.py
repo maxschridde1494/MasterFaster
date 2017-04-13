@@ -48,7 +48,7 @@ class Sale(models.Model):
 		return self.charge_id
 
 	# def charge(self, price_in_cents, number, exp_month, exp_year, cvc):
-	def charge(self, price_in_cents, token):
+	def charge(self, price_in_cents, token, receipt_email):
 		"""Input: price and the stripeToken from CHECKOUT.
 		Output: tuple (Boolean, Class)
 			- True if charge is successful
@@ -61,6 +61,7 @@ class Sale(models.Model):
 			response = self.stripe.Charge.create(
 				amount = price_in_cents,
 				currency = 'usd',
+				receipt_email = receipt_email,
 				source = token,
 				description = 'Thanks for the purchase!')
 			self.charge_id = response.id
