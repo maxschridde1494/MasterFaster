@@ -64,7 +64,7 @@ MIDDLEWARE = [
 CSRF_COOKIE_SECURE=True
 CSRF_COOKIE_HTTPONLY=True
 SESSION_COOKIE_SECURE=True
-CSRF_FAILURE_VIEW ='masterfaster.apps.views.csrf_failure'
+CSRF_FAILURE_VIEW ='masterfaster.views.csrf_failure'
 
 # =======================
 # Added Session variables
