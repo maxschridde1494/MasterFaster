@@ -132,10 +132,6 @@ def csrf_failure(request, reason=""):
 	context ={}
 	if reason:
 		context['reason'] = reason
-		context['description'] = ""
-	else:
-		context['reason'] = ""
-	if reason == "CSRF cookie not set.":
 		context['description'] +=  "Hello from the MasterFaster team! It looks like you have cookies disabled on your device. In order to submit\
 		any forms on our site, you must enable cookies to allow us to enforce our Cross Site Request Forgery protection. Thanks! \
 		\n If you feel like you've received this message in error, please reach out to us at %s" % settings.EMAIL_HOST_USER
