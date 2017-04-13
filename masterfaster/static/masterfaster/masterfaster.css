@@ -5,6 +5,9 @@ body{
   background-size: cover;
   color: black;
 }
+.horizontal-center{
+  margin: 0 auto;
+}
 
 .definition{
   margin-bottom: 20px;
