@@ -9,8 +9,8 @@ from django.core.mail import send_mail, BadHeaderError
  
 register = template.Library()
  
-# return only the URL of the gravatar
-# TEMPLATE USE:  {{ email|gravatar_url:150 }}
+return only the URL of the gravatar
+TEMPLATE USE:  {{ email|gravatar_url:150 }}
 @register.filter
 def gravatar_url(email, size=40):
   default = "mm"
@@ -18,27 +18,41 @@ def gravatar_url(email, size=40):
   email = email.strip()
   return "https://www.gravatar.com/avatar/%s?%s" % (hashlib.md5(email.lower().encode('utf-8')).hexdigest(), urllib.parse.urlencode({'d':default, 's':str(size)}))
  
-# return an image tag with the gravatar
-# TEMPLATE USE:  {{ email|gravatar:150 }}
+return an image tag with the gravatar
+TEMPLATE USE:  {{ email|gravatar:150 }}
 @register.filter
 def gravatar(email, size=40, classes="img-circle center-block base-profile"):
     url = gravatar_url(email, size)
     return mark_safe('<img class="%s" src="%s" height="%d" width="%d">' % (classes, url, size, size))
 
 def dollar_str_to_cents_int(num):
+	"""
+	>>> dollar_str_to_cents_int('0.00')
+	0
+	>>> dollar_str_to_cents_int('1.01')
+	101
+	>>> dollar_str_to_cents_int('0.81')
+	81
+	>>> dollar_str_to_cents_int('11.21')
+	1121
+	"""
 	s = str(num).split('.')
 	doll = int(s[0])
 	if len(s) > 1:
 		return doll*100 + int(s[1])
 	return doll*100
 
-def address_empty(address):
-	if address.address == None or address.city == None or address.state == None or address.zipcode == None or address.country == None:
-		return True
-	return False
-
 def cents_to_dollars(num):
-	"""return string in $0.00 format"""
+	"""return string in $0.00 format
+	>>> cents_to_dollars('1123')
+	'$11.23'
+	>>> cents_to_dollars('23')
+	'$0.23'
+	>>> cents_to_dollars('113')
+	'$1.13'
+	>>> cents_to_dollars('0')
+	'$0.0'
+	"""
 	if int(num) < 100:
 		return "$0." + num
 	dollars,cents = str(int(num) // 100), str(int(num) % 100)
@@ -67,7 +81,6 @@ def fetch_prev_next(bp, posts):
 	'last': boolean,
 	'prev': blog_post,
 	'next': blog_post}
-
 	"""
 	found, counter = False, 0
 	p_n = {'prev': None,'next': None, 'first': False, 'last': False}
