@@ -1,5 +1,5 @@
 from django.db import models
-from django.contrib.postgres.fields import JSONField, ArrayField
+from django.contrib.postgres.fields import ArrayField
 
 from django.conf import settings
 from django.utils import timezone

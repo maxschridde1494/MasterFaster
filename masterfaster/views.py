@@ -7,7 +7,6 @@ from .forms.forms import CreateUserForm, EditEmailAddress
 from utils import gravatar, send_email
 from django.contrib.auth.forms import PasswordChangeForm
 from django.conf import settings
-# from django.core.mail import send_mail, BadHeaderError
 
 @login_required
 def change_password(request):
