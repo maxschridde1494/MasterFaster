@@ -23,6 +23,7 @@
     color: white;
     background-color: black;
     opacity: 1;
+    /*border-radius: 10px;*/
 }
 .navbar-default .navbar-nav > .active > a,
 .navbar-default .navbar-nav > .active > a:hover,
