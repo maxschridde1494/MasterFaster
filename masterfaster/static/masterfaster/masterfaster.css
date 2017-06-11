@@ -1,23 +1,65 @@
 body{
-  /*background-color: #d7d2cb;*/
-  /*background-color: #f2f6f9;*/
-  background: #f2f6f9 url("moon.jpg") no-repeat fixed center;
+  background: #f2f6f9 url("leaves.jpeg") no-repeat fixed center;
   background-size: cover;
   color: black;
 }
 .horizontal-center{
   margin: 0 auto;
 }
-
-.definition{
-  margin-bottom: 20px;
+.vertical-center{
+  margin: auto 0;
 }
-
+.definition-nav{
+  padding: 30px;
+  margin-bottom: 20px;
+  opacity: .85;
+  background-color: lightgrey;
+  border-radius: 10px;
+}
 .headers{
   color: black;
 }
-.headers:hover{
-  color: black;
+.nav>li>a:focus, .nav>li>a:hover {
+  background-color: black;
+  color: white;
+}
+.team-info{
+  color: white;
+}
+
+/*ARTICLES
+-----------------------------
+*/
+/*.articles-main{
+}*/
+.articles-title{
+  color: white;
+  text-align: center;
+  font-size: 40px;
+  /*background-color: orange;*/
+}
+.article-row{
+  vertical-align: middle;
+  margin-top: 15px;
+  margin-bottom: 15px;
+}
+.article-height-small{
+  height: 120px;
+  background-color: lightgrey;
+  border-radius: 10px;
+  opacity: .85;
+}
+.article-height-medium{
+  height: 180px;
+  background-color: darkgrey;
+  border-radius: 10px;
+  opacity: .85;
+}
+.article-height-tall{
+  height: 220px;
+  background-color: white;
+  border-radius: 10px;
+  opacity: .85;
 }
 
 /* MARKETING CONTENT
@@ -45,9 +87,10 @@ body{
 }
 
 .divider2{
-  border-color: black;
+  border-color: lightgrey;
+  padding: 0px;
   margin-top: 30px;
-  margin-bottom: 50px;
+  margin-bottom: 30px;
 }
 
 /* Thin out the marketing headings */

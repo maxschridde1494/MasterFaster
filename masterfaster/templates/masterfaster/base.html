@@ -28,7 +28,7 @@
 <body>
     <div id="navbar">
         {% block navbar %}
-        <nav class="navbar navbar-inverse navbar-fixed-top">
+        <nav class="navbar navbar-default navbar-fixed-top">
             <div class="container-fluid">
                 <div class="navbar-header">
                     <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse" aria-expanded="false">
@@ -38,7 +38,7 @@
                     <span class="icon-bar"></span>
                     </button>
                     <a class="navbar-brand logo-img" href="{% url 'masterfaster:home' %}">
-                        <img class="center-block nav-logo" src="{% static 'images/mflogo.png' %}" alt="Logo">
+                        <img class="center-block nav-logo" src="{% static 'masterfaster/mflogo.png' %}" alt="Logo">
                     </a>
                 </div>
                 <div class="collapse navbar-collapse">
@@ -51,9 +51,9 @@
                             </li>
                         {% endif %}
                         <li class="navbar-tab" role="presentation"><a href="{% url 'blog:feed' %}">Blog</a></li>
-                        <li class="navbar-tab five-px-right" role="presentation"><a href="{% url 'sales:home'%}">Shop</a></li>
+                        <li class="navbar-tab" role="presentation"><a href="{% url 'blog:feed' %}">Articles</a></li>
                         {% if user.is_authenticated %}
-                        <li role="presentation"><a class="minicart" href="{% url 'sales:checkout' %}"></a></li>
+                        <!-- <li role="presentation"><a class="minicart" href="{% url 'sales:checkout' %}"></a></li> -->
                         <li class="navbar-tab five-px-left" role="presentation"><a href="{% url 'masterfaster:editEmailAddress' %}">Edit Profile</a></li>
                         <li class="navbar-tab" role="presentation"><a href="{% url 'masterfaster:logout' %}">Logout</a></li>
                         {% else %}
@@ -72,7 +72,7 @@
         {% endblock content %}
     </div>
     <footer>
-        <div class="container">
+        <div class="container home-footer">
             <div class="row">
                 <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
                     <ul class="list-inline text-center">
@@ -93,7 +93,7 @@
                             </a>
                         </li>
                     </ul>
-                    <p class="copyright text-muted">Copyright &copy; Master Faster 2017</p>
+                    <p class="copyright text-muted">Copyright &copy; Master Faster 2017</br>Photography by Atessa Farmanfarmaian | http://www.sydneytosantacruz.com/</p>
                 </div>
             </div>
         </div>

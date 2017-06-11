@@ -9,8 +9,8 @@ from django.core.mail import send_mail, BadHeaderError
  
 register = template.Library()
  
-return only the URL of the gravatar
-TEMPLATE USE:  {{ email|gravatar_url:150 }}
+# return only the URL of the gravatar
+# TEMPLATE USE:  {{ email|gravatar_url:150 }}
 @register.filter
 def gravatar_url(email, size=40):
   default = "mm"
@@ -18,8 +18,8 @@ def gravatar_url(email, size=40):
   email = email.strip()
   return "https://www.gravatar.com/avatar/%s?%s" % (hashlib.md5(email.lower().encode('utf-8')).hexdigest(), urllib.parse.urlencode({'d':default, 's':str(size)}))
  
-return an image tag with the gravatar
-TEMPLATE USE:  {{ email|gravatar:150 }}
+# return an image tag with the gravatar
+# TEMPLATE USE:  {{ email|gravatar:150 }}
 @register.filter
 def gravatar(email, size=40, classes="img-circle center-block base-profile"):
     url = gravatar_url(email, size)

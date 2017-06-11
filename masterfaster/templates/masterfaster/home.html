@@ -22,23 +22,14 @@
 			<div class="col-md-4"></div>
 		</div>
 	</div>
-	<div class="home-nav">
+	<div class="home-main">
 		<div class="container">
-			<div class="row col-md-8 col-md-offset-2">
+			<div class="definition-nav row col-md-6 col-md-offset-3 col-xs-8 col-xs-offset-2">
 				<ul class="nav nav-pills nav-justified">
 					<li role="presentation"><a class="headers" href="{% url 'masterfaster:home'%}">Home</a></li>
 					<li role="presentation"><a class="headers" href="{% url 'blog:feed'%}">Blog</a></li>
-					<!-- <li role="presentation"><a class="headers" href="{% url 'masterfaster:home'%}">Articles</a></li> -->
-					<li role="presentation"><a class="headers" href="{% url 'sales:home'%}">Shop</a></li>
-					<li role="presentation"><a class="headers" href="{% url 'masterfaster:home'%}">FAQ</a></li>
+					<li role="presentation"><a class="headers" href="{% url 'masterfaster:home'%}">Articles</a></li>
 				</ul>
-			</div>
-		</div>
-	</div>
-	<div class="definition container">
-		<!-- <hr class="divider"> -->
-		<div class="row">
-			<div class="col-md-6 col-md-offset-3">
 				<h1 class="featurette-heading"><strong>mas <span class="text-danger">&#9679;</span> ter   fas <span class="text-danger">&#9679;</span> ter</strong></h1>
 				<h3 class="featurette-heading">/ mast&#477;r fast&#477;r / </h1>
 				<h4 class="featurette-heading"><i>noun</i></h4>
@@ -50,9 +41,29 @@
 		</div>
 	</div>
 
-	<hr class="divider2 col-lg-6 col-lg-offset-3 col-md-6 col-md-offset-3 col-sm-6 col-sm-offset-3">
+	<hr class="divider2 col-md-6 col-md-offset-3 col-xs-8 col-xs-offset-2">
 
-	<div class="container marketing">
+	<div class="container">
+		<div class="col-xs-8 col-xs-offset-2 articles-main ">
+			<h1 class="articles-title horizontal-center">Article Topics</h1>
+			<div class="row article-row">
+				<div class="col-xs-3 article-height-medium">col 1</div>
+				<div class="col-xs-4 col-xs-offset-1 article-height-tall">col 2</div>
+				<div class="col-xs-3 col-xs-offset-1 article-height-small">col 3</div>
+			</div>
+			<div class="row article-row">
+				<div class="col-xs-3 article-height-small">col 1</div>
+				<div class="col-xs-4 col-xs-offset-1 article-height-medium">col 2</div>
+				<div class="col-xs-3 col-xs-offset-1 article-height-tall">col 3</div>
+			</div>
+			<div class="row article-row">
+				<div class="col-xs-3 article-height-tall">col 1</div>
+				<div class="col-xs-4 col-xs-offset-1 article-height-small">col 2</div>
+				<div class="col-xs-3 col-xs-offset-1 article-height-medium">col 3</div>
+			</div>
+		</div>
+	</div>
+	<!-- <div class="team-info">
 
 		<div class="row">
 			<div class="col-lg-4 col-lg-offset-2 col-md-4 col-md-offset-2 col-sm-6">
@@ -67,5 +78,5 @@
 			</div> 
 		</div>
 
-	</div>
+	</div> -->
 {% endblock content %}
