@@ -51,7 +51,6 @@
                             </li>
                         {% endif %}
                         <li class="navbar-tab" role="presentation"><a href="{% url 'blog:feed' %}">Blog</a></li>
-                        <li class="navbar-tab" role="presentation"><a href="{% url 'blog:feed' %}">Articles</a></li>
                         {% if user.is_authenticated %}
                         <!-- <li role="presentation"><a class="minicart" href="{% url 'sales:checkout' %}"></a></li> -->
                         <li class="navbar-tab five-px-left" role="presentation"><a href="{% url 'masterfaster:editEmailAddress' %}">Edit Profile</a></li>

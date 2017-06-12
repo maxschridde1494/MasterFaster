@@ -18,13 +18,13 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # See https://docs.djangoproject.com/en/1.10/howto/deployment/checklist/
 
-# SECRET_KEY = os.environ['SECRET_KEY']
-SECRET_KEY = 'sxc%w_&nf^!-7z_k!7@fv47tt7-2mv&8j0wv#kj$&h32=drhmc'
-# STRIPE_API_KEY_PUBLISHABLE = os.environ['STRIPE_API_KEY_PUBLISHABLE']
-# STRIPE_API_KEY_SECRET = os.environ['STRIPE_API_KEY_SECRET']
+SECRET_KEY = os.environ['SECRET_KEY']
+# SECRET_KEY = 'sxc%w_&nf^!-7z_k!7@fv47tt7-2mv&8j0wv#kj$&h32=drhmc'
+STRIPE_API_KEY_PUBLISHABLE = os.environ['STRIPE_API_KEY_PUBLISHABLE']
+STRIPE_API_KEY_SECRET = os.environ['STRIPE_API_KEY_SECRET']
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+# DEBUG = True
 
 ALLOWED_HOSTS = ['masterfaster.herokuapp.com', '127.0.0.1']
 
@@ -62,7 +62,7 @@ MIDDLEWARE = [
 ]
 
 #UNCOMMENT THIS FOR DEPLOYMENT
-# CSRF_COOKIE_SECURE=True
+CSRF_COOKIE_SECURE=True
 CSRF_COOKIE_HTTPONLY=True
 # SESSION_COOKIE_SECURE=True
 CSRF_FAILURE_VIEW ='masterfaster.views.csrf_failure'

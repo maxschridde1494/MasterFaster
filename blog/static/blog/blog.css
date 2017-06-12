@@ -1,4 +1,17 @@
+#blog-feed-header{
+  background-image: url('../images/beachpalms.jpeg');
+}
+/*#blog-post-header{
+  background-image: url('../images/beachpalms.jpeg');
+}*/
 /* Pagination */
+.post-heading{
+  /*color: black;*/
+  background-color: lightgrey;
+  opacity: .9;
+  padding: 15px;
+  border-radius: 10px;
+}
 .pager {
   /*margin-bottom: 60px;*/
   margin-left: auto;
