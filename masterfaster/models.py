@@ -12,6 +12,22 @@ class User(AbstractUser):
 	def __str__(self):
 		return self.username
 
+class Topic(models.Model):
+	topic = models.CharField(unique=True, max_length=50)
+
+	def __str__(self):
+		return self.topic
+
+class Article(models.Model):
+	topic = models.ForeignKey(Topic, on_delete=models.CASCADE)
+	title = models.CharField(max_length=100)
+	author = models.CharField(max_length=100)
+	description = models.CharField(max_length=300)
+	link = models.CharField(max_length=300)
+
+	def __str__(self):
+		return self.title
+
 class Address(models.Model):
 	user = models.ForeignKey(User, on_delete=models.CASCADE)
 	address = models.CharField(max_length=50, null=True)

@@ -1,12 +1,28 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, get_object_or_404, redirect, get_list_or_404
 from django.http import HttpResponse
-from masterfaster.models import User, Billing, Shipping
+from masterfaster.models import User, Topic, Article, Billing, Shipping
 from django.contrib.auth import authenticate, login, update_session_auth_hash
 from django.contrib.auth.decorators import login_required
 from .forms.forms import CreateUserForm, EditEmailAddress
 from utils import gravatar, send_email
 from django.contrib.auth.forms import PasswordChangeForm
 from django.conf import settings
+import random
+
+def articles(request, topic_id):
+	topic = get_object_or_404(Topic, pk=topic_id)
+	context = {}
+	context['topic'] = topic
+	try:
+		articles = Article.objects.filter(topic=topic)
+		context['articles_list'] = articles
+	except Article.DoesNotExist:
+		context['articles_list'] = []
+	if request.user.is_authenticated:
+		user = User.objects.get(username=request.user)
+		img = gravatar(user.email)
+		context['img'] = img
+	return HttpResponse(render(request, 'masterfaster/articletopic.html', context))
 
 @login_required
 def change_password(request):
@@ -155,4 +171,19 @@ def home(request):
 		u = User.objects.get(username=request.user)
 		img = gravatar(u.email, 40)
 		context['img'] = img
+	topics = Topic.objects.all()
+	colTypes = ["article-col col-xs-3", 'article-col col-xs-4 col-xs-offset-1', 'article-col col-xs-3 col-xs-offset-1']
+	colHeights = ["article-height-small", "article-height-medium", "article-height-tall"]
+	topicTups = []
+	for i in range(len(topics)):
+		r = random.random()
+		if r < .33:
+			rand = 0
+		elif r >= .33 and r < .66:
+			rand = 1
+		else:
+			rand = 2
+		c = colTypes[i % len(colTypes)] + " " + colHeights[rand]
+		topicTups.append((topics[i], c))
+	context['topics'] = topicTups
 	return HttpResponse(render(request, 'masterfaster/home.html', context))

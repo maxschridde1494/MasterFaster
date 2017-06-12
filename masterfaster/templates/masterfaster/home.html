@@ -46,21 +46,27 @@
 	<div class="container">
 		<div class="col-xs-8 col-xs-offset-2 articles-main ">
 			<h1 class="articles-title horizontal-center">Article Topics</h1>
-			<div class="row article-row">
-				<div class="col-xs-3 article-height-medium">col 1</div>
-				<div class="col-xs-4 col-xs-offset-1 article-height-tall">col 2</div>
-				<div class="col-xs-3 col-xs-offset-1 article-height-small">col 3</div>
-			</div>
-			<div class="row article-row">
-				<div class="col-xs-3 article-height-small">col 1</div>
-				<div class="col-xs-4 col-xs-offset-1 article-height-medium">col 2</div>
-				<div class="col-xs-3 col-xs-offset-1 article-height-tall">col 3</div>
-			</div>
-			<div class="row article-row">
-				<div class="col-xs-3 article-height-tall">col 1</div>
-				<div class="col-xs-4 col-xs-offset-1 article-height-small">col 2</div>
-				<div class="col-xs-3 col-xs-offset-1 article-height-medium">col 3</div>
-			</div>
+			{% for topictup in topics %}
+				{% if forloop.first %}
+					<div class='row article-row'>
+				{% elif forloop.counter0|divisibleby:3 %}
+		            </div>
+		            <div class='row article-row'>
+	            {% endif %}
+	            <div class="{{topictup.1}}" id="{{topictup.0.id}}">
+	            	<div class="horizontal-center">{{topictup.0.topic}}</div>
+	            	<script>
+						document.getElementById('{{topictup.0.id}}').addEventListener('click', function(e) {
+							window.location.href = "/articles/" + "{{topictup.0.id}}";
+							e.preventDefault();
+						});
+					</script>
+	            </div>
+	            {% if forloop.last %}
+	            	</div>
+	            {% endif %}
+	        {% endfor %}
+		    </div>
 		</div>
 	</div>
 	<!-- <div class="team-info">

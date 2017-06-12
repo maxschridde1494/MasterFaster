@@ -75,6 +75,16 @@ body{
   display: flex;
   align-items: center;
 }
+.article-col:hover {
+  background-color: black;
+  color: white;
+}
+/*.article-row .article-col a{
+  color: darkgrey;
+}*/
+.article-row .article-col a:hover{
+  color: white;
+}
 
 /* MARKETING CONTENT
 -------------------------------------------------- */

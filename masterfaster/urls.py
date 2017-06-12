@@ -12,4 +12,5 @@ urlpatterns = [
     url(r'^create_user/$', views.createUser, name='createUser'),
 	url(r'^logout/$', auth_views.logout, {'template_name': 'masterfaster/registration/logout.html'}, name='logout'),
 	url(r'^edit_email/$', views.editEmailAddress, name='editEmailAddress'),
+	url(r'^articles/(?P<topic_id>[0-9]+)/$', views.articles, name='articles'),
 ]
