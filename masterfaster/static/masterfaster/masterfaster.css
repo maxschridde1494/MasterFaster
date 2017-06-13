@@ -54,6 +54,7 @@ body{
   font-size: 20px;
   display: flex;
   align-items: center;
+  min-width: 200px;
 }
 .article-height-medium{
   height: 180px;
@@ -64,6 +65,7 @@ body{
   font-size: 25px;
   display: flex;
   align-items: center;
+  min-width: 200px;
 }
 .article-height-tall{
   height: 220px;
@@ -74,6 +76,7 @@ body{
   font-size: 30px;
   display: flex;
   align-items: center;
+  min-width: 200px;
 }
 .article-col:hover {
   background-color: black;
