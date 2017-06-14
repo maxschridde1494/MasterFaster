@@ -36,12 +36,14 @@ body{
 #edit-email-button{
   width: 200px;
   border-radius: 10px;
-  margin-top: 10px;
+  margin-top: 15px;
+  margin-bottom: 15px;
   background-color: black;
   color: white;
+  border-color: none;
 }
 #edit-email-button:hover{
-  background-color: purple;
+  background-color: white;
   color: black;
 }
 #edit-email-form{
