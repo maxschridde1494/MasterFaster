@@ -41,10 +41,12 @@ body{
   color: white;
 }
 #edit-email-button:hover{
-  background-color: white;
+  background-color: purple;
   color: black;
 }
-
+#edit-email-form{
+  background-color: red;
+}
 
 /*ARTICLES
 -----------------------------
