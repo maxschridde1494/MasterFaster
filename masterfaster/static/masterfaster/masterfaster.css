@@ -32,6 +32,12 @@ body{
 */
 /*.articles-main{
 }*/
+.subtopic-hide{
+  display: none;
+}
+.subtopic-hide a{
+  color: lightgrey;
+}
 .articles-title{
   color: white;
   text-align: center;

@@ -4,6 +4,7 @@
 
 {% block customstylesheet %}
     <link href="{% static 'masterfaster/masterfaster.css' %}?{% now 'U' %}" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 {% endblock customstylesheet %}
 
 {% block title %}MasterFaster Home{% endblock %}
@@ -52,29 +53,27 @@
 		            </div>
 		            <div class='row article-row'>
 	            {% endif %}
-	            <div class="{{topictup.1}}" id="{{topictup.0.id}}">
-	            	<div class="horizontal-center">{{topictup.0.topic}}</div>
-	            	<script>
-	            		var topic = document.getElementById('{{topictup.0.id}}')
-						topic.addEventListener('click', function(e) {
-							window.location.href = "/articles/" + "{{topictup.0.id}}";
-							e.preventDefault();
-						});
-						topic.addEventListener("mouseover", func, false);
-						topic.addEventListener("mouseout", func1, false);
-						var originalHTML = topic.innerHTML;
-
-						function func()
-						{  
-							topic.innerHTML = '<div class="horizontal-center">' + originalHTML + '<div class="horizontal-center">Subtopic 1</div><div class="horizontal-center">Subtopic 2</div><div class="horizontal-center">Subtopic 3</div></div>';
-						}
-
-						function func1()
-						{  
-						   topic.innerHTML = originalHTML;
-						}
-					</script>
+	            <div class="{{topictup.1}} horizontal-center" id="{{topictup.0.id}}">
+	            	<div class="horizontal-center" id="{{topictup.0.id}}topic">{{topictup.0.topic}}</div>
+	            	{% if topictup.2 %}
+	            		<div class="horizontal-center subtopic-hide" id="{{topictup.0.id}}subtopic">
+	            		{% for subtopic in topictup.3 %}
+	            			<a href="{% url 'masterfaster:articles_subtopic' topictup.0.id subtopic.id %}">{{subtopic.subtopic}}</a></br>
+	            		{% endfor %}
+	            		</div>
+	            	{% endif %}
 	            </div>
+	            {% if topictup.2 %}
+	            	<script>
+	            		$('#{{topictup.0.id}}').hover(function() {
+						        $(this).find('#{{topictup.0.id}}topic').hide();
+						        $(this).find('#{{topictup.0.id}}subtopic').show();
+						    }, function() {
+						        $(this).find('#{{topictup.0.id}}subtopic').hide();
+						        $(this).find('#{{topictup.0.id}}topic').show();
+						});
+					</script>
+	            {% endif %}
 	            {% if forloop.last %}
 	            	</div>
 	            {% endif %}
