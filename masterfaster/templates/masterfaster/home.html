@@ -55,10 +55,24 @@
 	            <div class="{{topictup.1}}" id="{{topictup.0.id}}">
 	            	<div class="horizontal-center">{{topictup.0.topic}}</div>
 	            	<script>
-						document.getElementById('{{topictup.0.id}}').addEventListener('click', function(e) {
+	            		var topic = document.getElementById('{{topictup.0.id}}')
+						topic.addEventListener('click', function(e) {
 							window.location.href = "/articles/" + "{{topictup.0.id}}";
 							e.preventDefault();
 						});
+						topic.addEventListener("mouseover", func, false);
+						topic.addEventListener("mouseout", func1, false);
+						var originalHTML = topic.innerHTML;
+
+						function func()
+						{  
+							topic.innerHTML = '<div class="horizontal-center">' + originalHTML + '<div class="horizontal-center">Subtopic 1</div><div class="horizontal-center">Subtopic 2</div><div class="horizontal-center">Subtopic 3</div></div>';
+						}
+
+						function func1()
+						{  
+						   topic.innerHTML = originalHTML;
+						}
 					</script>
 	            </div>
 	            {% if forloop.last %}

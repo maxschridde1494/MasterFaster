@@ -46,7 +46,7 @@ body{
   align-items: center;
 }
 .article-height-small{
-  height: 120px;
+  min-height: 120px;
   background-color: lightgrey;
   border-radius: 10px;
   opacity: .85;
@@ -57,7 +57,7 @@ body{
   min-width: 200px;
 }
 .article-height-medium{
-  height: 180px;
+  min-height: 180px;
   background-color: darkgrey;
   border-radius: 10px;
   opacity: .85;
@@ -68,7 +68,7 @@ body{
   min-width: 200px;
 }
 .article-height-tall{
-  height: 220px;
+  min-height: 220px;
   background-color: white;
   border-radius: 10px;
   opacity: .85;

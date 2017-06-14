@@ -242,7 +242,11 @@ def home(request):
 			rand = 1
 		else:
 			rand = 2
+		subtopics = SubTopic.objects.filter(topic=topics[i])
 		c = colTypes[i % len(colTypes)] + " " + colHeights[rand]
-		topicTups.append((topics[i], c))
+		if len(subtopics) > 0:
+			topicTups.append((topics[i], c, True, subtopics))
+		else:
+			topicTups.append((topics[i], c, False, subtopics))
 	context['topics'] = topicTups
 	return HttpResponse(render(request, 'masterfaster/home.html', context))
