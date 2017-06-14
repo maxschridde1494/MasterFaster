@@ -27,7 +27,7 @@
                             {% if subtopicExists and currSubtopic == subtopic %}
                             <li class="active_subtopic" role="presentation" id={{subtopic.id}}><a class="headers" href="{% url 'masterfaster:articles_subtopic' topic.id subtopic.id %}"><strong>{{subtopic.subtopic}}</strong></a></li>
                             {% else %}
-                            <li role="presentation" id={{subtopic.id}}><a class="headers" href="{% url 'masterfaster:articles_subtopic' topic.id subtopic.id %}"><strong>{{subtopic.subtopic}}</strong></a></li>
+                            <li role="presentation" id={{subtopic.id}}><a class="headers" href="{% url 'masterfaster:articles_subtopic' topic.id subtopic.id %}" target="_blank"><strong>{{subtopic.subtopic}}</strong></a></li>
                             {% endif %}
                         {% endfor %}
                     </ul>
