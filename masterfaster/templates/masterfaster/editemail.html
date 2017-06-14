@@ -16,7 +16,7 @@
 
 <div class="container col-xs-8 col-xs-offset-2" id="edit-email-container">
     <div class="horizontal-center">
-        <form class="form-signin" method="post" action="{% url 'masterfaster:editEmailAddress' %}">
+        <form class="form-signin horizontal-center" method="post" action="{% url 'masterfaster:editEmailAddress' %}">
             {% csrf_token %}
             <ul class="nav nav-tabs">
                 <li role="presentation" class="active"><a href="{% url 'masterfaster:editEmailAddress' %}">Edit Email</a></li>
