@@ -26,6 +26,16 @@ body{
 .team-info{
   color: white;
 }
+#edit-email-container{
+  border-color: lightgrey;
+  opacity: .8;
+}
+#edit-email-button{
+  width: 200px;
+  border-radius: 10px;
+  margin: 10px;
+
+}
 
 /*ARTICLES
 -----------------------------
