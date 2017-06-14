@@ -29,6 +29,7 @@ body{
 #edit-email-container{
   background-color: lightgrey;
   opacity: .8;
+  padding: 20px;
 }
 #edit-email-button{
   width: 200px;
