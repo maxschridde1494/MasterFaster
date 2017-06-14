@@ -18,8 +18,16 @@ class Topic(models.Model):
 	def __str__(self):
 		return self.topic
 
+class SubTopic(models.Model):
+	topic = models.ForeignKey(Topic, on_delete=models.CASCADE)
+	subtopic = models.CharField(max_length=100)
+
+	def __str__(self):
+		return self.subtopic
+
 class Article(models.Model):
 	topic = models.ForeignKey(Topic, on_delete=models.CASCADE)
+	subtopic = models.ForeignKey(SubTopic, null=True)
 	title = models.CharField(max_length=100)
 	author = models.CharField(max_length=100)
 	description = models.CharField(max_length=300)

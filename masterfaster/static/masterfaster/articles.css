@@ -3,6 +3,27 @@ body{
   background-size: cover;
   color: black;
 }
+.definition-nav{
+	background-color: darkgrey;
+	color: black;
+	opacity: .75;
+	border-radius: 5px;
+	padding: 0px;
+}
+.definition-nav li a{
+	color: black;
+}
+.definition-nav li a:hover{
+	color: white;
+	background-color: black;
+}
+.active_subtopic{
+	background-color: white;
+	color: black;
+	opacity: .75;
+	border-radius: 5px;
+	padding: 0px;
+}
 .articles-main{
 	margin: 10px;
 	color: black;

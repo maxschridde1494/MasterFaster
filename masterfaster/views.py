@@ -1,6 +1,6 @@
 from django.shortcuts import render, get_object_or_404, redirect, get_list_or_404
 from django.http import HttpResponse
-from masterfaster.models import User, Topic, Article, Billing, Shipping
+from masterfaster.models import User, Topic, SubTopic, Article, Billing, Shipping
 from django.contrib.auth import authenticate, login, update_session_auth_hash
 from django.contrib.auth.decorators import login_required
 from .forms.forms import CreateUserForm, EditEmailAddress
@@ -10,18 +10,77 @@ from django.conf import settings
 import random
 
 def articles(request, topic_id):
-	topic = get_object_or_404(Topic, pk=topic_id)
-	context = {}
-	context['topic'] = topic
-	try:
-		articles = Article.objects.filter(topic=topic)
-		context['articles_list'] = articles
-	except Article.DoesNotExist:
-		context['articles_list'] = []
+	context = {'topicExists': True, 'subtopicsExist': True, 'subtopicExists': False, 'subtopicArticlesExist': True}
 	if request.user.is_authenticated:
 		user = User.objects.get(username=request.user)
 		img = gravatar(user.email)
 		context['img'] = img
+	try:
+		topic = Topic.objects.get(pk=topic_id)
+	except Topic.DoesNotExist:
+		context['topicExists'] = False
+		print(context)
+		return HttpResponse(render(request, 'masterfaster/articletopic.html', context))
+	context['topic'] = topic
+	subtopics = SubTopic.objects.filter(topic=topic)
+	context['subtopics'] = subtopics
+	if len(subtopics) == 0:
+		context['subtopicsExist'] = False
+		context['subtopicArticlesExist'] = False
+	#IF SUBTOPICS EXIST, AUTOMATICALLY SHOW FIRST SUBCATEGORY FIRST
+	if context['subtopicsExist']:
+		currSubtopic = context['subtopics'][0]
+		context['currSubtopic'] = currSubtopic
+		context['subtopicExists'] = True
+		articles = Article.objects.filter(subtopic=currSubtopic)
+		context['articles_list'] = articles
+		if not articles:
+			context['subtopicArticlesExist'] = False
+		print(context)
+		return HttpResponse(render(request, 'masterfaster/articletopic.html', context))
+	else:
+		articles = Article.objects.filter(topic=topic)
+		context['articles_list'] = articles
+		print(context)
+		return HttpResponse(render(request, 'masterfaster/articletopic.html', context))
+
+def articles_subtopic(request, topic_id, subtopic_id):
+	context = {'topicExists': True, 'subtopicExists': True, 'subtopicsExist': True, 'subtopicArticlesExist': True}
+	if request.user.is_authenticated:
+		user = User.objects.get(username=request.user)
+		img = gravatar(user.email)
+		context['img'] = img
+
+	#GRAB TOPIC
+	try:
+		topic = Topic.objects.get(pk=topic_id)
+	except Topic.DoesNotExist:
+		context['topicExists'] = False
+		return HttpResponse(render(request, 'masterfaster/articletopic.html', context))
+	context['topic'] = topic
+	#GRAB SUBTOPICS OF TOPIC
+	if context['topicExists']:
+		#GRAB SUBTOPICS
+		subtopics = SubTopic.objects.filter(topic=topic)
+		context['subtopics'] = subtopics
+		if not subtopics:
+			context['subtopicsExist'] = False
+			articles = Article.objects.filter(topic=topic)
+			context['articles_list'] = articles
+			return HttpResponse(render(request, 'masterfaster/articletopic.html', context))
+	#GRAB SPECIFIC SUBTOPIC MATCHING SUB_TOPICID
+	try:
+		currSubtopic = SubTopic.objects.get(pk=subtopic_id)
+		context['currSubtopic'] = currSubtopic
+	except Subtopic.DoesNotExist:
+		context['subtopicExists'] = False
+		return HttpResponse(render(request, 'masterfaster/articletopic.html', context))
+	#GRAB ARTICLES IN SPECIFIED CURRENT SUBTOPIC
+	if context['subtopicExists']:
+		articles = Article.objects.filter(subtopic=currSubtopic)
+		context['articles_list'] = articles
+		if not articles:
+			context['subtopicArticlesExist'] = False
 	return HttpResponse(render(request, 'masterfaster/articletopic.html', context))
 
 @login_required
