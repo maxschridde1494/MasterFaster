@@ -36,7 +36,7 @@ body{
 #edit-email-button{
   width: 200px;
   border-radius: 10px;
-  margin: 10px;
+  margin-top: 10px;
   background-color: black;
   color: white;
 }
@@ -45,7 +45,6 @@ body{
   color: black;
 }
 #edit-email-form{
-  background-color: red;
 }
 
 /*ARTICLES
