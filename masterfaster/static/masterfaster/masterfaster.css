@@ -34,6 +34,7 @@ body{
 }*/
 .subtopic-hide{
   display: none;
+  font-size: 80%;
 }
 .subtopic-hide a{
   color: lightgrey;
