@@ -31,7 +31,7 @@ body{
   opacity: .8;
   margin-top: 20px;
   border-radius: 10px;
-  min-width: 350px;
+  min-width: 3px;
 }
 #edit-email-button{
   width: 200px;
@@ -40,7 +40,7 @@ body{
   margin-bottom: 15px;
   background-color: black;
   color: white;
-  border-color: none;
+  border-style: none;
 }
 #edit-email-button:hover{
   background-color: white;
