@@ -18,7 +18,7 @@
     <div class="horizontal-center">
         <form class="form-signin horizontal-center" id='edit-email-form' method="post" action="{% url 'masterfaster:editEmailAddress' %}">
             {% csrf_token %}
-            <div class="col-xs-6 col-xs-offset-3">
+            <div class="col-xs-8 col-xs-offset-2">
             <ul class="nav nav-tabs horizontal-center">
                 <li role="presentation" class="active"><a href="{% url 'masterfaster:editEmailAddress' %}">Edit Email</a></li>
                 <li role="presentation"><a href="{% url 'masterfaster:password_change' %}">Change Password</a></li>
