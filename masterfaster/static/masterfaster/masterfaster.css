@@ -27,14 +27,19 @@ body{
   color: white;
 }
 #edit-email-container{
-  border-color: lightgrey;
+  background-color: lightgrey;
   opacity: .8;
 }
 #edit-email-button{
   width: 200px;
   border-radius: 10px;
   margin: 10px;
-
+  background-color: black;
+  color: white;
+}
+#edit-email-button:hover{
+  background-color: white;
+  color: black;
 }
 
 /*ARTICLES
