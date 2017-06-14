@@ -14,7 +14,7 @@
 
 {% block content %}
 
-<div class="container col-xs-12" id="edit-email-container">
+<div class="container col-xs-8 col-xs-offset-2 col-sm-6 col-sm-3-offset" id="edit-email-container">
     <!-- <div class="col-xs-8 col-xs-offset-2 col-sm-6 col-sm-3-offset"> -->
         <form class="form-signin" method="post" action="{% url 'masterfaster:editEmailAddress' %}">
             {% csrf_token %}
