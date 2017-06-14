@@ -15,15 +15,15 @@
 {% block content %}
 
 <div class="container col-xs-8 col-xs-offset-2" id="edit-email-container">
-    <div class="horizontal-center">
+    <div class="horizontal-center" id='edit-email-form'>
         <form class="form-signin horizontal-center" method="post" action="{% url 'masterfaster:editEmailAddress' %}">
             {% csrf_token %}
-            <ul class="nav nav-tabs">
+            <ul class="nav nav-tabs horizontal-center">
                 <li role="presentation" class="active"><a href="{% url 'masterfaster:editEmailAddress' %}">Edit Email</a></li>
                 <li role="presentation"><a href="{% url 'masterfaster:password_change' %}">Change Password</a></li>
             </ul>
             <br>
-            <table>
+            <table class='horizontal-center'>
                 {{form.as_table}}
             </table>
             <button class="btn btn-lg btn-primary btn-block horizontal-center" id="edit-email-button" type="submit">Save</button>
