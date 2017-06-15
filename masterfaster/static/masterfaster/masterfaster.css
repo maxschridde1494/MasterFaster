@@ -111,9 +111,9 @@ body{
   background-color: black;
   color: white;
 }
-/*.article-row .article-col a{
-  color: darkgrey;
-}*/
+.article-col:hover a{
+  color: white;
+}
 .article-row .article-col a:hover{
   color: white;
 }

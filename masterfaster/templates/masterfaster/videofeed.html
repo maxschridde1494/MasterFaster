@@ -1,0 +1,33 @@
+{% extends "masterfaster/base.html" %}
+
+{% load static %}
+
+{% block customstylesheet %}
+    <link href="{% static 'masterfaster/videofeed.css' %}?{% now 'U' %}" rel="stylesheet">
+{% endblock customstylesheet %}
+
+{% block prof_img %}
+    {{img}}
+{% endblock prof_img %}
+
+{% block content %}
+	<div class="video-feed col-sm-8 col-sm-offset-2 col-xs-12">
+		{% if videos %}
+			<h1 class='video-header'>MasterFaster Video Content</h1>
+			{% for vid in videos %}
+			<div class='row video-row'>
+				<div class="video-individual-container col-xs-9">
+					<iframe class="video-individual" src="{{vid.url}}" frameborder="0" allowfullscreen></iframe>
+				</div>
+				<div class="description-individual-container col-xs-3">
+					<span class="vid-name"><strong>{{vid.name}}</strong></span></br>
+					<span class="vid-description">{{vid.description}}</span>
+				</div>
+			</div>
+			{% endfor %}
+		{% else %}
+			<h1 class='video-header'>There is currently no video content.</h1>
+		{% endif %}
+		
+	</div>
+{% endblock content %}

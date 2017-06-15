@@ -25,13 +25,21 @@ class SubTopic(models.Model):
 	def __str__(self):
 		return self.subtopic
 
+class Video(models.Model):
+	name = models.CharField(max_length=200)
+	url = models.CharField(max_length=400)
+	description = models.CharField(max_length=275, default='No description.')
+
+	def __str__(self):
+		return self.name
+
 class Article(models.Model):
 	topic = models.ForeignKey(Topic, on_delete=models.CASCADE)
 	subtopic = models.ForeignKey(SubTopic, null=True)
 	title = models.CharField(max_length=100)
 	author = models.CharField(max_length=100)
 	description = models.CharField(max_length=300)
-	link = models.CharField(max_length=300)
+	link = models.CharField(max_length=400)
 
 	def __str__(self):
 		return self.title

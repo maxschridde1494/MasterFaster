@@ -1,0 +1,51 @@
+body{
+  background: #f2f6f9 url("surf.jpeg") no-repeat fixed center;
+  background-size: cover;
+  color: black;
+}
+.video-feed{
+	/*background-color: lightgrey;*/
+}
+.video-individual-container{
+	/*background-color: red;*/
+	margin: 10px auto;
+	padding: 5px;
+	text-align: center;
+	max-width: 600px;
+	min-height: 200px;
+}
+.video-row{
+	display: flex;
+  	align-items: center;
+}
+.video-individual{
+	width: 100%;
+	height: 300px;
+}
+.description-individual-container{
+	background-color: lightgrey;
+	opacity: .75;
+	border-style: solid;
+	border-width: 1px;
+	border-color: darkgrey;
+	border-radius: 2px;
+	margin: 10px auto;
+	padding: 10px;
+	min-width: 200px;
+}
+.vid-description{
+	color: black;
+}
+.vid-name{
+	font-size: 20px;
+	color: black;
+}
+.horizontal-center{
+  margin: 0 auto;
+}
+#master-faster-footer{
+  color: white;
+}
+#master-faster-footer a{
+  color: white;
+}

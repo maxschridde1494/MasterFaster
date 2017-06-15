@@ -1,6 +1,6 @@
 from django.shortcuts import render, get_object_or_404, redirect, get_list_or_404
 from django.http import HttpResponse
-from masterfaster.models import User, Topic, SubTopic, Article, Billing, Shipping
+from masterfaster.models import User, Topic, SubTopic, Article, Video, Billing, Shipping
 from django.contrib.auth import authenticate, login, update_session_auth_hash
 from django.contrib.auth.decorators import login_required
 from .forms.forms import CreateUserForm, EditEmailAddress
@@ -231,7 +231,9 @@ def home(request):
 		img = gravatar(u.email, 40)
 		context['img'] = img
 	topics = Topic.objects.all()
-	colTypes = ["article-col col-xs-3", 'article-col col-xs-4 col-xs-offset-1', 'article-col col-xs-3 col-xs-offset-1']
+	colTypes = ["article-col col-sm-3 col-xs-10 col-xs-offset-1", 'article-col col-sm-4 col-sm-offset-1 col-xs-10 col-xs-offset-1', 'article-col col-sm-3 col-sm-offset-1 col-xs-10 col-xs-offset-1']
+	# colTypes = ["article-col col-xs-12", "article-col col-xs-12", "article-col col-xs-12"]
+
 	colHeights = ["article-height-small", "article-height-medium", "article-height-tall"]
 	topicTups = []
 	for i in range(len(topics)):
@@ -250,3 +252,9 @@ def home(request):
 			topicTups.append((topics[i], c, False, subtopics))
 	context['topics'] = topicTups
 	return HttpResponse(render(request, 'masterfaster/home.html', context))
+
+def videofeed(request):
+	context = {}
+	videos = Video.objects.all()
+	context['videos'] = videos
+	return HttpResponse(render(request, 'masterfaster/videofeed.html', context))
