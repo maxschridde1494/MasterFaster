@@ -1,9 +1,13 @@
 #blog-feed-header{
   background-image: url('../images/beachpalms.jpeg');
 }
-/*#blog-post-header{
-  background-image: url('../images/beachpalms.jpeg');
-}*/
+#blog-feed-container a:hover{
+  color: darkgrey;
+}
+#blog-archive-container a:hover{
+  color: darkgrey;
+}
+
 /* Pagination */
 .post-heading{
   /*color: black;*/
