@@ -8,6 +8,7 @@
   font-size: 20px;
   color: #333333;
 }
+
 .blog-comment {
   font-family: 'Lora', 'Times New Roman', serif;
   font-size: 15px;
@@ -63,7 +64,7 @@ hr.small {
 }
 
 #blog-feed-header{
-  background-image: url('../images/home-bg.jpg');
+  background-image: url('../images/leaves.jpeg');
 }
 
 }
