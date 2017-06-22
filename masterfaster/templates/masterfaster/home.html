@@ -59,7 +59,7 @@
 	            	{% if topictup.2 %}
 	            		<div class="horizontal-center subtopic-hide" id="{{topictup.0.id}}subtopic">
 	            		{% for subtopic in topictup.3 %}
-	            			<a href="{% url 'masterfaster:articles_subtopic' topictup.0.id subtopic.id %}">{{subtopic.subtopic}}</a></br>
+	            			<a href="{% url 'masterfaster:articles_subtopic' topictup.0.id subtopic.id %}"><em>{{subtopic.subtopic}}</em></a></br>
 	            		{% endfor %}
 	            		</div>
 	            	{% endif %}

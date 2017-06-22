@@ -99,7 +99,7 @@ def change_password(request):
 			send_email(subject, message, from_email, to_email)
 			return HttpResponse(render(request, 'masterfaster/editconfirmation.html', {'update': 'Password', 'img':img}))
 		else:
-			errors = [v for k,v in form.errors.items()]
+			errors = [v[0] for k,v in form.errors.items()]
 			context = {
 				'form': PasswordChangeForm(request.user),
 				'img': img,

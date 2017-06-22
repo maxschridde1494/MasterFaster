@@ -3,6 +3,9 @@ body{
   background-size: cover;
   color: black;
 }
+th {
+  margin: 5px;
+}
 .edit-form-input{
   border-radius: 10px;
 }
@@ -29,6 +32,43 @@ body{
 .team-info{
   color: white;
 }
+
+#login-container{
+  background-color: lightgrey;
+  opacity: .8;
+  margin-top: 20px;
+  border-radius: 10px;
+  min-width: 3px;
+}
+
+#signin-button{
+  width: 225px;
+  border-radius: 10px;
+  margin-top: 15px;
+  margin-bottom: 15px;
+  background-color: black;
+  color: white;
+  border-style: none;
+}
+#signin-button:hover{
+  background-color: white;
+  color: black;
+}
+
+#create-user-button{
+  width: 225px;
+  border-radius: 10px;
+  margin-top: 15px;
+  margin-bottom: 15px;
+  background-color: black;
+  color: white;
+  border-style: none;
+}
+#create-user-button:hover{
+  background-color: white;
+  color: black;
+}
+
 #edit-email-container{
   background-color: lightgrey;
   opacity: .8;

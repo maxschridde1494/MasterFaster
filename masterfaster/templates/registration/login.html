@@ -3,71 +3,76 @@
 {% load static %}
 
 {% block customstylesheet %}
-    <!-- <link href="{% static 'custom.css' %}?{% now 'U' %}" rel="stylesheet"> -->
+    <link href="{% static 'masterfaster/masterfaster.css' %}?{% now 'U' %}" rel="stylesheet">
 {% endblock customstylesheet %}
 
 {% block content %}
 
-{% if taken_username %}
-    <h3 class="form-signin-heading center-block">This username is taken. Please create a different one.</h3>
-{% endif %}
-{% if incorrect_email %}
-    <h3 class="form-signin-heading center-block">Invalid Email Address.</h3>
-{% endif %}
-{% if short_password %}
-    <h3 class="form-signin-heading center-block">Password is too short. It must be at least 8 characters.</h3>
-{% endif %}
-{% if not_matching_password %}
-    <h3 class="form-signin-heading center-block">Passwords didn't match.</h3>
-{% endif %}
-{% if next%}
-    <input type="hidden" name="next" value="{{ next }}" />
-    {% if user.is_authenticated %}
-    <div class="container">
-        <h3 class="form-signin-heading center-block">Your account doesn't have access to this page. To proceed,
-    please login with an account that has access.</h3>
-    </div>
-    {% else %}
-    <div class="container">
-        <h3 class="form-signin-heading center-block">Please login to see this page.</h3>
-    </div>
-    {% endif %}
-{% endif %}
-
-<div class="container">
-
-    {% if creating_user %}
-       <form class="form-signin" method="post" action="{% url 'masterfaster:createUser' %}">
-    {% else %}
-         <form class="form-signin" method="post" action="{% url 'masterfaster:login' %}">
-    {% endif %}
-    {% csrf_token %}
-    <h2 class="form-signin-heading">Please sign in</h2>
-    <ul class="nav nav-tabs">
+<div class="container col-sm-6 col-sm-offset-3 col-xs-10 col-xs-offset-1" id="login-container">
+    <div class='horizontal-center'>
         {% if creating_user %}
-          <li role="presentation"><a href="{% url 'masterfaster:login' %}">Login</a></li>
-          <li role="presentation" class="active"><a href="{% url 'masterfaster:createUser' %}">Create New User</a></li>
+        <form class="form-signin horizontal-center" id='login-form' method="post" action="{% url 'masterfaster:createUser' %}">
         {% else %}
-            <li role="presentation" class="active"><a href="{% url 'masterfaster:login' %}">Login</a></li>
-            <li role="presentation"><a href="{% url 'masterfaster:createUser' %}">Create New User</a></li>
+         <form class="form-signin horizontal-center" method="post" id='login-form' action="{% url 'masterfaster:login' %}">
         {% endif %}
-    </ul>
-    <br>
-    {% if creating_user %}
-        <table>
-            {{creating_user_form.as_table}}
-        </table>
-        <h5 class="form-signin-heading">To get profile picture functionality, please create a <a href="https://signup.wordpress.com/signup/?ref=oauth2&oauth2_redirect=788b48abfe85cafc65d001ce97add831%40https%3A%2F%2Fpublic-api.wordpress.com%2Foauth2%2Fauthorize%2F%3Fclient_id%3D1854%26response_type%3Dcode%26blog_id%3D0%26state%3D8e320545a4c1539e967f2c1754be4844ce053887ebaa7bf9cc8a3283f93c5525%26redirect_uri%3Dhttps%253A%252F%252Fen.gravatar.com%252Fconnect%252F%253Faction%253Drequest_access_token%26jetpack-code%26jetpack-user-id%3D0%26action%3Doauth2-login&wpcom_connect=1" target="_blank">Gravatar Profile</a> with the same <strong>email address</strong>.</h5>
-        <button class="btn btn-lg btn-primary btn-block" id='create-user' type="submit">Create User</button>
-    {% else %}
-        <table>
-            {{form.as_table}}
-        </table>
-        <h5 class="form-signin-heading">If you haven't done so already, please create a <a href="https://signup.wordpress.com/signup/?ref=oauth2&oauth2_redirect=788b48abfe85cafc65d001ce97add831%40https%3A%2F%2Fpublic-api.wordpress.com%2Foauth2%2Fauthorize%2F%3Fclient_id%3D1854%26response_type%3Dcode%26blog_id%3D0%26state%3D8e320545a4c1539e967f2c1754be4844ce053887ebaa7bf9cc8a3283f93c5525%26redirect_uri%3Dhttps%253A%252F%252Fen.gravatar.com%252Fconnect%252F%253Faction%253Drequest_access_token%26jetpack-code%26jetpack-user-id%3D0%26action%3Doauth2-login&wpcom_connect=1" target="_blank">Gravatar Profile</a> with the same <strong>email address</strong> we have on file to get profile picture functionality.</h5>
-        <button class="btn btn-lg btn-primary btn-block" id='signin' type="submit">Sign in</button>
-    {% endif %}
-  </form>
+            {% csrf_token %}
+            <div class="col-xs-8 col-xs-offset-2">
+                <h2 class="form-signin-heading">Please sign in</h2>
+                <ul class="nav nav-tabs horizontal-center">
+                {% if creating_user %}
+                  <li role="presentation"><a href="{% url 'masterfaster:login' %}">Login</a></li>
+                  <li role="presentation" class="active"><a href="{% url 'masterfaster:createUser' %}">Create New User</a></li>
+                {% else %}
+                    <li role="presentation" class="active"><a href="{% url 'masterfaster:login' %}">Login</a></li>
+                    <li role="presentation"><a href="{% url 'masterfaster:createUser' %}">Create New User</a></li>
+                {% endif %}
+                </ul>
+                <br>
 
+                <ul>
+                {% if taken_username %}
+                    <li>This username is taken. Please create a different one.</li>
+                {% endif %}
+                {% if incorrect_email %}
+                    <li>Invalid Email Address.</li>
+                {% endif %}
+                {% if short_password %}
+                    <li>Password is too short. It must be at least 8 characters.</li>
+                {% endif %}
+                {% if not_matching_password %}
+                    <li>Passwords didn't match.</li>
+                {% endif %}
+                {% if next%}
+                    <input type="hidden" name="next" value="{{ next }}" />
+                    {% if user.is_authenticated %}
+                    <div class="container">
+                        <h3 class="form-signin-heading center-block">Your account doesn't have access to this page. To proceed,
+                    please login with an account that has access.</h3>
+                    </div>
+                    {% else %}
+                    <div class="container">
+                        <h3 class="form-signin-heading center-block">Please login to see this page.</h3>
+                    </div>
+                    {% endif %}
+                {% endif %}
+                </ul>
+
+                {% if creating_user %}
+                <table class='horizontal-center'>
+                    {{creating_user_form.as_table}}
+                </table>
+                <h5 class="form-signin-heading">To get profile picture functionality, please create a <a href="https://signup.wordpress.com/signup/?ref=oauth2&oauth2_redirect=788b48abfe85cafc65d001ce97add831%40https%3A%2F%2Fpublic-api.wordpress.com%2Foauth2%2Fauthorize%2F%3Fclient_id%3D1854%26response_type%3Dcode%26blog_id%3D0%26state%3D8e320545a4c1539e967f2c1754be4844ce053887ebaa7bf9cc8a3283f93c5525%26redirect_uri%3Dhttps%253A%252F%252Fen.gravatar.com%252Fconnect%252F%253Faction%253Drequest_access_token%26jetpack-code%26jetpack-user-id%3D0%26action%3Doauth2-login&wpcom_connect=1" target="_blank">Gravatar Profile</a> with the same <strong>email address</strong>.</h5>
+                <button class="btn btn-lg btn-primary btn-block horizontal-center" id='create-user-button' type="submit">Create User</button>
+                {% else %}
+                <table class='horizontal-center'>
+                    {{form.as_table}}
+                </table>
+                <h5 class="form-signin-heading">If you haven't done so already, please create a <a href="https://signup.wordpress.com/signup/?ref=oauth2&oauth2_redirect=788b48abfe85cafc65d001ce97add831%40https%3A%2F%2Fpublic-api.wordpress.com%2Foauth2%2Fauthorize%2F%3Fclient_id%3D1854%26response_type%3Dcode%26blog_id%3D0%26state%3D8e320545a4c1539e967f2c1754be4844ce053887ebaa7bf9cc8a3283f93c5525%26redirect_uri%3Dhttps%253A%252F%252Fen.gravatar.com%252Fconnect%252F%253Faction%253Drequest_access_token%26jetpack-code%26jetpack-user-id%3D0%26action%3Doauth2-login&wpcom_connect=1" target="_blank">Gravatar Profile</a> with the same <strong>email address</strong> we have on file to get profile picture functionality.</h5>
+                <button class="btn btn-lg btn-primary btn-block horizontal-center" id='signin-button' type="submit">Sign in</button>
+                {% endif %}
+            </div>
+        </form>
+    </div>
 </div>
 {% endblock content %}
 
