@@ -13,8 +13,10 @@
 .horizontal-center{
   margin: 0 auto;
 }
+#site-heading{
+  color: black;
+}
 #feed-heading{
-  /*color: black;*/
   background-color: lightgrey;
   opacity: .9;
   padding: 15px;
