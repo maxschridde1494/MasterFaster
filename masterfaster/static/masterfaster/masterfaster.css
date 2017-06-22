@@ -3,7 +3,7 @@ body{
   background-size: cover;
   color: black;
 }
-#edit-email-container table{
+.edit-form-input{
   border-radius: 10px;
 }
 .horizontal-center{
@@ -49,6 +49,14 @@ body{
   background-color: white;
   color: black;
 }
+
+#edit-password-container{
+  background-color: lightgrey;
+  opacity: .8;
+  margin-top: 20px;
+  border-radius: 10px;
+  min-width: 3px;
+}
 #edit-password-button{
   width: 225px;
   border-radius: 10px;
@@ -62,8 +70,7 @@ body{
   background-color: white;
   color: black;
 }
-#edit-email-form{
-}
+
 
 /*ARTICLES
 -----------------------------

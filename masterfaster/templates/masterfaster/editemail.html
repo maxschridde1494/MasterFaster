@@ -19,15 +19,15 @@
         <form class="form-signin horizontal-center" id='edit-email-form' method="post" action="{% url 'masterfaster:editEmailAddress' %}">
             {% csrf_token %}
             <div class="col-xs-8 col-xs-offset-2">
-            <ul class="nav nav-tabs horizontal-center">
-                <li role="presentation" class="active"><a href="{% url 'masterfaster:editEmailAddress' %}">Edit Email</a></li>
-                <li role="presentation"><a href="{% url 'masterfaster:password_change' %}">Change Password</a></li>
-            </ul>
-            <br>
-            <table class='horizontal-center'>
-                {{form.as_table}}
-            </table>
-            <button class="btn btn-lg btn-primary btn-block horizontal-center" id="edit-email-button" type="submit">Save Changes</button>
+                <ul class="nav nav-tabs horizontal-center">
+                    <li role="presentation" class="active"><a href="{% url 'masterfaster:editEmailAddress' %}">Edit Email</a></li>
+                    <li role="presentation"><a href="{% url 'masterfaster:password_change' %}">Change Password</a></li>
+                </ul>
+                <br>
+                <table class='horizontal-center'>
+                    {{form.as_table}}
+                </table>
+                <button class="btn btn-lg btn-primary btn-block horizontal-center" id="edit-email-button" type="submit">Save Changes</button>
             </div>
         </form>
     </div>
