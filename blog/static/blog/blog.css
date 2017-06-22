@@ -10,6 +10,14 @@
 .blog-text{
     color: red;
 }
+#feed-heading{
+  /*color: black;*/
+  background-color: lightgrey;
+  opacity: .9;
+  padding: 15px;
+  border-radius: 10px;
+  margin: 20px;
+}
 /* Pagination */
 .post-heading{
   /*color: black;*/
