@@ -104,6 +104,7 @@ def change_password(request):
 				'img': img,
 				'errors': form.errors
 			}
+			print(form.errors)
 			return HttpResponse(render(request, 'registration/password_change_form.html', context))
 	else:
 		form = PasswordChangeForm(request.user)
