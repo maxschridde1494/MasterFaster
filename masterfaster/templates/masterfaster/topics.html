@@ -1,0 +1,32 @@
+{% extends "masterfaster/base.html" %}
+
+{% load static %}
+
+{% block customstylesheet %}
+    <link href="{% static 'masterfaster/articles.css' %}?{% now 'U' %}" rel="stylesheet">
+{% endblock customstylesheet %}
+
+{% block prof_img %}
+    {{img}}
+{% endblock prof_img %}
+
+{% block content %}
+    <div class="articles-main col-xs-12">
+         <div class="heading col-xs-6 col-xs-offset-3">
+            <h1>Article Topics:</h1>
+        </div>
+        {% if topics %}
+            <div class="article col-xs-6 col-xs-offset-3">
+            {% for topic in topics %}
+                <div class="link col-xs-12">
+                    <a href="{% url 'masterfaster:articles' topic.id %}" target="_blank">{{topic.topic}}</a>
+                </div>
+            {% endfor %}
+            </div>
+        {% else %}
+            <div class="heading col-xs-10 col-xs-offset-1">
+                <h1>There are no existing articles.</h1>
+            </div>
+        {% endif %}
+    </div>
+{% endblock content %}

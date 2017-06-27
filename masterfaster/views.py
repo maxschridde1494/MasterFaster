@@ -255,6 +255,14 @@ def home(request):
 	context['topics'] = topicTups
 	return HttpResponse(render(request, 'masterfaster/home.html', context))
 
+def topics(request):
+	try:
+		topics = Topic.objects.all()
+	except Topic.DoesNotExist:
+		topics = []
+	context = {'topics': topics}
+	return HttpResponse(render(request, 'masterfaster/topics.html', context))
+
 def videofeed(request):
 	context = {}
 	videos = Video.objects.all()
