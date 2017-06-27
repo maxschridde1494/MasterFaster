@@ -26,6 +26,7 @@ STRIPE_API_KEY_SECRET = os.environ['STRIPE_API_KEY_SECRET']
 DEBUG = True
 
 ALLOWED_HOSTS = ['masterfaster.herokuapp.com', '127.0.0.1', 'www.masterfaster.com', 'masterfaster.com']
+SECURE_SSL_HOST = 'masterfaster.herokuapp.com'
 
 #added for authentication redirect (login)
 LOGIN_URL = "masterfaster:login"
