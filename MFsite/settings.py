@@ -27,6 +27,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['masterfaster.herokuapp.com', '127.0.0.1', 'www.masterfaster.com', 'masterfaster.com']
 SECURE_SSL_HOST = 'masterfaster.herokuapp.com'
+SECURE_SSL_REDIRECT = True
 
 #added for authentication redirect (login)
 LOGIN_URL = "masterfaster:login"
