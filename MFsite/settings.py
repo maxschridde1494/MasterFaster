@@ -154,7 +154,7 @@ STATICFILES_DIRS = (
     # 'MFsite/sales/static',
 )
 
-STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
+# STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
 
 ##EMAIL SETUP
 EMAIL_USE_TLS = True
