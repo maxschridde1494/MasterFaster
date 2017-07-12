@@ -23,10 +23,10 @@ STRIPE_API_KEY_PUBLISHABLE = os.environ['STRIPE_API_KEY_PUBLISHABLE']
 STRIPE_API_KEY_SECRET = os.environ['STRIPE_API_KEY_SECRET']
 
 #When set to FALSE, having issues with static files
-DEBUG = True
+# DEBUG = True
 
-ALLOWED_HOSTS = ['masterfaster.herokuapp.com', '127.0.0.1', 'www.masterfaster.com', 'masterfaster.com']
-SECURE_SSL_HOST = 'masterfaster.com'
+ALLOWED_HOSTS = ['masterfaster.herokuapp.com', '127.0.0.1', '.masterfaster.com',]
+SECURE_SSL_HOST = 'masterfaster.herokuapp.com'
 SECURE_SSL_REDIRECT = True
 
 #added for authentication redirect (login)
