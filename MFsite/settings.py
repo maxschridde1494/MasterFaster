@@ -2,7 +2,6 @@ import os
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-print(BASE_DIR + '/../')
 PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
 
 # See https://docs.djangoproject.com/en/1.10/howto/deployment/checklist/
@@ -17,6 +16,7 @@ DEBUG = False
 ALLOWED_HOSTS = ['masterfaster.herokuapp.com', '127.0.0.1', '.masterfaster.com',]
 SECURE_SSL_HOST = 'masterfaster.herokuapp.com'
 SECURE_SSL_REDIRECT = True
+# ALLOWED_HOSTS = ['127.0.0.1',]
 
 #added for authentication redirect (login)
 LOGIN_URL = "masterfaster:login"
@@ -160,5 +160,6 @@ STATICFILES_DIRS = (
 EMAIL_USE_TLS = True
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_HOST_USER = 'maxjschridde@gmail.com'
-EMAIL_HOST_PASSWORD = os.environ['EMAIL_PASSWORD']
+EMAIL_HOST_PASSWORD = 'Moximo1494*'
+# EMAIL_HOST_PASSWORD = os.environ['EMAIL_PASSWORD']
 EMAIL_PORT = 587
