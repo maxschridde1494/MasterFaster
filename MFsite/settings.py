@@ -13,10 +13,10 @@ STRIPE_API_KEY_SECRET = os.environ['STRIPE_API_KEY_SECRET']
 
 DEBUG = False
 
-ALLOWED_HOSTS = ['masterfaster.herokuapp.com', '127.0.0.1', '.masterfaster.com',]
-SECURE_SSL_HOST = 'masterfaster.herokuapp.com'
-SECURE_SSL_REDIRECT = True
-# ALLOWED_HOSTS = ['127.0.0.1',]
+# ALLOWED_HOSTS = ['masterfaster.herokuapp.com', '127.0.0.1', '.masterfaster.com',]
+# SECURE_SSL_HOST = 'masterfaster.herokuapp.com'
+# SECURE_SSL_REDIRECT = True
+ALLOWED_HOSTS = ['127.0.0.1',]
 
 #added for authentication redirect (login)
 LOGIN_URL = "masterfaster:login"
@@ -141,7 +141,7 @@ USE_TZ = True
 
 
 STATIC_ROOT =  os.path.join(BASE_DIR, 'staticfiles')
-STATIC_URL = '/staticfiles/'
+STATIC_URL = '/static/'
 # STATIC_URL = os.path.join(BASE_DIR, 'staticfiles/')
 
 # Extra places for collectstatic to find static files.
