@@ -6,17 +6,17 @@ PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
 
 # See https://docs.djangoproject.com/en/1.10/howto/deployment/checklist/
 
-SECRET_KEY = os.environ['SECRET_KEY']
-# SECRET_KEY = 'sxc%w_&nf^!-7z_k!7@fv47tt7-2mv&8j0wv#kj$&h32=drhmc'
+# SECRET_KEY = os.environ['SECRET_KEY']
+SECRET_KEY = 'sxc%w_&nf^!-7z_k!7@fv47tt7-2mv&8j0wv#kj$&h32=drhmc'
 STRIPE_API_KEY_PUBLISHABLE = os.environ['STRIPE_API_KEY_PUBLISHABLE']
 STRIPE_API_KEY_SECRET = os.environ['STRIPE_API_KEY_SECRET']
 
 DEBUG = False
 
-ALLOWED_HOSTS = ['masterfaster.herokuapp.com', '127.0.0.1', '.masterfaster.com',]
-SECURE_SSL_HOST = 'masterfaster.herokuapp.com'
-SECURE_SSL_REDIRECT = True
-# ALLOWED_HOSTS = ['127.0.0.1',]
+# ALLOWED_HOSTS = ['masterfaster.herokuapp.com', '127.0.0.1', '.masterfaster.com',]
+# SECURE_SSL_HOST = 'masterfaster.herokuapp.com'
+# SECURE_SSL_REDIRECT = True
+ALLOWED_HOSTS = ['127.0.0.1',]
 
 #added for authentication redirect (login)
 LOGIN_URL = "masterfaster:login"
