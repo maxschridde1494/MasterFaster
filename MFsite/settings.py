@@ -16,7 +16,20 @@ DEBUG = False
 ALLOWED_HOSTS = ['masterfaster.herokuapp.com', '127.0.0.1', '.masterfaster.com',]
 SECURE_SSL_HOST = 'masterfaster.herokuapp.com'
 SECURE_SSL_REDIRECT = True
-# ALLOWED_HOSTS = ['127.0.0.1',]
+# ALLOWED_HOSTS = ['127.0.0.1', 'localhost']
+
+STATIC_ROOT =  os.path.join(BASE_DIR, 'staticfiles')
+STATIC_URL = '/static/'
+# STATIC_URL = os.path.join(BASE_DIR, 'staticfiles/')
+
+# Extra places for collectstatic to find static files.
+STATICFILES_DIRS = (
+    os.path.join(BASE_DIR, 'static'),
+    os.path.join(BASE_DIR, 'masterfaster/static'),
+    os.path.join(BASE_DIR, 'blog/static'),
+)
+
+STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
 
 #added for authentication redirect (login)
 LOGIN_URL = "masterfaster:login"
@@ -139,27 +152,9 @@ USE_L10N = True
 
 USE_TZ = True
 
-
-STATIC_ROOT =  os.path.join(BASE_DIR, 'staticfiles')
-STATIC_URL = '/static/'
-# STATIC_URL = os.path.join(BASE_DIR, 'staticfiles/')
-
-# Extra places for collectstatic to find static files.
-STATICFILES_DIRS = (
-    os.path.join(BASE_DIR, 'static'),
-    os.path.join(BASE_DIR, 'masterfaster/static'),
-    os.path.join(BASE_DIR, 'blog/static'),
-    # 'MFsite/masterfaster/static',
-    # 'MFsite/blog/static',
-    # 'MFsite/sales/static',
-)
-
-# STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
-
 ##EMAIL SETUP
 EMAIL_USE_TLS = True
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_HOST_USER = 'maxjschridde@gmail.com'
-EMAIL_HOST_PASSWORD = 'Moximo1494*'
-# EMAIL_HOST_PASSWORD = os.environ['EMAIL_PASSWORD']
+EMAIL_HOST_PASSWORD = os.environ['EMAIL_PASSWORD']
 EMAIL_PORT = 587
